@@ -8,7 +8,7 @@
       CAM
     ===============
    -->
-    <desc atm="CAM60[%1PCT][%4xCO2][%2xCO2][%CCTS][%CFIRE][%CVBSX][%PORT][%RCO2][%SCAM][%SDYN][%WCCM][%WCMD][%WCSC][%WCTS][%NORESM][%FRC2][%GHGONLY][%NATONLY][%AEROXIDONLY][%AERONLY][%OXIDONLY][%OZONEONLY][%LUONLY][%PINTCF][%PIAER][%PIAEROXID][%NORBC][%GHG2014][%GHGNOH2O2014][%CO22014][%N2O2014][%CH42014][%CH4NOH2O2014][%BC2014][%OC2014][%SO22014][%AER2014][%AEROXID2014][%SO2OXID2014][%NTCF2014][%ANTHRO2014][%GHGOZONELU2014][%OZONE2014][%H2O2014][%OXID2014][%FSST][%SEC][%NORPDDMSBC][%NORPIBC][%SSP245][%AERLOW][%FRC2EXT][%COVBASLIN][%COVFOSFUE][%COVMODGRE][%COVSTRGRE][%COVTWOBLI]">CAM cam6 physics:</desc>
+    <desc atm="CAM60[%1PCT][%4xCO2][%2xCO2][%CCTS][%CFIRE][%CVBSX][%PORT][%RCO2][%SCAM][%SDYN][%WCCM][%WCMD][%WCSC][%WCTS][%NORESM][%FRC2][%GHGONLY][%NATONLY][%AEROXIDONLY][%AERONLY][%OXIDONLY][%OZONEONLY][%LUONLY][%PINTCF][%PIAER][%PIAEROXID][%NORBC][%GHG2014][%GHGNOH2O2014][%CO22014][%N2O2014][%CH42014][%CH4NOH2O2014][%BC2014][%OC2014][%SO22014][%AER2014][%AEROXID2014][%SO2OXID2014][%NTCF2014][%ANTHRO2014][%GHGOZONELU2014][%OZONE2014][%H2O2014][%OXID2014][%FSST][%SEC][%NORPDDMSBC][%NORPIBC][%SSP245][%AERLOW][%FRC2EXT][%COVBASLIN][%COVFOSFUE][%COVMODGRE][%COVSTRGRE][%COVTWOBLI][%DURF]">CAM cam6 physics:</desc>
     <desc atm="CAM50[%CCTS][%CLB][%PORT][%RCO2][%SCAM][%SDYN][%WCSC][%WCTS]"              >CAM cam5 physics:</desc>
     <desc atm="CAM40[%PORT][%RCO2][%SCAM][%SDYN][%TMOZ][%WXIE][%WXIED][%WCMD]"                   >CAM cam4 physics:</desc>
     <desc atm="CAM[%ADIAB][%DABIP04][%TJ16][%HS94][%KESSLER][%RCO2][%SPCAMS][%SPCAMCLBS][%SPCAMM][%SPCAMCLBM]">CAM simplified and non-versioned physics :</desc>
@@ -26,6 +26,7 @@
     <desc atm="CAM60%PTAERO"        >cam 6 and Production tagged aerosols (OSLO_AERO)</desc>
     <desc atm="CAM60%NORESM"        >cam 6 and general NorESM  changes + Production tagged aerosols (OSLO_AERO)</desc>
     <desc atm="CAM60%NORESM%SEC"        >cam 6 and general NorESM  changes + Production tagged aerosols (OSLO_AERO)</desc>
+    <desc atm="CAM60%NORESM%DURF"   >cam 6 and general NorESM, with forced dust emissions for 1850-2000 based on reconstruction.</desc>
     <desc atm="CAM54%PTAERO"        >cam 5.4+Production tagged aerosols (OSLO_AERO)+clm5 </desc>
     <desc atm="CAM5%NUDGEPTAEROUPD1">cam 5 physics and Production tagged aerosols (OSLO_AERO)</desc>
     <desc atm="CAM54%NUDGEPTAERO"   >cam 6 (no clubb) physics and Production tagged aerosols (OSLO_AERO)</desc>
@@ -188,7 +189,9 @@
       <value compset="_CAM60%NORESM%NORPIBC"      >-chem trop_mam_oslo -cosp</value>
       <value compset="_CAM60%NORESM%SEC%NORPIBC"   >-chem trop_mam_oslo_sec -cosp</value>
       <value compset="_CAM54%PTAERO"               >-chem trop_mam_oslo</value>
-  
+      <value compset="_CAM60%NORESM%DURF"         >-chem trop_mam_oslo_durf -cosp</value>
+      <value compset="_CAM60%NORESM%NORBC%DURF"        >-chem trop_mam_oslo_durf -cosp</value>
+
       <value compset="_CAM50%NUDGEPTAERO"   >-phys cam5 -chem trop_mam_oslo -offline_dyn</value>
       <value compset="_CAM54%NUDGEPTAERO"   >-chem trop_mam_oslo -offline_dyn</value>
       <value compset="_CAM60%NUDGEPTAERO"   >-chem trop_mam_oslo -offline_dyn</value>
@@ -368,7 +371,8 @@
       <!-- AerChemMIP transient, with varying NorESM derived fSST -->
       <value compset="HIST_CAM60%NORESM%NORBC%PINTCF"  >hist_cam6_noresm_pintcf</value>
       <value compset="HIST_CAM60%NORESM%NORBC%PIAER"   >hist_cam6_noresm_piaer</value>
-
+      <!-- AeroCom DURF transient simulation NorESM with prescribed dust emissions-->
+      <value compset="HIST_CAM60%NORESM%NORBC%DURF"  >hist_cam6_noresm_dust_sp</value>
 
       <value compset="SSP126_CAM60%NORESM%FRC2"  >ssp126_cam6_noresm_frc2</value>
       <value compset="SSP126_CAM60%NORESM%FRC2EXT"  >ssp126_cam6_noresm_frc2ext</value>

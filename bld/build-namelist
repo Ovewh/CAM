@@ -1658,7 +1658,7 @@ elsif ($carma eq 'tholin') {
 # turn on stratospheric aerosol forcings in CAM6 configurations
 my $chem_has_ocs = chem_has_species($cfg, 'OCS');
 # djlo
-if ($phys =~ /cam6/ and ($chem ne 'trop_mam_oslo' and $chem ne 'trop_mam_oslo_sec' )) {
+if ($phys =~ /cam6/ and ($chem ne 'trop_mam_oslo' and $chem ne 'trop_mam_oslo_sec'and $chem ne 'trop_mam_oslo_durf')) {
   # turn on volc forcings in cam6 -- prognostic or prescribed
   if ( $chem_has_ocs ) {
       # turn on prognostic stratospheric aerosols
@@ -2232,7 +2232,7 @@ if ($chem eq 'trop_mam3') {
     }
 }
 
-if ($chem eq 'trop_mam_oslo' or $chem eq 'trop_mam_oslo_sec' ) {
+if ($chem eq 'trop_mam_oslo' or $chem eq 'trop_mam_oslo_sec' or $chem eq 'trop_mam_oslo_durf') {
 
     my %species;
 
@@ -2249,6 +2249,22 @@ if ($chem eq 'trop_mam_oslo' or $chem eq 'trop_mam_oslo_sec' ) {
 	 	           'monoterp -> ' => 'monoterp_oslo_emis_file',
 		           'isoprene -> ' => 'isoprene_oslo_emis_file',
                  );
+    if ($chem eq 'trop_mam_oslo_durf'){
+        %species = ();
+        %species = (%species,
+                 'DMS    -> ' => 'dms_oslo_emis_file',
+                 'SO2    -> ' => 'so2_oslo_emis_file',
+                 'BC_AX    -> ' => 'bc_ax_oslo_emis_file',
+                 'BC_N     -> ' =>'bc_n_oslo_emis_file',
+                 'BC_NI    -> ' =>'bc_ni_oslo_emis_file',
+                 'SO4_PR   -> ' =>'so4_pr_oslo_emis_file',
+                 'OM_NI    -> ' =>'om_ni_oslo_emis_file',
+	 	           'monoterp -> ' => 'monoterp_oslo_emis_file',
+		           'isoprene -> ' => 'isoprene_oslo_emis_file',
+                 'DST_A2 -> ' => 'dst_a2_oslo_emis_file',
+                 'DST_A3 -> ' => 'dst_a3_oslo_emis_file'
+                 );
+    }
 
     my $first = 1;
     my $pre = "";

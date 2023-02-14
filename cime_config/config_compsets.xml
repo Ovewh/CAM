@@ -165,6 +165,12 @@
   </compset>
 
   <compset>
+    <alias>NFHISTnorbc_DURF</alias>
+    <lname>HIST_CAM60%NORESM%NORBC%DURF_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV</lname>
+    <science_support grid="f19_f19"/>
+  </compset>
+
+  <compset>
     <alias>NFHISTnorbc_pintcf</alias>
     <lname>HIST_CAM60%NORESM%NORBC%PINTCF_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV</lname>
     <science_support grid="f19_f19"/>
@@ -283,6 +289,12 @@
   <compset>
     <alias>NF1850norbcnucsec</alias>
     <lname>1850_CAM60%NORESM%NORBC%SEC_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV</lname>
+  </compset>
+
+  <compset>
+    <alias>NF1850norbcdurf</alias>
+    <lname>1850_CAM60%NORESM%NORBC%DURF_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV</lname>
+    <science_support grid="f19_f19"/>
   </compset>
 
   <compset>
