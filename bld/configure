@@ -2797,7 +2797,8 @@ sub write_filepath
     elsif ($chem =~/_oslo/) {
          print $fh "$camsrcdir/cam/src/chemistry/oslo_aero\n";
          print $fh "$camsrcdir/cam/src/physics/cam_oslo\n";
-    elsif ($chem=~/_oslo_durf/)
+    }
+    elsif ($chem=~/_oslo_durf/){
         print $fh "$camsrcdir/cam/src/chemistry/oslo_aero\n";
         print $fh "$camsrcdir/cam/src/physics/cam_oslo\n";
         print $fh "$camsrcdir/cam/src/chemistry/oslo_aero_durf\n";
