@@ -189,9 +189,6 @@
       <value compset="_CAM60%NORESM%NORPIBC"      >-chem trop_mam_oslo -cosp</value>
       <value compset="_CAM60%NORESM%SEC%NORPIBC"   >-chem trop_mam_oslo_sec -cosp</value>
       <value compset="_CAM54%PTAERO"               >-chem trop_mam_oslo</value>
-      <value compset="_CAM60%NORESM%DURF"         >-chem trop_mam_oslo_durf -cosp</value>
-      <value compset="_CAM60%NORESM%NORBC%DURF"        >-chem trop_mam_oslo_durf -cosp</value>
-
       <value compset="_CAM50%NUDGEPTAERO"   >-phys cam5 -chem trop_mam_oslo -offline_dyn</value>
       <value compset="_CAM54%NUDGEPTAERO"   >-chem trop_mam_oslo -offline_dyn</value>
       <value compset="_CAM60%NUDGEPTAERO"   >-chem trop_mam_oslo -offline_dyn</value>
@@ -347,7 +344,7 @@
       <value compset="1850_CAM60%NORESM%NORBC%H2O2014" >1850_cam6_noresm_h2o2014</value>
       <value compset="1850_CAM60%NORESM%NORBC%OXID2014" >1850_cam6_noresm_oxid2014</value>
       <value compset="1850_CAM60%NORESM%NORBC%OXID2014%FRC2" >1850_cam6_noresm_oxid2014_frc2</value>
-     
+      <value compset="1850_CAM60%NORESM%NORBC%DURF" >1850_cam6_noresm_durf</value>
       <value compset="HIST_CAM60%PTAERO"  >hist_cam6_oslo</value>
       <value compset="HIST_CAM60%NORESM"  >hist_cam6_noresm</value>
       <value compset="HIST_CAM60%NORESM%FRC2"            >hist_cam6_noresm_frc2</value>
@@ -372,7 +369,7 @@
       <value compset="HIST_CAM60%NORESM%NORBC%PINTCF"  >hist_cam6_noresm_pintcf</value>
       <value compset="HIST_CAM60%NORESM%NORBC%PIAER"   >hist_cam6_noresm_piaer</value>
       <!-- AeroCom DURF transient simulation NorESM with prescribed dust emissions-->
-      <value compset="HIST_CAM60%NORESM%NORBC%DURF"  >hist_cam6_noresm_dust_sp</value>
+      <value compset="HIST_CAM60%NORESM%NORBC%DURF"  >hist_cam6_noresm_durf</value>
 
       <value compset="SSP126_CAM60%NORESM%FRC2"  >ssp126_cam6_noresm_frc2</value>
       <value compset="SSP126_CAM60%NORESM%FRC2EXT"  >ssp126_cam6_noresm_frc2ext</value>

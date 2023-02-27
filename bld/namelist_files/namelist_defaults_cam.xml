@@ -677,26 +677,6 @@
     <om_ni_oslo_ext_file   chem="trop_mam_oslo_sec">atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_pom_elev_oslo_scaled_1850-2010_c20140421_v12.nc</om_ni_oslo_ext_file>
     <so4_pr_oslo_ext_file  chem="trop_mam_oslo_sec">noresm-only/atm/cam/chem/trop_mozart_aero/emis/ipcc_ar5/ar5_mam3_so4_pr_elev_1850-2005_c090804.nc</so4_pr_oslo_ext_file>
     <!-- oslo aerosol sec package -->
-<!-- DURF prescribed dust_emissions-->
-<dms_oslo_emis_file chem="trop_mam_oslo_durf">noresm-only/atm/cam/chem/trop_mozart_aero/emis/ipcc_ar5/aerocom_mam3_dms_surf_1849-2006_c090804.nc</dms_oslo_emis_file>
-<so2_oslo_emis_file chem="trop_mam_oslo_durf">noresm-only/atm/cam/chem/trop_mozart_aero/emis/ipcc_ar5/ar5_mam3_so2_surf_1850-2005_c090804.nc</so2_oslo_emis_file>
-<bc_ax_oslo_emis_file chem="trop_mam_oslo_durf">noresm-only/atm/cam/chem/trop_mozart_aero/emis/ipcc_ar5/ar5_mam3_BCFFX_surf_1850-2005_c090804.nc</bc_ax_oslo_emis_file>
-<bc_n_oslo_emis_file chem="trop_mam_oslo_durf">noresm-only/atm/cam/chem/trop_mozart_aero/emis/ipcc_ar5/ar5_mam3_BCFFN_surf_1850-2005_c090804.nc</bc_n_oslo_emis_file>
-<bc_ni_oslo_emis_file chem="trop_mam_oslo_durf">noresm-only/atm/cam/chem/trop_mozart_aero/emis/ipcc_ar5/BCBB_ZERO_dummy_surf.nc</bc_ni_oslo_emis_file>
-<so4_pr_oslo_emis_file chem="trop_mam_oslo_durf">noresm-only/atm/cam/chem/trop_mozart_aero/emis/ipcc_ar5/ar5_mam3_so4_pr_surf_1850-2005_c090804.nc</so4_pr_oslo_emis_file>
-<om_ni_oslo_emis_file chem="trop_mam_oslo_durf">atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_pom_surf_oslo_scaled_1850-2010_c20140421_v12.nc</om_ni_oslo_emis_file>
-<monoterp_oslo_emis_file chem="trop_mam_oslo_durf">noresm-only/atm/cam/chem/trop_mozart_aero/emis/soanucl/bvocgcmFV19_monoterp_2000.nc</monoterp_oslo_emis_file>
-<isoprene_oslo_emis_file chem="trop_mam_oslo_durf">noresm-only/atm/cam/chem/trop_mozart_aero/emis/soanucl/bvocgcmFV19_isopr_2000.nc</isoprene_oslo_emis_file>
-
-<so2_oslo_ext_file     chem="trop_mam_oslo_durf">noresm-only/atm/cam/chem/trop_mozart_aero/emis/ipcc_ar5/ar5_mam3_so2_elev_1850-2005_c090804.nc</so2_oslo_ext_file>
-<bc_ax_oslo_ext_file   chem="trop_mam_oslo_durf">noresm-only/atm/cam/chem/trop_mozart_aero/emis/ipcc_ar5/BCFFX_ZERO_dummy_elev.nc</bc_ax_oslo_ext_file>
-<bc_n_oslo_ext_file    chem="trop_mam_oslo_durf">noresm-only/atm/cam/chem/trop_mozart_aero/emis/ipcc_ar5/BCFFN_ZERO_dummy_elev.nc</bc_n_oslo_ext_file>
-<bc_ni_oslo_ext_file   chem="trop_mam_oslo_durf">noresm-only/atm/cam/chem/trop_mozart_aero/emis/ipcc_ar5/ar5_mam3_bc_elev_1850-2005_c090804.nc</bc_ni_oslo_ext_file>
-<om_ni_oslo_ext_file   chem="trop_mam_oslo_durf">atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_pom_elev_oslo_scaled_1850-2010_c20140421_v12.nc</om_ni_oslo_ext_file>
-<so4_pr_oslo_ext_file  chem="trop_mam_oslo_durf">noresm-only/atm/cam/chem/trop_mozart_aero/emis/ipcc_ar5/ar5_mam3_so4_pr_elev_1850-2005_c090804.nc</so4_pr_oslo_ext_file>
-<dst_a2_oslo_ext_file  chem="trop_mam_oslo_durf">/cluster/nn2345k/ovewh/DURF_emissions/DST_A2_1850_1.9x2.5.nc</dst_a2_oslo_ext_file>
-<dst_a3_oslo_ext_file  chem="trop_mam_oslo_durf">/cluster/nn2345k/ovewh/DURF_emissions/DST_A3_1850_1.9x2.5.nc</dst_a3_oslo_ext_file>
-<!-- DURF prescribed dust_emissions-->
     <!-- modal aerosol emissions -->
 <nh3_emis_file     ver="mam">atm/cam/chem/trop_mozart_aero/emis/emis_NH3_2000_c111014.nc</nh3_emis_file>
 <dms_emis_file	   ver="mam">atm/cam/chem/trop_mozart_aero/emis/aerocom_mam3_dms_surf_2000_c120315.nc</dms_emis_file>
@@ -1367,7 +1347,9 @@
 <dust_emis_fact hgrid="0.9x1.25"                  phys="cam6" ver="chem">0.7D0</dust_emis_fact>
 <dust_emis_fact hgrid="1.9x2.5"   offline_dyn="1" phys="cam6" ver="chem">0.24D0</dust_emis_fact>
 <dust_emis_fact hgrid="0.47x0.63" offline_dyn="1" phys="cam6" ver="chem">0.9D0</dust_emis_fact>
-<dust_emis_fact chem="trop_mam_oslo_durf"                               >10000.0D0</dust_emis_fact>
+<!-- boolean variable for active vs prescribed dust emissions-->
+<dust_active    >.true.</dust_active>
+
 
 <!-- djlo commented out because not up-to-date-->
 <!--dust_emis_fact dyn="fv" hgrid="1.9x2.5" chem="trop_mam_oslo">0.40</dust_emis_fact-->

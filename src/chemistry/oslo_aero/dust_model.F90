@@ -25,7 +25,7 @@ save
    real(r8)          :: dust_emis_fact = -1.e36_r8        ! tuning parameter for dust emissions
    character(len=cl) :: soil_erod_file = 'soil_erod_file' ! full pathname for soil erodibility dataset
 
-   logical, parameter, public :: dust_active = .TRUE.
+   logical, parameter, public :: dust_active = .true.  ! set to .false. to disable active dust
 public oslo_dust_emis_intr
 public getNumberOfDustModes
 public getDustTracerIndexInMode
@@ -51,7 +51,7 @@ contains
     integer :: unitn, ierr
     character(len=*), parameter :: subname = 'dust_readnl'
 
-    namelist /dust_nl/ dust_emis_fact, soil_erod_file
+    namelist /dust_nl/ dust_emis_fact, soil_erod_file, dust_active
 
     !-----------------------------------------------------------------------------
 
@@ -74,6 +74,7 @@ contains
     ! Broadcast namelist variables
     call mpibcast(dust_emis_fact, 1,                   mpir8,   0, mpicom)
     call mpibcast(soil_erod_file, len(soil_erod_file), mpichar, 0, mpicom)
+    call mpibcast(dust_active,    1,                   mpilog,  0, mpicom)
 #endif
 
 
