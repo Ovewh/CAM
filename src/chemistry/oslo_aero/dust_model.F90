@@ -25,7 +25,7 @@ save
    real(r8)          :: dust_emis_fact = -1.e36_r8        ! tuning parameter for dust emissions
    character(len=cl) :: soil_erod_file = 'soil_erod_file' ! full pathname for soil erodibility dataset
 
-   logical, parameter, public :: dust_active = .true.  ! set to .false. to disable active dust
+   logical, public :: dust_active = .true.  ! set to .false. to disable active dust
 public oslo_dust_emis_intr
 public getNumberOfDustModes
 public getDustTracerIndexInMode

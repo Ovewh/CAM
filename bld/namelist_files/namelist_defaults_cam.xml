@@ -1348,7 +1348,7 @@
 <dust_emis_fact hgrid="1.9x2.5"   offline_dyn="1" phys="cam6" ver="chem">0.24D0</dust_emis_fact>
 <dust_emis_fact hgrid="0.47x0.63" offline_dyn="1" phys="cam6" ver="chem">0.9D0</dust_emis_fact>
 <!-- boolean variable for active vs prescribed dust emissions-->
-<dust_active    >.true.</dust_active>
+<dust_active>.true.</dust_active>
 
 
 <!-- djlo commented out because not up-to-date-->
