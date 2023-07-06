@@ -924,7 +924,8 @@
         <value compset="(HIST_|20TR_|5505_|TSCH)" grid="a%0.23x0.31.*_oi%0.23x0.31"     >$DIN_LOC_ROOT/atm/cam/sst/sst_HadOIBl_bc_0.23x0.31_1850_2017_c180507.nc</value>
 
        <!-- fSST : evolving NorESM derived -->
-       <value compset="HIST_CAM60%NORESM%NORBC"     grid=".+"                >$DIN_LOC_ROOT/noresm-only/atm/cam/sst/fice-micom-divocn_sst-micom-dow_NHIST_f19_tn14_20190625_1849-2015_series_version20190726_ts.nc</value>
+       <!--value compset="HIST_CAM60%NORESM%NORBC"     grid=".+"                >$DIN_LOC_ROOT/noresm-only/atm/cam/sst/fice-micom-divocn_sst-micom-dow_NHIST_f19_tn14_20190625_1849-2015_series_version20190726_ts.nc</value> -->
+       <value compset="HIST_CAM60%NORESM%NORBC"     grid=".+"                >$DIN_LOC_ROOT/noresm-only/atm/cam/sst/fice-micom-divocn_sst-micom-dow_NHIST_f19_tn14_Forces_230515_1849-2015_series_version20230515_ts.nc</value>
        <value compset="SSP370_CAM60%NORESM%NORBC"   grid=".+"                >$DIN_LOC_ROOT/noresm-only/atm/cam/sst/fice-micom-divocn_sst-micom-dow_NSSP370frc2_f19_tn14_20191014_2014-2101_series_version20200109_ts.nc</value>
 
         <value compset="1850_" grid=".+"                                     >$DIN_LOC_ROOT/atm/cam/sst/sst_HadOIBl_bc_1x1_clim_pi_c101029.nc</value>
@@ -936,9 +937,9 @@
        
         <!-- fSST : constant preindustrial NorESM derived -->
         <value compset="1850_CAM60%NORESM%NORBC"   grid="a%0.9x1.25"         >$DIN_LOC_ROOT/noresm-only/atm/cam/sst/fice-micom-divocn_sst-micom-dow_N1850frc2_f09_tn14_20191012_1351-1380_series_version20200106_clim.nc</value>
-        <value compset="1850_CAM60%NORESM%NORBC"   grid="a%1.9x2.5"          >$DIN_LOC_ROOT/noresm-only/atm/cam/sst/fice-micom-divocn_sst-micom-dow_N1850_f19_tn14_20190621_1751-1780_series_version20190726_clim.nc</value>
+        <value compset="1850_CAM60%NORESM%NORBC"   grid="a%1.9x2.5"          >$DIN_LOC_ROOT/noresm-only/atm/cam/sst/fice-micom-divocn_sst-micom-dow_N1850_f19_tn14_Forces_230512_1751-1780_series_version20230512_clim.nc</value>
         <value compset="CAM60%NORESM%NORPIBC"      grid="a%0.9x1.25"         >$DIN_LOC_ROOT/noresm-only/atm/cam/sst/fice-micom-divocn_sst-micom-dow_N1850frc2_f09_tn14_20191012_1351-1380_series_version20200106_clim.nc</value>
-        <value compset="CAM60%NORESM%NORPIBC"      grid="a%1.9x2.5"          >$DIN_LOC_ROOT/noresm-only/atm/cam/sst/fice-micom-divocn_sst-micom-dow_N1850_f19_tn14_20190621_1751-1780_series_version20190726_clim.nc</value>
+        <value compset="CAM60%NORESM%NORPIBC"      grid="a%1.9x2.5"          >$DIN_LOC_ROOT/noresm-only/atm/cam/sst/fice-micom-divocn_sst-micom-dow_N1850_f19_tn14_Forces_230512_1751-1780_series_version20230512_clim.nc</value>
 
         <value compset="2000"          grid=".+"                             >$DIN_LOC_ROOT/atm/cam/sst/sst_HadOIBl_bc_1x1_2000climo_c180511.nc</value>
         <value compset="2000"          grid="a%T31.*_oi%T31"                 >$DIN_LOC_ROOT/atm/cam/sst/sst_HadOIBl_bc_48x96_2000climo_c180511.nc</value>
