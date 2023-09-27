@@ -18,14 +18,3 @@ micro_mg_dcs		= 3.5e-4
 
 &dust_nl
 dust_active=.false.
-
-&chem_inparm
-srf_emis_specifier		= 'BC_AX  ->  /cluster/shared/noresm/inputdata/atm/cam/chem/emis/cmip6_emissions_version20180512/emissions_cmip6_noresm2_BC_AX_anthrosurfALL_surface_1850_1.9x2.5_version20180512.nc',
-    'BC_N   ->  /cluster/shared/noresm/inputdata/atm/cam/chem/emis/cmip6_emissions_version20180512/emissions_cmip6_noresm2_BC_N_anthrosurfALL_surface_1850_1.9x2.5_version20180512.nc',
-    'OM_NI  ->  /cluster/shared/noresm/inputdata/atm/cam/chem/emis/cmip6_emissions_version20180512/emissions_cmip6_noresm2_OM_NI_anthrosurfALL_surface_1850_1.9x2.5_version20180512.nc',
-    'SO2    ->  /cluster/shared/noresm/inputdata/atm/cam/chem/emis/cmip6_emissions_version20180512/emissions_cmip6_noresm2_SO2_anthrosurfALL_surface_1850_1.9x2.5_version20180512.nc',
-    'SO4_PR ->  /cluster/shared/noresm/inputdata/atm/cam/chem/emis/cmip6_emissions_version20180512/emissions_cmip6_noresm2_SO4_PR_anthrosurfALL_surface_1850_1.9x2.5_version20180512.nc',
-    'DST_A2 -> /cluster/projects/nn2345k/ovewh/DURF/DURF_test2/emissions_durf_noresm2_DST_A2_surface_1850_1.9x2.5.nc',
-    'DST_A3 ->  /cluster/projects/nn2345k/ovewh/DURF/DURF_test2/emissions_durf_noresm2_DST_A3_surface_1850_1.9x2.5.nc'
-
-history_aerosol=.true.
