@@ -787,6 +787,13 @@ subroutine radiation_tend( &
    integer  :: lchnk, ncol
    logical  :: dosw, dolw
 
+#ifdef DURF
+   type(rad_out_t), pointer :: rd_DSTA2
+   type(rad_out_t), pointer :: rd_DSTA3
+   allocate(rd_DSTA2)
+   allocate(rd_DSTA3)
+#endif 
+
 #ifdef DIRIND
     real(r8), pointer, dimension(:,:) :: rvolcmmr ! Read in stratospheric volcanoes aerosol mmr  
     real(r8), pointer, dimension(:,:) :: volcopt  ! Read in stratospheric volcano SW optical parameter (CMIP6) 
@@ -962,8 +969,20 @@ subroutine radiation_tend( &
 !   real(r8) deltah_km(pcols,pver)      ! Layer thickness, unit km    
 !#endif
 
+#ifdef DURF
+   real(r8) :: per_tau_DSTA2    (pcols,0:pver,nswbands) ! aerosol extinction optical depth DST mode 2 (DURF)
+   real(r8) :: per_tau_w_DSTA2  (pcols,0:pver,nswbands) ! aerosol single scattering albedo * tau DST mode 2 (DURF)
+   real(r8) :: per_tau_w_g_DSTA2(pcols,0:pver,nswbands) ! aerosol assymetry parameter * w * tau DST mode 2 (DURF)
+   real(r8) :: per_tau_w_f_DSTA2(pcols,0:pver,nswbands) ! aerosol forward scattered fraction * w * tau DST mode 2 (DURF)
+   real(r8) :: per_lw_abs_DSTA2 (pcols,pver,nlwbands)   ! aerosol absorption optics depth (LW) DST mode 2 (DURF)
+   real(r8) :: per_tau_DSTA3    (pcols,0:pver,nswbands) ! aerosol extinction optical depth DST mode 3 (DURF)
+   real(r8) :: per_tau_w_DSTA3  (pcols,0:pver,nswbands) ! aerosol single scattering albedo * tau DST mode 3 (DURF)
+   real(r8) :: per_tau_w_g_DSTA3(pcols,0:pver,nswbands) ! aerosol assymetry parameter * w * tau DST mode 3 (DURF)
+   real(r8) :: per_tau_w_f_DSTA3(pcols,0:pver,nswbands) ! aerosol forward scattered fraction * w * tau DST mode 3 (DURF)
+   real(r8) :: per_lw_abs_DSTA3 (pcols,pver,nlwbands)   ! aerosol absorption optics depth (LW) DST mode 3 (DURF)
 
-   
+#endif ! DURF
+
 #endif
    real(r8) :: fns(pcols,pverp)     ! net shortwave flux
    real(r8) :: fcns(pcols,pverp)    ! net clear-sky shortwave flux
@@ -1372,6 +1391,11 @@ subroutine radiation_tend( &
                       per_lw_abs, &
                       volc_ext_sun, volc_omega_sun, volc_g_sun, & 
                       volc_ext_earth, volc_omega_earth, & 
+#ifdef DURF
+                      per_tau_DSTA2, per_tau_w_DSTA2, per_tau_w_g_DSTA2, per_tau_w_f_DSTA2, per_lw_abs_DSTA2, &
+                      per_tau_DSTA3, per_tau_w_DSTA3, per_tau_w_g_DSTA3, per_tau_w_f_DSTA3, per_lw_abs_DSTA3, &
+    
+#endif ! DURF
 #ifdef AEROCOM
                       aodvis, absvis, dod440, dod550, dod870, abs550, abs550alt)
 #else
@@ -1448,6 +1472,54 @@ subroutine radiation_tend( &
 ! A first call with Oslo aerosols set to zero for radiative forcing diagnostics
 ! follwoing the Ghan (2013) method:
 
+#ifdef DURF
+   call rad_rrtmg_sw( &
+      lchnk, ncol, num_rrtmg_levs, r_state, state%pmid,          &
+      cldfprime, &
+      per_tau_DSTA2, per_tau_w_DSTA2, per_tau_w_g_DSTA2, per_tau_w_f_DSTA2,       &
+      eccf, coszrs, rd_DSTA2%solin, sfac, cam_in%asdir,                &
+      cam_in%asdif, cam_in%aldir, cam_in%aldif, qrs, rd_DSTA2%qrsc,    &
+      fsnt, rd_DSTA2%fsntc, rd_DSTA2%fsntoa, rd_DSTA2%fsutoa, rd_DSTA2%fsntoac,          &
+      rd_DSTA2%fsnirt, rd_DSTA2%fsnrtc, rd_DSTA2%fsnirtsq, fsns, rd_DSTA2%fsnsc,         &
+      rd_DSTA2%fsdsc, fsds, cam_out%sols, cam_out%soll, cam_out%solsd, &
+      cam_out%solld, fns, fcns, idrf, Nday, Nnite,          &
+      IdxDay, IdxNite, su, sd, E_cld_tau=c_cld_tau,              &
+      E_cld_tau_w=c_cld_tau_w, E_cld_tau_w_g=c_cld_tau_w_g,      &
+      E_cld_tau_w_f=c_cld_tau_w_f, old_convert=.false.)
+      
+      call outfld('FSNT_DSTA2',fsnt(:)  ,pcols,lchnk)
+      call outfld('FSNS_DSTA2',fsns(:)  ,pcols,lchnk)
+      call outfld('FSNTCDRF_DSTA2',rd_DSTA2%fsntc(:) ,pcols,lchnk)
+      call outfld('FSNSCDRF_DSTA2',rd_DSTA2%fsnsc(:) ,pcols,lchnk)
+      call outfld('FSUTCDRF_DSTA2',rd_DSTA2%fsutoa(:),pcols,lchnk)
+      call outfld('FSDS_DSTA2',fsds(:)  ,pcols,lchnk)
+      call outfld('FSDSCDRF_DSTA2',rd_DSTA2%fsdsc(:) ,pcols,lchnk)
+
+   call rad_rrtmg_sw( &
+      lchnk, ncol, num_rrtmg_levs, r_state, state%pmid,          &
+      cldfprime, &
+      per_tau_DSTA3, per_tau_w_DSTA3, per_tau_w_g_DSTA3, per_tau_w_f_DSTA3,       &
+      eccf, coszrs, rd_DSTA3%solin, sfac, cam_in%asdir,                &
+      cam_in%asdif, cam_in%aldir, cam_in%aldif, qrs, rd_DSTA3%qrsc,    &
+      fsnt, rd_DSTA3%fsntc, rd_DSTA3%fsntoa, rd_DSTA3%fsutoa, rd_DSTA3%fsntoac,          &
+      rd_DSTA3%fsnirt, rd_DSTA3%fsnrtc, rd_DSTA3%fsnirtsq, fsns, rd_DSTA3%fsnsc,         &
+      rd_DSTA3%fsdsc, fsds, cam_out%sols, cam_out%soll, cam_out%solsd, &
+      cam_out%solld, fns, fcns, idrf, Nday, Nnite,          &
+      IdxDay, IdxNite, su, sd, E_cld_tau=c_cld_tau,              &
+      E_cld_tau_w=c_cld_tau_w, E_cld_tau_w_g=c_cld_tau_w_g,      &
+      E_cld_tau_w_f=c_cld_tau_w_f, old_convert=.false.)
+      
+      call outfld('FSNT_DSTA3',fsnt(:)  ,pcols,lchnk)
+      call outfld('FSNS_DSTA3',fsns(:)  ,pcols,lchnk)
+      call outfld('FSNTCDRF_DSTA3',rd_DSTA3%fsntc(:) ,pcols,lchnk)
+      call outfld('FSNSCDRF_DSTA3',rd_DSTA3%fsnsc(:) ,pcols,lchnk)
+      call outfld('FSUTCDRF_DSTA3',rd_DSTA3%fsutoa(:),pcols,lchnk)
+      call outfld('FSDS_DSTA3',fsds(:)  ,pcols,lchnk)
+      call outfld('FSDSCDRF_DSTA3',rd_DSTA3%fsdsc(:) ,pcols,lchnk)
+
+#endif ! DURF
+
+
 #ifdef AEROFFL   ! for calculation of direct radiative forcing, not necessarily "offline" as such anymore 
                  ! (just nudged), but with an extra call with 0 aerosol extiction.  
 !
@@ -1499,31 +1571,7 @@ subroutine radiation_tend( &
     idrf = .false.         
 #endif ! AEROFFL
 
-#ifdef DURF
-   call rad_rrtmg_sw( &
-      lchnk, ncol, num_rrtmg_levs, r_state, state%pmid,          &
-      cldfprime, &
-      !orig             aer_tau,        aer_tau_w, aer_tau_w_g, aer_tau_w_f,       &
-      per_tau*0.0_r8, per_tau_w, per_tau_w_g, per_tau_w_f,       &
-      eccf, coszrs, rd%solin, sfac, cam_in%asdir,                &
-      cam_in%asdif, cam_in%aldir, cam_in%aldif, qrs, rd%qrsc,    &
-      fsnt, rd%fsntc, rd%fsntoa, rd%fsutoa, rd%fsntoac,          &
-      rd%fsnirt, rd%fsnrtc, rd%fsnirtsq, fsns, rd%fsnsc,         &
-      rd%fsdsc, fsds, cam_out%sols, cam_out%soll, cam_out%solsd, &
-      !akc6+
-      !#ifdef AEROFFL
-      !                  cam_out%solld, fns, fcns, fds, fdsc, Nday, Nnite,          &
-      cam_out%solld, fns, fcns, idrf, Nday, Nnite,          &
-      !#else
-      !                  cam_out%solld, fns, fcns, Nday, Nnite,                     &
-      !#endif
-      !akc6-
-      IdxDay, IdxNite, su, sd, E_cld_tau=c_cld_tau,              &
-      E_cld_tau_w=c_cld_tau_w, E_cld_tau_w_g=c_cld_tau_w_g,      &
-      E_cld_tau_w_f=c_cld_tau_w_f, old_convert=.false.)
 
-
-#endif ! DURF
 
 #endif ! DIRIND
                
