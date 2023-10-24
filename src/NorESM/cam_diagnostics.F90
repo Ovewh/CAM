@@ -412,12 +412,32 @@ contains
     call addfld ('FLNT_DRF',horiz_only, 'A','W/m^2   ','Total column longwave flux (DIRind)' )
     call addfld ('FLNTCDRF',horiz_only, 'A','W/m^2   ','Clear sky total column longwave flux (DIRind)' )
     call addfld ('FSUTADRF',horiz_only, 'A','W/m^2   ','SW upwelling flux at TOA')
-    call addfld ('FSDS_DRF',horiz_only, 'A','W/m^2   ','SW downelling flux at surface')
+    call addfld ('FSDS_DRF',horiz_only, 'A','W/m^2   ','SW downwelling flux at surface')
     call addfld ('FSUS_DRF',horiz_only, 'A','W/m^2   ','SW upwelling flux at surface')
     call addfld ('FSDSCDRF',horiz_only, 'A','W/m^2   ','SW downwelling clear sky flux at surface')
     call addfld ('FLUS    ',horiz_only, 'A','W/m^2   ','LW surface upwelling flux')
 !->ut    call addfld ('FLNT_ORG',horiz_only, 'A','W/m^2   ','Total column longwave flux (CAM5)' )
 #endif  ! aeroffl
+    
+
+#ifdef DURF
+    call addfld('FSNS_DSTA2',horiz_only,'A', 'W/m^2','Surface absorbed solar flux by DST_A2 (DURF)')
+    call addfld('FSNS_DSTA3',horiz_only,'A','W/m^2','Surface absorbed solar flux by DST_A3 (DURF)')
+    call addfld('FLNT_DSTA2',horiz_only,'A','W/m^2','Total column longwave flux by DST_A2 (DURF)')
+    call addfld('FLNT_DSTA3',horiz_only,'A','W/m^2','Total column longwave flux by DST_A3 (DURF)')
+    call addfld('FSNT_DSTA2',horiz_only,'A','W/m^2','Total column solar flux by DST_A2 (DURF)')
+    call addfld('FSNT_DSTA3',horiz_only,'A','W/m^2','Total column solar flux by DST_A3 (DURF)')
+    call addfld('FSDS_DSTA2',horiz_only,'A','W/m^2','Surface downwelling solar flux by DST_A2 (DURF)')
+    call addfld('FSDS_DSTA3',horiz_only,'A','W/m^2','Surface downwelling solar flux by DST_A3 (DURF)')
+    call addfld('FSNTCDRF_DSTA2', horiz_only,'A','W/m^2','Clear sky total column solar flux by DST_A2 (DURF)')
+    call addfld('FSNTCDRF_DSTA3', horiz_only,'A','W/m^2','Clear sky total column solar flux by DST_A3 (DURF)')
+    call addfld('FLNTCDRF_DSTA2', horiz_only,'A','W/m^2','Clear sky total column longwave flux by DST_A2 (DURF)')
+    call addfld('FLNTCDRF_DSTA3', horiz_only,'A','W/m^2','Clear sky total column longwave flux by DST_A3 (DURF)')
+    call addfld('FSDSCDRF_DSTA2', horiz_only,'A','W/m^2','Clear sky surface downwelling solar flux by DST_A2 (DURF)')
+    call addfld('FSDSCDRF_DSTA3', horiz_only,'A','W/m^2','Clear sky surface downwelling solar flux by DST_A3 (DURF)')
+    call addfld('FSUTCDRF_DSTA2', horiz_only,'A','W/m^2','Clear sky upwelling SW at TOA by DST_A2 (DURF)')
+    call addfld('FSUTCDRF_DSTA3', horiz_only,'A','W/m^2','Clear sky upwelling SW at TOA by DST_A3 (DURF)')
+#endif
 #ifdef AEROCOM 
       call addfld ('AKCXS   ',horiz_only, 'A','mg/m2   ','Scheme excess aerosol mass burden')     
       call addfld ('PMTOT   ',horiz_only, 'A','ug/m3   ','Aerosol PM, all sizes')
@@ -572,7 +592,18 @@ contains
       call addfld ('BATSW13 ',(/'lev'/),'A','1/km','Aerosol 3d SW absorption at 3.077-3.846um')
       call addfld ('BATLW01 ',(/'lev'/),'A','1/km','Aerosol 3d LW absorption depth at 3.077-3.846um')
 !akc6      call addfld ('AERLWA01',(/'lev'/),'A','unitless','CAM5 3d LW absorptive optical depth at 3.077-3.846um')
-!+
+!+    
+      #ifdef DURF
+        call addfld ('D550_DUA2 ',horiz_only, 'A','unitless','mineral aerosol optical depth 550nm Mode 1')
+        call addfld ('D550_DUA3',horiz_only, 'A','unitless','mineral aerosol optical depth 550nm Mode 2')
+        call addfld ('D440_DUA2 ',horiz_only, 'A','unitless','mineral aerosol optical depth 440nm Mode 1')
+        call addfld ('D440_DUA3',horiz_only, 'A','unitless','mineral aerosol optical depth 440nm Mode 2')
+        call addfld ('D870_DUA2 ',horiz_only, 'A','unitless','mineral aerosol optical depth 870nm Mode 1')
+        call addfld ('D870_DUA3',horiz_only, 'A','unitless','mineral aerosol optical depth 870nm Mode 2')
+        call addfld ('A550_DUA2',horiz_only, 'A','unitless','mineral aerosol abs. optical depth 550nm Mode 1')
+        call addfld ('A550_DUA3',horiz_only, 'A','unitless','mineral aerosol abs. optical depth 550nm Mode 2')  
+      #endif ! DURF
+
       do i=1,nbmodes
          modeString="  "
          write(modeString,"(I2)"),i
@@ -855,6 +886,34 @@ contains
      call add_default ('FLUS    ', 1, ' ')
 !->ut     call add_default ('FLNT_ORG', 1, ' ')
 #endif  ! aeroffl
+
+#ifdef DURF
+     call add_default('D440_DUA2', 1, ' ')
+     call add_default('D440_DUA3', 1, ' ')
+     call add_default('D550_DUA2', 1, ' ')
+     call add_default('D550_DUA3', 1, ' ')
+     call add_default('D870_DUA2', 1, ' ')
+     call add_default('D870_DUA3', 1, ' ')
+     call add_default('A550_DUA2', 1, ' ')
+     call add_default('A550_DUA3', 1, ' ')
+     call add_default('FSDS_DSTA3', 1, ' ')
+     call add_default('FSDS_DSTA2', 1, ' ')
+     call add_default('FSNS_DSTA3', 1, ' ')
+     call add_default('FSNS_DSTA2', 1, ' ')
+     call add_default('FLNT_DSTA3', 1, ' ')
+     call add_default('FLNT_DSTA2', 1, ' ')
+     call add_default('FSNT_DSTA3', 1, ' ')
+     call add_default('FSNT_DSTA2', 1, ' ')
+     call add_default('FSNTCDRF_DSTA2', 1, ' ')
+     call add_default('FSNTCDRF_DSTA3', 1, ' ')
+     call add_default('FLNTCDRF_DSTA2', 1, ' ')
+     call add_default('FLNTCDRF_DSTA3', 1, ' ')
+     call add_default('FSDSCDRF_DSTA2', 1, ' ')
+     call add_default('FSDSCDRF_DSTA3', 1, ' ')  
+     call add_default('FSUTCDRF_DSTA2', 1, ' ')
+     call add_default('FSUTCDRF_DSTA3', 1, ' ') 
+#endif ! DURF
+
 #ifdef AEROCOM 
       call add_default ('AKCXS   ', 1, ' ')
       call add_default ('PMTOT   ', 1, ' ')

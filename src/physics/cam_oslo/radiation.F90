@@ -961,8 +961,10 @@ subroutine radiation_tend( &
 !#ifdef SPAERO
 !   real(r8) deltah_km(pcols,pver)      ! Layer thickness, unit km    
 !#endif
-#endif
 
+
+   
+#endif
    real(r8) :: fns(pcols,pverp)     ! net shortwave flux
    real(r8) :: fcns(pcols,pverp)    ! net clear-sky shortwave flux
    real(r8) :: fnl(pcols,pverp)     ! net longwave flux
@@ -1496,6 +1498,33 @@ subroutine radiation_tend( &
 !#endif
     idrf = .false.         
 #endif ! AEROFFL
+
+#ifdef DURF
+   call rad_rrtmg_sw( &
+      lchnk, ncol, num_rrtmg_levs, r_state, state%pmid,          &
+      cldfprime, &
+      !orig             aer_tau,        aer_tau_w, aer_tau_w_g, aer_tau_w_f,       &
+      per_tau*0.0_r8, per_tau_w, per_tau_w_g, per_tau_w_f,       &
+      eccf, coszrs, rd%solin, sfac, cam_in%asdir,                &
+      cam_in%asdif, cam_in%aldir, cam_in%aldif, qrs, rd%qrsc,    &
+      fsnt, rd%fsntc, rd%fsntoa, rd%fsutoa, rd%fsntoac,          &
+      rd%fsnirt, rd%fsnrtc, rd%fsnirtsq, fsns, rd%fsnsc,         &
+      rd%fsdsc, fsds, cam_out%sols, cam_out%soll, cam_out%solsd, &
+      !akc6+
+      !#ifdef AEROFFL
+      !                  cam_out%solld, fns, fcns, fds, fdsc, Nday, Nnite,          &
+      cam_out%solld, fns, fcns, idrf, Nday, Nnite,          &
+      !#else
+      !                  cam_out%solld, fns, fcns, Nday, Nnite,                     &
+      !#endif
+      !akc6-
+      IdxDay, IdxNite, su, sd, E_cld_tau=c_cld_tau,              &
+      E_cld_tau_w=c_cld_tau_w, E_cld_tau_w_g=c_cld_tau_w_g,      &
+      E_cld_tau_w_f=c_cld_tau_w_f, old_convert=.false.)
+
+
+#endif ! DURF
+
 #endif ! DIRIND
                
                rd%cld_tau_cloudsim(:ncol,:) = cld_tau(rrtmg_sw_cloudsim_band,:ncol,:)

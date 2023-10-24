@@ -9,7 +9,13 @@ contains
 subroutine pmxsub(lchnk, ncol, pint, pmid, coszrs, state, t, cld, qm1, Nnatk, &
                   per_tau, per_tau_w, per_tau_w_g, per_tau_w_f, per_lw_abs, & 
                   volc_ext_sun, volc_omega_sun, volc_g_sun, &
-                  volc_ext_earth, volc_omega_earth, & 
+                  volc_ext_earth, volc_omega_earth, &
+#ifdef DURF
+                  per_tau_DSTA2, per_tau_w_DSTA2, per_tau_w_g_DSTA2, per_tau_w_f_DSTA2, per_lw_abs_DSTA2, &
+                  per_tau_DSTA3, per_tau_w_DSTA3, per_tau_w_g_DSTA3, per_tau_w_f_DSTA3, per_lw_abs_DSTA3, &
+
+#endif ! DURF
+
 #ifdef AEROCOM
                   aodvis, absvis, dod440, dod550, dod870, abs550, abs550alt)
 #else
@@ -23,9 +29,9 @@ subroutine pmxsub(lchnk, ncol, pint, pmid, coszrs, state, t, cld, qm1, Nnatk, &
 ! Revised for inclusion of OC and modified aerosol backgeound aerosol 
 ! by Alf Kirkevaag in 2003, and finally rewritten for CAM3 February 2005.
 ! Modified for new aerosol schemes by Alf Kirkevaag in January 2006.
-! Updated by Alf Kirkevåg, May 2013: The SO4(Ait) mode now takes into
+! Updated by Alf Kirkevï¿½g, May 2013: The SO4(Ait) mode now takes into
 ! account condensed SOA in addition to H2SO4.
-! Updated for CAM5-Oslo with RRTMG by Alf Kirkevåg, 2014-2015, for new
+! Updated for CAM5-Oslo with RRTMG by Alf Kirkevï¿½g, 2014-2015, for new
 ! SOA treatment August/September 2015, and for cleanig up and optimizing
 ! the code around interpolations in November 2016.
 
@@ -76,6 +82,19 @@ subroutine pmxsub(lchnk, ncol, pint, pmid, coszrs, state, t, cld, qm1, Nnatk, &
    real(r8), intent(out) :: per_tau_w_g(pcols,0:pver,nbands) ! aerosol assymetry parameter * w * tau
    real(r8), intent(out) :: per_tau_w_f(pcols,0:pver,nbands) ! aerosol forward scattered fraction * w * tau
    real(r8), intent(out) :: per_lw_abs (pcols,pver,nlwbands) ! aerosol absorption optical depth (LW)
+#ifdef DURF
+   real(r8), intent(out) :: per_tau_DSTA2    (pcols,0:pver,nbands) ! aerosol extinction optical depth mode (DST_A2)
+   real(r8), intent(out) :: per_tau_w_DSTA2  (pcols,0:pver,nbands) ! aerosol single scattering albedo * tau mode (DST_A2)
+   real(r8), intent(out) :: per_tau_w_g_DSTA2(pcols,0:pver,nbands) ! aerosol assymetry parameter * w * tau mode (DST_A2)
+   real(r8), intent(out) :: per_tau_w_f_DSTA2(pcols,0:pver,nbands) ! aerosol forward scattered fraction * w * tau mode (DST_A2)
+   real(r8), intent(out) :: per_lw_abs_DSTA2 (pcols,pver,nlwbands) ! aerosol absorption optical depth (LW) mode (DST_A2)
+   real(r8), intent(out) :: per_tau_DSTA3    (pcols,0:pver,nbands) ! aerosol extinction optical depth mode (DST_A3)
+   real(r8), intent(out) :: per_tau_w_DSTA3  (pcols,0:pver,nbands) ! aerosol single scattering albedo * tau mode (DST_A3)
+   real(r8), intent(out) :: per_tau_w_g_DSTA3(pcols,0:pver,nbands) ! aerosol assymetry parameter * w * tau mode (DST_A3)
+   real(r8), intent(out) :: per_tau_w_f_DSTA3(pcols,0:pver,nbands) ! aerosol forward scattered fraction * w * tau mode (DST_A3)
+   real(r8), intent(out) :: per_lw_abs_DSTA3 (pcols,pver,nlwbands) ! aerosol absorption optical depth (LW) mode (DST_A3)
+#endif ! DURF
+
 !  AOD and absorptive AOD for visible wavelength closest to 0.55 um (0.442-0.625)
 !  Note that aodvis and absvis output should be devided by dayfoc to give physical (A)AOD values  
    real(r8), intent(out) :: aodvis(pcols)             ! AOD vis
@@ -399,6 +418,17 @@ subroutine pmxsub(lchnk, ncol, pint, pmid, coszrs, state, t, cld, qm1, Nnatk, &
             abs550_so4(pcols), abs550_bc(pcols), abs550_pom(pcols)
    real(r8) batotsw13(pcols,pver), batotlw01(pcols,pver)
 #endif  ! AEROCOM
+#ifdef DURF
+  real(r8) dod550_dustA2(pcols), dod440_dustA2(pcols), dod870_dust(pcols), &
+           dod550_dustA3(pcols), dod440_dustA3(pcols), dod870_dustA3(pcols), &
+           abs550_dustA2(pcols), abs550_dustA3(pcols)
+  real(r8) dod5503d_dustA2(pcols,pver),abs5503d_dustA2(pcols,pver), dod5503d_dustA3(pcols,pver), abs5503d_dustA3(pcols,pver)
+  real(r8) bint550duA2(pcols,pver), bint550duA3(pcols,pver), &
+           bint440duA2(pcols,pver), bint440duA3(pcols,pver), &
+           bint870duA2(pcols,pver), bint870duA3(pcols,pver), &
+           baint550duA2(pcols,pver), baint550duA3(pcols,pver) 
+#endif ! DURF
+
 !+
 #ifdef AEROCOM
       character(len=10) :: modeString
@@ -893,6 +923,7 @@ enddo ! iloop
         enddo
        enddo
       enddo
+
 !      Adding also the volcanic contribution (CMIP6), which is using a CMIP6
 !      band numbering identical to the AeroTab numbering (unlike CAM) both
 !      for SW and LW. I.e., no remapping is required here.
@@ -953,6 +984,18 @@ enddo ! iloop
             per_tau_w(i,0,ib)= 0.999_r8
             per_tau_w_g(i,0,ib)= 0.5_r8
             per_tau_w_f(i,0,ib)= 0.25_r8
+
+          #ifdef DURF
+            per_tau_DSTA2(i,0,ib)= 0._r8
+            per_tau_w_DSTA2(i,0,ib)= 0.999_r8
+            per_tau_w_g_DSTA2(i,0,ib)= 0.5_r8
+            per_tau_w_f_DSTA2(i,0,ib)= 0.25_r8
+            per_tau_DSTA3(i,0,ib)= 0._r8
+            per_tau_w_DSTA3(i,0,ib)= 0.999_r8
+            per_tau_w_g_DSTA3(i,0,ib)= 0.5_r8
+            per_tau_w_f_DSTA3(i,0,ib)= 0.25_r8
+          #endif ! DURF  
+
         end do
         do ib=1,14  ! initialize also for the other layers
           do k=1,pver
@@ -960,6 +1003,17 @@ enddo ! iloop
             per_tau_w(i,k,ib)= 0.999_r8
             per_tau_w_g(i,k,ib)= 0.5_r8
             per_tau_w_f(i,k,ib)= 0.25_r8
+
+          #ifdef DURF
+            per_tau_DSTA2(i,k,ib)= 0._r8
+            per_tau_w_DSTA2(i,k,ib)= 0.999_r8
+            per_tau_w_g_DSTA2(i,k,ib)= 0.5_r8
+            per_tau_w_f_DSTA2(i,k,ib)= 0.25_r8
+            per_tau_DSTA3(i,k,ib)= 0._r8
+            per_tau_w_DSTA3(i,k,ib)= 0.999_r8
+            per_tau_w_g_DSTA3(i,k,ib)= 0.5_r8
+            per_tau_w_f_DSTA3(i,k,ib)= 0.25_r8
+          #endif ! DURF
           end do
         end do
        end do
@@ -971,6 +1025,22 @@ enddo ! iloop
             per_tau_w(i,k,ib)=per_tau(i,k,ib)*max(min(ssatot(i,k,14-ib),0.999999_r8),1.e-6_r8)
             per_tau_w_g(i,k,ib)=per_tau_w(i,k,ib)*asymtot(i,k,14-ib)
             per_tau_w_f(i,k,ib)=per_tau_w_g(i,k,ib)*asymtot(i,k,14-ib)
+          #ifdef DURF
+            per_tau_DSTA2(i,k,ib)=deltah_km(i,k)*Nnatk(i,k,6)*be(i,k,6,14-ib)
+            per_tau_w_DSTA2(i,k,ib)=per_tau_DSTA2(i,k,ib)*max(min(Nnatk(i,k,6)*be(i,k,6,14-ib)*ssa(i,k,6,ib),& 
+                                            0.999999_r8),1.e-6_r8)
+            per_tau_w_g_DSTA2(i,k,ib)=per_tau_w_DSTA2(i,k,ib)*Nnatk(i,k,6) &
+                                                  *be(i,k,i,14-ib)*ssa(i,k,6,14-ib)*asym(i,k,6,14-ib)
+            per_tau_w_f_DSTA2(i,k,ib)=per_tau_w_g_DSTA2(i,k,ib)*Nnatk(i,k,6) &
+                                                  *be(i,k,i,14-ib)*ssa(i,k,6,14-ib)*asym(i,k,6,14-ib)
+            per_tau_DSTA3(i,k,ib)=deltah_km(i,k)*Nnatk(i,k,7)*be(i,k,7,14-ib)
+            per_tau_w_DSTA3(i,k,ib)=per_tau_DSTA3(i,k,ib)*max(min(Nnatk(i,k,7)*be(i,k,7,14-ib)*ssa(i,k,7,ib),& 
+                                            0.999999_r8),1.e-6_r8)
+            per_tau_w_g_DSTA3(i,k,ib)=per_tau_w_DSTA3(i,k,ib)*Nnatk(i,k,7) &
+                                                  *be(i,k,i,14-ib)*ssa(i,k,7,14-ib)*asym(i,k,7,14-ib)
+            per_tau_w_f_DSTA3(i,k,ib)=per_tau_w_g_DSTA3(i,k,ib)*Nnatk(i,k,7) &
+                                                  *be(i,k,i,14-ib)*ssa(i,k,7,14-ib)*asym(i,k,7,14-ib)
+          #endif ! DURF
 !tst
 !       if(ib.eq.4.and.k.eq.pver.and.i.eq.1) then
 !         write(*,*) 'per_tau =', per_tau(i,k,ib)
@@ -986,6 +1056,24 @@ enddo ! iloop
             per_tau_w(i,k,ib)=per_tau(i,k,ib)*max(min(ssatot(i,k,ib),0.999999_r8),1.e-6_r8)
             per_tau_w_g(i,k,ib)=per_tau_w(i,k,ib)*asymtot(i,k,ib)
             per_tau_w_f(i,k,ib)=per_tau_w_g(i,k,ib)*asymtot(i,k,ib)
+          #ifdef DURF
+            per_tau_DSTA2(i,k,ib)=deltah_km(i,k)*Nnatk(i,k,6)*be(i,k,6,ib)
+            per_tau_w_DSTA2(i,k,ib)=per_tau_DSTA2(i,k,ib)*max(min(Nnatk(i,k,6)*be(i,k,6,ib)*ssa(i,k,6,ib),& 
+                                            0.999999_r8),1.e-6_r8)
+            per_tau_w_g_DSTA2(i,k,ib)=per_tau_w_DSTA2(i,k,ib)*Nnatk(i,k,6) &
+                                                  *be(i,k,i,ib)*ssa(i,k,6,ib)*asym(i,k,6,ib)
+            per_tau_w_f_DSTA2(i,k,ib)=per_tau_w_g_DSTA2(i,k,ib)*Nnatk(i,k,6) &
+                                                  *be(i,k,i,ib)*ssa(i,k,6,ib)*asym(i,k,6,ib)
+            per_tau_DSTA3(i,k,ib)=deltah_km(i,k)*Nnatk(i,k,7)*be(i,k,7,ib)
+            per_tau_w_DSTA3(i,k,ib)=per_tau_DSTA3(i,k,ib)*max(min(Nnatk(i,k,7)*be(i,k,7,ib)*ssa(i,k,7,ib),& 
+                                            0.999999_r8),1.e-6_r8)
+            per_tau_w_g_DSTA3(i,k,ib)=per_tau_w_DSTA3(i,k,ib)*Nnatk(i,k,7) &
+                                                  *be(i,k,i,14-ib)*ssa(i,k,7,ib)*asym(i,k,7,ib)
+            per_tau_w_f_DSTA3(i,k,ib)=per_tau_w_g_DSTA3(i,k,ib)*Nnatk(i,k,7) &
+                                                  *be(i,k,i,14-ib)*ssa(i,k,7,ib)*asym(i,k,7,ib)
+          #endif ! DURF
+
+
           end do
       end do  ! ncol                  
 !------------------------------------------------------------------------------------------------
@@ -1022,6 +1110,10 @@ enddo ! iloop
        do i=1,ncol
         do k=1,pver
          per_lw_abs(i,k,ib)=deltah_km(i,k)*batotlw(i,k,17-ib) 
+        #ifdef DURF
+          per_lw_abs_DSTA2(i,k,ib)=deltah_km(i,k)*Nnatk(i,k,6)*balw(i,k,6,17-ib) 
+          per_lw_abs_DSTA3(i,k,ib)=deltah_km(i,k)*Nnatk(i,k,7)*balw(i,k,7,17-ib)
+        #endif ! DURF
 !       if(ib.eq.1.and.k.eq.pver.and.i.eq.1) then
 !         write(*,*) 'per_lw_abs =', per_lw_abs(i,k,ib)
 !       endif
@@ -1258,6 +1350,7 @@ enddo ! iloop
         call outfld('MECKC12 ',kekc12 ,pcols,lchnk)
         call outfld('MECKC14 ',kekc14 ,pcols,lchnk)
 #endif
+
 
 #ifdef AEROCOM  ! AEROCOM***********AEROCOM**************AEROCOM***************below   
 
@@ -1521,6 +1614,16 @@ enddo ! iloop
             baint550ss(icol,k)=Nnatk(icol,k,8)*babg550(icol,k,8) &
                              +Nnatk(icol,k,9)*babg550(icol,k,9) &
                             +Nnatk(icol,k,10)*babg550(icol,k,10)
+            #ifdef DURF
+              bint440duA2=Nnatk(icol,k,6)*bebg440(icol,k,6)
+              bint440duA3=Nnatk(icol,k,7)*bebg440(icol,k,7)
+              bint550duA2=Nnatk(icol,k,6)*bebg550(icol,k,6)
+              bint550duA3=Nnatk(icol,k,7)*bebg550(icol,k,7)
+              bint870duA2=Nnatk(icol,k,6)*bebg870(icol,k,6)
+              bint870duA3=Nnatk(icol,k,7)*bebg870(icol,k,7)
+              baint550duA2=Nnatk(icol,k,6)*babg550(icol,k,6)
+              baint550duA3=Nnatk(icol,k,7)*babg550(icol,k,7)
+            #endif ! DURF
           end do
         enddo
 
@@ -1671,6 +1774,19 @@ enddo ! iloop
            dod550gt1_bc(icol) = 0.0_r8
            dod550lt1_pom(icol) = 0.0_r8
            dod550gt1_pom(icol) = 0.0_r8
+           #ifdef DURF
+             dod440_dustA2(icol)=0.0_r8
+             dod440_dustA3(icol)=0.0_r8
+             dod550_dustA2(icol)=0.0_r8
+             dod550_dustA3(icol)=0.0_r8
+             dod870_dustA2(icol)=0.0_r8
+             dod870_dustA3(icol)=0.0_r8
+             abs550_dustA2(icol)=0.0_r8
+             abs550_dustA3(icol)=0.0_r8
+  
+          #endif ! DURF
+
+
           do k=1,pver
              abs4403d(icol,k) = 0.0_r8
              abs5003d(icol,k) = 0.0_r8
@@ -1701,6 +1817,17 @@ enddo ! iloop
            abs5503d_dust(icol,k) = baint550du(icol,k)*deltah
            dod6703d_dust(icol,k) = bint670du(icol,k)*deltah
            dod8703d_dust(icol,k) = bint870du(icol,k)*deltah
+
+          #ifdef DURF
+            dod4403d_dustA2(icol,k) = bint440duA2(icol,k)*deltah
+            dod4403d_dustA3(icol,k) = bint440duA3(icol,k)*deltah
+            dod5503d_dustA2(icol,k) = bint550duA2(icol,k)*deltah
+            dod5503d_dustA3(icol,k) = bint550duA3(icol,k)*deltah
+            dod8703d_dustA2(icol,k) = bint870duA2(icol,k)*deltah
+            dod8703d_dustA3(icol,k) = bint870duA3(icol,k)*deltah
+            abs5503d_dustA2(icol,k) = baint550duA2(icol,k)*deltah
+            abs5503d_dustA3(icol,k) = baint550duA3(icol,k)*deltah
+          #endif ! DURF
 !SO4
 !soa: *(1-v_soana) for the sulfate volume fraction of mode 1
            dod4403d_so4(icol,k) = (besu440tot(icol,k)                 &       ! condensate )
@@ -1911,6 +2038,17 @@ enddo ! iloop
            dod550gt1_bc(icol)   = dod550gt1_bc(icol)+dod5503dgt1_bc(icol,k)  
            dod550lt1_pom(icol)  = dod550lt1_pom(icol)+dod5503dlt1_pom(icol,k) 
            dod550gt1_pom(icol)  = dod550gt1_pom(icol)+dod5503dgt1_pom(icol,k)
+           #ifdef DURF
+            dod440_dustA2 = dod440_dustA2(icol) + dod4403d_dustA2(icol,k)
+            dod440_dustA3 = dod440_dustA3(icol) + dod4403d_dustA3(icol,k)
+            dod550_dustA2 = dod550_dustA2(icol) + dod5503d_dustA2(icol,k)
+            dod550_dustA3 = dod550_dustA3(icol) + dod5503d_dustA3(icol,k)
+            dod870_dustA2 = dod870_dustA2(icol) + dod8703d_dustA2(icol,k)
+            dod870_dustA3 = dod870_dustA3(icol) + dod8703d_dustA3(icol,k)
+            abs5503d_dustA2 = abs550_dustA2(icol) + abs5503d_dustA2(icol,k)
+            abs5503d_dustA3 = abs550_dustA3(icol) + abs5503d_dustA3(icol,k)
+           #endif ! DURF
+
 !ccccccccc1ccccccccc2ccccccccc3ccccccccc4ccccccccc5ccccccccc6ccccccccc7cc
           enddo ! k
 
@@ -1982,6 +2120,17 @@ enddo ! iloop
         call outfld('DGT_BC  ',dod550gt1_bc,pcols,lchnk)
         call outfld('DLT_POM ',dod550lt1_pom,pcols,lchnk)
         call outfld('DGT_POM ',dod550gt1_pom,pcols,lchnk)
+
+        #ifdef DURF
+         call outfld('D440_DUA2',dod440_dustA2,pcols,lchnk)
+         call outfld('D440_DUA3',dod440_dustA3,pcols,lchnk)
+         call outfld('D550_DUA2',dod550_dustA2,pcols,lchnk)
+         call outfld('D550_DUA3',dod550_dustA3,pcols,lchnk)
+         call outfld('D870_DUA2',dod870_dustA2,pcols,lchnk)
+         call outfld('D870_DUA3',dod870_dustA3,pcols,lchnk)
+         call outfld('A550_DUA2',abs5503d_dustA2,pcols,lchnk)
+         call outfld('A550_DUA3',abs5503d_dustA3,pcols,lchnk)
+        #endif ! DURF         
 !tst
 !        call outfld('DOD5503D',dod5503d,pcols,lchnk)
 !tst
