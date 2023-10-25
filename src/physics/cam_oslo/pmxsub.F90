@@ -419,10 +419,11 @@ subroutine pmxsub(lchnk, ncol, pint, pmid, coszrs, state, t, cld, qm1, Nnatk, &
    real(r8) batotsw13(pcols,pver), batotlw01(pcols,pver)
 #endif  ! AEROCOM
 #ifdef DURF
-  real(r8) dod550_dustA2(pcols), dod440_dustA2(pcols), dod870_dust(pcols), &
+  real(r8) dod550_dustA2(pcols), dod440_dustA2(pcols), dod870_dustA2(pcols), &
            dod550_dustA3(pcols), dod440_dustA3(pcols), dod870_dustA3(pcols), &
            abs550_dustA2(pcols), abs550_dustA3(pcols)
-  real(r8) dod5503d_dustA2(pcols,pver),abs5503d_dustA2(pcols,pver), dod5503d_dustA3(pcols,pver), abs5503d_dustA3(pcols,pver)
+  real(r8) dod5503d_dustA2(pcols,pver),abs5503d_dustA2(pcols,pver), dod5503d_dustA3(pcols,pver), abs5503d_dustA3(pcols,pver), &
+           dod4403d_dustA2(pcols,pver), dod4403d_dustA3(pcols,pver), dod8703d_dustA2(pcols,pver), dod8703d_dustA3(pcols,pver), &
   real(r8) bint550duA2(pcols,pver), bint550duA3(pcols,pver), &
            bint440duA2(pcols,pver), bint440duA3(pcols,pver), &
            bint870duA2(pcols,pver), bint870duA3(pcols,pver), &
@@ -1027,15 +1028,13 @@ enddo ! iloop
             per_tau_w_f(i,k,ib)=per_tau_w_g(i,k,ib)*asymtot(i,k,14-ib)
           #ifdef DURF
             per_tau_DSTA2(i,k,ib)=deltah_km(i,k)*Nnatk(i,k,6)*be(i,k,6,14-ib)
-            per_tau_w_DSTA2(i,k,ib)=per_tau_DSTA2(i,k,ib)*max(min(Nnatk(i,k,6)*be(i,k,6,14-ib)*ssa(i,k,6,ib),& 
-                                            0.999999_r8),1.e-6_r8)
+            per_tau_w_DSTA2(i,k,ib)=per_tau_DSTA2(i,k,ib)*max(min(Nnatk(i,k,6)*be(i,k,6,14-ib)*ssa(i,k,6,14-ib),0.999999_r8),1.e-6_r8)
             per_tau_w_g_DSTA2(i,k,ib)=per_tau_w_DSTA2(i,k,ib)*Nnatk(i,k,6) &
                                                   *be(i,k,i,14-ib)*ssa(i,k,6,14-ib)*asym(i,k,6,14-ib)
             per_tau_w_f_DSTA2(i,k,ib)=per_tau_w_g_DSTA2(i,k,ib)*Nnatk(i,k,6) &
                                                   *be(i,k,i,14-ib)*ssa(i,k,6,14-ib)*asym(i,k,6,14-ib)
             per_tau_DSTA3(i,k,ib)=deltah_km(i,k)*Nnatk(i,k,7)*be(i,k,7,14-ib)
-            per_tau_w_DSTA3(i,k,ib)=per_tau_DSTA3(i,k,ib)*max(min(Nnatk(i,k,7)*be(i,k,7,14-ib)*ssa(i,k,7,ib),& 
-                                            0.999999_r8),1.e-6_r8)
+            per_tau_w_DSTA3(i,k,ib)=per_tau_DSTA3(i,k,ib)*max(min(Nnatk(i,k,7)*be(i,k,7,14-ib)*ssa(i,k,7,14-ib),0.999999_r8),1.e-6_r8)
             per_tau_w_g_DSTA3(i,k,ib)=per_tau_w_DSTA3(i,k,ib)*Nnatk(i,k,7) &
                                                   *be(i,k,i,14-ib)*ssa(i,k,7,14-ib)*asym(i,k,7,14-ib)
             per_tau_w_f_DSTA3(i,k,ib)=per_tau_w_g_DSTA3(i,k,ib)*Nnatk(i,k,7) &
