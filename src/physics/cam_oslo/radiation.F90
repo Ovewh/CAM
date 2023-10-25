@@ -782,7 +782,7 @@ subroutine radiation_tend( &
    type(rad_out_t), pointer :: rd  ! allow rd_out to be optional by allocating a local object
                                    ! if the argument is not present
    logical  :: write_output
-   logical  :: durf
+   logical  :: durf_radcal
    integer  :: i, k
    integer  :: lchnk, ncol
    logical  :: dosw, dolw
@@ -1020,9 +1020,9 @@ subroutine radiation_tend( &
    end if
 
    #ifdef DURF
-      durf=.true.
+      durf_radcal=.true.
    #else
-      durf=.false.
+      durf_radcal=.false.
    #endif ! DURF
 
    if (durf) then
