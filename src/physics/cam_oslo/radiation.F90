@@ -782,6 +782,8 @@ subroutine radiation_tend( &
    type(rad_out_t), pointer :: rd  ! allow rd_out to be optional by allocating a local object
                                    ! if the argument is not present
    logical  :: write_output
+   logical  :: durf
+   durf = .false.
   
    integer  :: i, k
    integer  :: lchnk, ncol
@@ -790,8 +792,7 @@ subroutine radiation_tend( &
 #ifdef DURF
    type(rad_out_t), pointer :: rd_DSTA2
    type(rad_out_t), pointer :: rd_DSTA3
-   allocate(rd_DSTA2)
-   allocate(rd_DSTA3)
+   durf = .true.
 #endif 
 
 #ifdef DIRIND
@@ -1020,6 +1021,10 @@ subroutine radiation_tend( &
       allocate(rd)
       write_output=.true.
    end if
+
+   if (durf) then
+      allocate(rd_DSTA2)
+      allocate(rd_DSTA3)
 
    dosw = radiation_do('sw')      ! do shortwave heating calc this timestep?
    dolw = radiation_do('lw')      ! do longwave heating calc this timestep?
