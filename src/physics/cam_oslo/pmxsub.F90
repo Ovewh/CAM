@@ -423,7 +423,7 @@ subroutine pmxsub(lchnk, ncol, pint, pmid, coszrs, state, t, cld, qm1, Nnatk, &
            dod550_dustA3(pcols), dod440_dustA3(pcols), dod870_dustA3(pcols), &
            abs550_dustA2(pcols), abs550_dustA3(pcols)
   real(r8) dod5503d_dustA2(pcols,pver),abs5503d_dustA2(pcols,pver), dod5503d_dustA3(pcols,pver), abs5503d_dustA3(pcols,pver), &
-           dod4403d_dustA2(pcols,pver), dod4403d_dustA3(pcols,pver), dod8703d_dustA2(pcols,pver), dod8703d_dustA3(pcols,pver), &
+           dod4403d_dustA2(pcols,pver), dod4403d_dustA3(pcols,pver), dod8703d_dustA2(pcols,pver), dod8703d_dustA3(pcols,pver)
   real(r8) bint550duA2(pcols,pver), bint550duA3(pcols,pver), &
            bint440duA2(pcols,pver), bint440duA3(pcols,pver), &
            bint870duA2(pcols,pver), bint870duA3(pcols,pver), &
