@@ -783,8 +783,6 @@ subroutine radiation_tend( &
                                    ! if the argument is not present
    logical  :: write_output
    logical  :: durf
-   durf = .false.
-  
    integer  :: i, k
    integer  :: lchnk, ncol
    logical  :: dosw, dolw
@@ -792,7 +790,6 @@ subroutine radiation_tend( &
 #ifdef DURF
    type(rad_out_t), pointer :: rd_DSTA2
    type(rad_out_t), pointer :: rd_DSTA3
-   durf = .true.
 #endif 
 
 #ifdef DIRIND
@@ -1021,6 +1018,12 @@ subroutine radiation_tend( &
       allocate(rd)
       write_output=.true.
    end if
+
+   #ifdef DURF
+      durf=.true.
+   #else
+      durf=.false.
+   #endif
 
    if (durf) then
       allocate(rd_DSTA2)
