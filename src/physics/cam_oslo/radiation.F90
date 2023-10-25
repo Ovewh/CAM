@@ -790,7 +790,7 @@ subroutine radiation_tend( &
 #ifdef DURF
    type(rad_out_t), pointer :: rd_DSTA2
    type(rad_out_t), pointer :: rd_DSTA3
-#endif 
+#endif ! DURF
 
 #ifdef DIRIND
     real(r8), pointer, dimension(:,:) :: rvolcmmr ! Read in stratospheric volcanoes aerosol mmr  
@@ -1023,7 +1023,7 @@ subroutine radiation_tend( &
       durf=.true.
    #else
       durf=.false.
-   #endif
+   #endif ! DURF
 
    if (durf) then
       allocate(rd_DSTA2)
