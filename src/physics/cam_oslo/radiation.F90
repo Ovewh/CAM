@@ -1025,7 +1025,7 @@ subroutine radiation_tend( &
       durf_radcal=.false.
    #endif ! DURF
 
-   if (durf) then
+   if (durf_radcal) then
       allocate(rd_DSTA2)
       allocate(rd_DSTA3)
 
