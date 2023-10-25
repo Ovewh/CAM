@@ -1028,6 +1028,7 @@ subroutine radiation_tend( &
    if (durf_radcal) then
       allocate(rd_DSTA2)
       allocate(rd_DSTA3)
+   end if
 
    dosw = radiation_do('sw')      ! do shortwave heating calc this timestep?
    dolw = radiation_do('lw')      ! do longwave heating calc this timestep?
