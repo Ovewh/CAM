@@ -437,6 +437,8 @@ contains
     call addfld('FSDSCDRF_DSTA3', horiz_only,'A','W/m^2','Clear sky surface downwelling solar flux by DST_A3 (DURF)')
     call addfld('FSUTCDRF_DSTA2', horiz_only,'A','W/m^2','Clear sky upwelling SW at TOA by DST_A2 (DURF)')
     call addfld('FSUTCDRF_DSTA3', horiz_only,'A','W/m^2','Clear sky upwelling SW at TOA by DST_A3 (DURF)')
+    call addfld('FSNSCDRF_DSTA2', horiz_only,'A','W/m^2','Clear sky surface absorbed solar flux by DST_A2 (DURF)')
+    call addfld('FSNSCDRF_DSTA3', horiz_only,'A','W/m^2','Clear sky surface absorbed solar flux by DST_A3 (DURF)')
 #endif
 #ifdef AEROCOM 
       call addfld ('AKCXS   ',horiz_only, 'A','mg/m2   ','Scheme excess aerosol mass burden')     
@@ -595,13 +597,13 @@ contains
 !+    
       #ifdef DURF
         call addfld ('D550_DUA2 ',horiz_only, 'A','unitless','mineral aerosol optical depth 550nm Mode 1')
-        call addfld ('D550_DUA3',horiz_only, 'A','unitless','mineral aerosol optical depth 550nm Mode 2')
+        call addfld ('D550_DUA3 ',horiz_only, 'A','unitless','mineral aerosol optical depth 550nm Mode 2')
         call addfld ('D440_DUA2 ',horiz_only, 'A','unitless','mineral aerosol optical depth 440nm Mode 1')
-        call addfld ('D440_DUA3',horiz_only, 'A','unitless','mineral aerosol optical depth 440nm Mode 2')
+        call addfld ('D440_DUA3 ',horiz_only, 'A','unitless','mineral aerosol optical depth 440nm Mode 2')
         call addfld ('D870_DUA2 ',horiz_only, 'A','unitless','mineral aerosol optical depth 870nm Mode 1')
-        call addfld ('D870_DUA3',horiz_only, 'A','unitless','mineral aerosol optical depth 870nm Mode 2')
-        call addfld ('A550_DUA2',horiz_only, 'A','unitless','mineral aerosol abs. optical depth 550nm Mode 1')
-        call addfld ('A550_DUA3',horiz_only, 'A','unitless','mineral aerosol abs. optical depth 550nm Mode 2')  
+        call addfld ('D870_DUA3 ',horiz_only, 'A','unitless','mineral aerosol optical depth 870nm Mode 2')
+        call addfld ('A550_DUA2 ',horiz_only, 'A','unitless','mineral aerosol abs. optical depth 550nm Mode 1')
+        call addfld ('A550_DUA3 ',horiz_only, 'A','unitless','mineral aerosol abs. optical depth 550nm Mode 2')  
       #endif ! DURF
 
       do i=1,nbmodes
@@ -888,14 +890,14 @@ contains
 #endif  ! aeroffl
 
 #ifdef DURF
-     call add_default('D440_DUA2', 1, ' ')
-     call add_default('D440_DUA3', 1, ' ')
-     call add_default('D550_DUA2', 1, ' ')
-     call add_default('D550_DUA3', 1, ' ')
-     call add_default('D870_DUA2', 1, ' ')
-     call add_default('D870_DUA3', 1, ' ')
-     call add_default('A550_DUA2', 1, ' ')
-     call add_default('A550_DUA3', 1, ' ')
+     call add_default('D440_DUA2 ', 1, ' ')
+     call add_default('D440_DUA3 ', 1, ' ')
+     call add_default('D550_DUA2 ', 1, ' ')
+     call add_default('D550_DUA3 ', 1, ' ')
+     call add_default('D870_DUA2 ', 1, ' ')
+     call add_default('D870_DUA3 ', 1, ' ')
+     call add_default('A550_DUA2 ', 1, ' ')
+     call add_default('A550_DUA3 ', 1, ' ')
      call add_default('FSDS_DSTA3', 1, ' ')
      call add_default('FSDS_DSTA2', 1, ' ')
      call add_default('FSNS_DSTA3', 1, ' ')
@@ -912,6 +914,8 @@ contains
      call add_default('FSDSCDRF_DSTA3', 1, ' ')  
      call add_default('FSUTCDRF_DSTA2', 1, ' ')
      call add_default('FSUTCDRF_DSTA3', 1, ' ') 
+     call add_default('FSNSCDRF_DSTA2', 1, ' ')
+     call add_default('FSNSCDRF_DSTA3', 1, ' ')
 #endif ! DURF
 
 #ifdef AEROCOM 

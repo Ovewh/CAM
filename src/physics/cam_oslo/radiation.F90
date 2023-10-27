@@ -787,10 +787,6 @@ subroutine radiation_tend( &
    integer  :: lchnk, ncol
    logical  :: dosw, dolw
 
-#ifdef DURF
-   type(rad_out_t), pointer :: rd_DSTA2
-   type(rad_out_t), pointer :: rd_DSTA3
-#endif ! DURF
 
 #ifdef DIRIND
     real(r8), pointer, dimension(:,:) :: rvolcmmr ! Read in stratospheric volcanoes aerosol mmr  
@@ -1019,16 +1015,7 @@ subroutine radiation_tend( &
       write_output=.true.
    end if
 
-   #ifdef DURF
-      durf_radcal=.true.
-   #else
-      durf_radcal=.false.
-   #endif ! DURF
 
-   if (durf_radcal) then
-      allocate(rd_DSTA2)
-      allocate(rd_DSTA3)
-   end if
 
    dosw = radiation_do('sw')      ! do shortwave heating calc this timestep?
    dolw = radiation_do('lw')      ! do longwave heating calc this timestep?
@@ -1486,11 +1473,11 @@ subroutine radiation_tend( &
       lchnk, ncol, num_rrtmg_levs, r_state, state%pmid,          &
       cldfprime, &
       per_tau_DSTA2, per_tau_w_DSTA2, per_tau_w_g_DSTA2, per_tau_w_f_DSTA2,       &
-      eccf, coszrs, rd_DSTA2%solin, sfac, cam_in%asdir,                &
-      cam_in%asdif, cam_in%aldir, cam_in%aldif, qrs, rd_DSTA2%qrsc,    &
-      fsnt, rd_DSTA2%fsntc, rd_DSTA2%fsntoa, rd_DSTA2%fsutoa, rd_DSTA2%fsntoac,          &
-      rd_DSTA2%fsnirt, rd_DSTA2%fsnrtc, rd_DSTA2%fsnirtsq, fsns, rd_DSTA2%fsnsc,         &
-      rd_DSTA2%fsdsc, fsds, cam_out%sols, cam_out%soll, cam_out%solsd, &
+      eccf, coszrs, rd%solin, sfac, cam_in%asdir,                &
+      cam_in%asdif, cam_in%aldir, cam_in%aldif, qrs, rd%qrsc,    &
+      fsnt, rd%fsntc, rd%fsntoa, rd%fsutoa, rd%fsntoac,          &
+      rd%fsnirt, rd%fsnrtc, rd%fsnirtsq, fsns, rd%fsnsc,         &
+      rd%fsdsc, fsds, cam_out%sols, cam_out%soll, cam_out%solsd, &
       cam_out%solld, fns, fcns, idrf, Nday, Nnite,          &
       IdxDay, IdxNite, su, sd, E_cld_tau=c_cld_tau,              &
       E_cld_tau_w=c_cld_tau_w, E_cld_tau_w_g=c_cld_tau_w_g,      &
@@ -1498,21 +1485,21 @@ subroutine radiation_tend( &
       
       call outfld('FSNT_DSTA2',fsnt(:)  ,pcols,lchnk)
       call outfld('FSNS_DSTA2',fsns(:)  ,pcols,lchnk)
-      call outfld('FSNTCDRF_DSTA2',rd_DSTA2%fsntc(:) ,pcols,lchnk)
-      call outfld('FSNSCDRF_DSTA2',rd_DSTA2%fsnsc(:) ,pcols,lchnk)
-      call outfld('FSUTCDRF_DSTA2',rd_DSTA2%fsutoa(:),pcols,lchnk)
+      call outfld('FSNTCDRF_DSTA2',rd%fsntc(:) ,pcols,lchnk)
+      call outfld('FSNSCDRF_DSTA2',rd%fsnsc(:) ,pcols,lchnk)
+      call outfld('FSUTCDRF_DSTA2',rd%fsutoa(:),pcols,lchnk)
       call outfld('FSDS_DSTA2',fsds(:)  ,pcols,lchnk)
-      call outfld('FSDSCDRF_DSTA2',rd_DSTA2%fsdsc(:) ,pcols,lchnk)
+      call outfld('FSDSCDRF_DSTA2',rd%fsdsc(:) ,pcols,lchnk)
 
    call rad_rrtmg_sw( &
       lchnk, ncol, num_rrtmg_levs, r_state, state%pmid,          &
       cldfprime, &
       per_tau_DSTA3, per_tau_w_DSTA3, per_tau_w_g_DSTA3, per_tau_w_f_DSTA3,       &
-      eccf, coszrs, rd_DSTA3%solin, sfac, cam_in%asdir,                &
-      cam_in%asdif, cam_in%aldir, cam_in%aldif, qrs, rd_DSTA3%qrsc,    &
-      fsnt, rd_DSTA3%fsntc, rd_DSTA3%fsntoa, rd_DSTA3%fsutoa, rd_DSTA3%fsntoac,          &
-      rd_DSTA3%fsnirt, rd_DSTA3%fsnrtc, rd_DSTA3%fsnirtsq, fsns, rd_DSTA3%fsnsc,         &
-      rd_DSTA3%fsdsc, fsds, cam_out%sols, cam_out%soll, cam_out%solsd, &
+      eccf, coszrs, rd%solin, sfac, cam_in%asdir,                &
+      cam_in%asdif, cam_in%aldir, cam_in%aldif, qrs, rd%qrsc,    &
+      fsnt, rd%fsntc, rd%fsntoa, rd%fsutoa, rd%fsntoac,          &
+      rd%fsnirt, rd%fsnrtc, rd%fsnirtsq, fsns, rd%fsnsc,         &
+      rd%fsdsc, fsds, cam_out%sols, cam_out%soll, cam_out%solsd, &
       cam_out%solld, fns, fcns, idrf, Nday, Nnite,          &
       IdxDay, IdxNite, su, sd, E_cld_tau=c_cld_tau,              &
       E_cld_tau_w=c_cld_tau_w, E_cld_tau_w_g=c_cld_tau_w_g,      &
@@ -1520,11 +1507,11 @@ subroutine radiation_tend( &
       
       call outfld('FSNT_DSTA3',fsnt(:)  ,pcols,lchnk)
       call outfld('FSNS_DSTA3',fsns(:)  ,pcols,lchnk)
-      call outfld('FSNTCDRF_DSTA3',rd_DSTA3%fsntc(:) ,pcols,lchnk)
-      call outfld('FSNSCDRF_DSTA3',rd_DSTA3%fsnsc(:) ,pcols,lchnk)
-      call outfld('FSUTCDRF_DSTA3',rd_DSTA3%fsutoa(:),pcols,lchnk)
+      call outfld('FSNTCDRF_DSTA3',rd%fsntc(:) ,pcols,lchnk)
+      call outfld('FSNSCDRF_DSTA3',rd%fsnsc(:) ,pcols,lchnk)
+      call outfld('FSUTCDRF_DSTA3',rd%fsutoa(:),pcols,lchnk)
       call outfld('FSDS_DSTA3',fsds(:)  ,pcols,lchnk)
-      call outfld('FSDSCDRF_DSTA3',rd_DSTA3%fsdsc(:) ,pcols,lchnk)
+      call outfld('FSDSCDRF_DSTA3',rd%fsdsc(:) ,pcols,lchnk)
 
 #endif ! DURF
 
