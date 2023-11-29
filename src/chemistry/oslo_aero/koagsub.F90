@@ -607,14 +607,14 @@ implicit none
 
 
 !  input arguments
-   integer  , intent(in)    :: ncol             ! number of horizontal grid cells (columns)
-   real(r8) , intent(inout) :: q(:,:,:)         ! TMR [kg/kg]  including moisture
-   real(r8) , intent(in)    :: pmid(:,:)        ! [Pa] midpoint pressure
-   real(r8) , intent(in)    :: pdel(:,:)
-   real(r8) , intent(in)    :: temperature(:,:) ! [K] temperature
+   integer, intent(in)     :: ncol                        ! number of horizontal grid cells (columns)
+   real(r8), intent(inout) :: q(:,:,:)     ! TMR [kg/kg]  including moisture
+   real(r8), intent(in) :: pmid(:,:)               ! [Pa] midpoint pressure
+   real(r8), intent(in) :: pdel(:,:)
+   real(r8), intent(in) :: temperature(:,:)        ! [K] temperature
 
-   real(r8) , intent(in)    :: cldnum(:,:)      ! Droplet concentration #/kg
-   real(r8) , intent(in)    :: cldfrc(:,:)      ! Cloud volume fraction
+   real(r8), dimension(:,:),intent(in)     :: cldnum ! Droplet concentration #/kg
+   real(r8), dimension(:,:),intent(in)     :: cldfrc ! Cloud volume fraction
 
    real(r8) , intent(in)    :: delt_inverse     ! [1/s] inverse time step
    integer  , intent(in)    :: lchnk            ! [] chnk id needed for output

@@ -413,8 +413,8 @@ subroutine hetfrz_classnuc_oslo_calc( &
    real(r8) :: total_cloudborne_aer_num(pcols,pver,3)
    real(r8) :: total_aer_num(pcols,pver,3)
    real(r8) :: coated_aer_num(pcols,pver,3)
-   real(r8) :: uncoated_aer_num(pcols,pver,3)   
-   
+   real(r8) :: uncoated_aer_num(pcols,pver,3)
+
    ! jks adding dummy variables for hetfrz_classnuc_calc
    real(r8) :: total_interstitial_aer_num_scaled(pcols,pver,3)
    real(r8) :: total_cloudborne_aer_num_scaled(pcols,pver,3)
@@ -474,7 +474,7 @@ subroutine hetfrz_classnuc_oslo_calc( &
    call get_rlat_all_p(lchnk, ncol, rlats) ! jks 191104, get rlats array
 
    inp_tag = 0.001_r8 ! jks 0.001.0014 this string is to be picked out and replaced with a [0,1] r8
-   
+
    itim_old = pbuf_old_tim_idx()
    call pbuf_get_field(pbuf, ast_idx, ast, start=(/1,1,itim_old/), kount=(/pcols,pver,1/))
 
