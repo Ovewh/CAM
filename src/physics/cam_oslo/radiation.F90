@@ -1775,7 +1775,27 @@ subroutine radiation_tend( &
                call  rrtmg_state_update( state, pbuf, icall, r_state)
 
                call aer_rad_props_lw(icall, state, pbuf,  aer_lw_abs)
-                  
+#ifdef DURF 
+               call rad_rrtmg_lw( &
+                  lchnk, ncol, num_rrtmg_levs, r_state, state%pmid,  &
+                  per_lw_abs_DSTA2, cldfprime, c_cld_lw_abs, qrl, rd%qrlc, &
+                  flns, flnt, rd%flnsc, rd%flntc, cam_out%flwds,     &
+                  rd%flut, rd%flutc, fnl, fcnl, rd%fldsc,            &
+                  lu, ld)
+               call outfld('FLNT_DSTA2',flnt(:)  ,pcols,lchnk)
+               call outfld('FLNTCDRF_DSTA2',rd%flntc(:) ,pcols,lchnk)
+               
+               call rad_rrtmg_lw( &
+                  lchnk, ncol, num_rrtmg_levs, r_state, state%pmid,  &
+                  per_lw_abs_DSTA3, cldfprime, c_cld_lw_abs, qrl, rd%qrlc, &
+                  flns, flnt, rd%flnsc, rd%flntc, cam_out%flwds,     &
+                  rd%flut, rd%flutc, fnl, fcnl, rd%fldsc,            &
+                  lu, ld)
+               call outfld('FLNT_DSTA3',flnt(:)  ,pcols,lchnk)
+               call outfld('FLNTCDRF_DSTA3',rd%flntc(:) ,pcols,lchnk)
+                    
+#endif ! DURF
+
 #ifdef DIRIND
 #ifdef AEROFFL   ! for calculation of direct and direct radiative forcing 
 !
