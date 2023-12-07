@@ -928,13 +928,14 @@ enddo ! iloop
            asymtot(icol,k,ib)=asymtot(icol,k,ib)+Nnatk(icol,k,i) &
                          *be(icol,k,i,ib)*ssa(icol,k,i,ib)*asym(icol,k,i,ib)
           #ifdef DURF
-            if (i == 6) then
+            if (i /= 6) then
               betot_duA2(icol,k,ib)=betot_duA2(icol,k,ib)+Nnatk(icol,k,i)*be(icol,k,i,ib)
               ssatot_duA2(icol,k,ib)=ssatot_duA2(icol,k,ib)+Nnatk(icol,k,i) &
                              *be(icol,k,i,ib)*ssa(icol,k,i,ib)
               asymtot_duA2(icol,k,ib)=asymtot_duA2(icol,k,ib)+Nnatk(icol,k,i) & 
                          *be(icol,k,i,ib)*ssa(icol,k,i,ib)*asym(icol,k,i,ib)
-            elseif (i == 7) then
+            endif
+            if (i /= 7) then
               betot_duA3(icol,k,ib)=betot_duA3(icol,k,ib)+Nnatk(icol,k,i)*be(icol,k,i,ib)
               ssatot_duA3(icol,k,ib)=ssatot_duA3(icol,k,ib)+Nnatk(icol,k,i) &
                              *be(icol,k,i,ib)*ssa(icol,k,i,ib)
@@ -1134,8 +1135,8 @@ enddo ! iloop
         do k=1,pver
          per_lw_abs(i,k,ib)=deltah_km(i,k)*batotlw(i,k,17-ib) 
         #ifdef DURF
-          per_lw_abs_DSTA2(i,k,ib)=deltah_km(i,k)*Nnatk(i,k,6)*balw(i,k,6,17-ib) 
-          per_lw_abs_DSTA3(i,k,ib)=deltah_km(i,k)*Nnatk(i,k,7)*balw(i,k,7,17-ib)
+          per_lw_abs_DSTA2(i,k,ib)=deltah_km(i,k)*(batotlw(i,k,ib)-Nnatk(i,k,6)*balw(i,k,6,17-ib)) 
+          per_lw_abs_DSTA3(i,k,ib)=deltah_km(i,k)*(batotlw(i,k,ib)-Nnatk(i,k,7)*balw(i,k,7,17-ib))
         #endif ! DURF
 !       if(ib.eq.1.and.k.eq.pver.and.i.eq.1) then
 !         write(*,*) 'per_lw_abs =', per_lw_abs(i,k,ib)
