@@ -234,6 +234,9 @@ subroutine pmxsub(lchnk, ncol, pint, pmid, coszrs, state, t, cld, qm1, Nnatk, &
             c_bc_2(pcols,pver), c_bc_4(pcols,pver), c_bc_12(pcols,pver), c_bc_14(pcols,pver), &  
             c_oc_4(pcols,pver), c_oc_14(pcols,pver)   
    real(r8) c_tots(pcols), c_tot125s(pcols), c_pm25s(pcols) ! = PM all sizes, PM>2.5um and PM<2.5um (PM2.5)
+   # ifdef DURF
+   real(r8) c_mis(pcols), c_mipm25s(pcols), c_mis125s(pcols)
+   # endif ! DURF
 !akc6+
    real(r8) c_tot(pcols,pver), c_tot125(pcols,pver), c_pm25(pcols,pver), &
             mmr_pm25(pcols,pver), c_tot05(pcols,pver), c_pm1(pcols,pver), mmr_pm1(pcols,pver)  
@@ -2444,7 +2447,11 @@ enddo ! iloop
           c_tots(icol) = c_tot(icol,pver)
           c_tot125s(icol) = c_tot125(icol,pver)
           c_pm25s(icol) = c_pm25(icol,pver)
-!akc6-
+          #ifdef DURF
+          c_mis(icol) = c_mi(icol,pver)
+          c_mipm25s(icol) = c_mis(icol) - c_mi125(icol,pver)
+!akc6-      
+          #endif ! DURF
         enddo
 
 !       Effective, column integrated, radii for particles
@@ -2548,6 +2555,10 @@ enddo ! iloop
         call outfld('CMDRY12 ',cmdry12 ,pcols,lchnk)
         call outfld('CMDRY14 ',cmdry14 ,pcols,lchnk)
 #endif
+#ifdef DURF
+call outfld('C_MIPM  ',c_mis   ,pcols,lchnk)
+call outfld('C_MIPM25  ',c_mipm25s ,pcols,lchnk)
+#endif ! DURF
 #endif  ! COLTST4INTCONS
 
 !       Internally and externally mixed dry concentrations (ug/m3) of  
@@ -2562,9 +2573,7 @@ enddo ! iloop
 !        call outfld('C_S405  ',c_s405 ,pcols,lchnk)
 !        call outfld('C_S4125 ',c_s4125,pcols,lchnk)
 !       ... and of background components for all r, r<0.5um and r>1.25um
-!        call outfld('C_MIPM  ',c_mi   ,pcols,lchnk)
-!        call outfld('C_MI05  ',c_mi05 ,pcols,lchnk)
-!        call outfld('C_MI125 ',c_mi125,pcols,lchnk)
+
 !        call outfld('C_SSPM  ',c_ss   ,pcols,lchnk)
 !        call outfld('C_SS05  ',c_ss05 ,pcols,lchnk)
 !        call outfld('C_SS125 ',c_ss125,pcols,lchnk)
