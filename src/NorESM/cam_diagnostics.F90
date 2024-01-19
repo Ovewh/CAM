@@ -606,6 +606,9 @@ contains
         call addfld ('D870_DUA3 ',horiz_only, 'A','unitless','mineral aerosol optical depth 870nm Mode 2')
         call addfld ('A550_DUA2 ',horiz_only, 'A','unitless','mineral aerosol abs. optical depth 550nm Mode 1')
         call addfld ('A550_DUA3 ',horiz_only, 'A','unitless','mineral aerosol abs. optical depth 550nm Mode 2')  
+        call addfld ('DOD10UM', horiz_only, 'A','unitless','Dust Aerosol optical depth at 10um')
+        call addfld ('DOD10UMA2', horiz_only, 'A','unitless','Dust Aerosol optical depth at 10um Mode 1')
+        call addfld ('DOD10UMA3', horiz_only, 'A','unitless','Dust Aerosol optical depth at 10um Mode 2')
       #endif ! DURF
 
       do i=1,nbmodes
@@ -920,6 +923,9 @@ contains
      call add_default('FSNSCDRF_DSTA3', 1, ' ')
      call add_default('C_MIPM',1, ' ')
      call add_default('C_MIPM25',1, ' ')
+     call add_default('DOD10UM', 1, ' ')
+     call add_default('DOD10UMA2', 1, ' ')
+     call add_default('DOD10UMA3', 1, ' ')
 #endif ! DURF
 
 #ifdef AEROCOM 
