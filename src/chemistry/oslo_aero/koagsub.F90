@@ -616,9 +616,9 @@ implicit none
    real(r8), dimension(:,:),intent(in)     :: cldnum ! Droplet concentration #/kg
    real(r8), dimension(:,:),intent(in)     :: cldfrc ! Cloud volume fraction
 
-   real(r8) , intent(in)    :: delt_inverse     ! [1/s] inverse time step
-   integer  , intent(in)    :: lchnk            ! [] chnk id needed for output
-   integer  , intent(in)    :: im
+   real(r8), intent(in) :: delt_inverse                   ! [1/s] inverse time step
+   integer, intent(in)  :: lchnk                          ! [] chnk id needed for output
+  integer,   intent(in)    :: im
 
    type(physics_buffer_desc), pointer :: pbuf(:)
 
