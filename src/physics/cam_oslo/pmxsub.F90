@@ -1142,6 +1142,11 @@ enddo ! iloop
           end do
         end do
       end do
+      do icol = 1,ncol
+        dod10um_du(icol)=0.0_r8
+        dod10um_duA2(icol)=0.0_r8
+        dod10um_duA3(icol)=0.0_r8
+      end do
 
       do k=1,pver
         do icol=1,ncol
@@ -2448,6 +2453,9 @@ enddo ! iloop
                             + c_mi05(icol,k) + c_ss05(icol,k)
              c_pm25(icol,k)   = c_tot(icol,k) - c_tot125(icol,k)
              c_pm1(icol,k)    = c_tot05(icol,k)
+
+
+
 !            mass mixing ratio:
              mmr_pm25(icol,k) = 1.e-9*c_pm25(icol,k)/rhoda(icol,k)   
              mmr_pm1(icol,k)  = 1.e-9*c_pm1(icol,k)/rhoda(icol,k)   
@@ -2479,7 +2487,7 @@ enddo ! iloop
           c_pm25s(icol) = c_pm25(icol,pver)
 #ifdef DURF
           c_mis(icol) = c_mi(icol,pver)
-          c_mipm25s(icol) = c_mis(icol) - c_mi125(icol,pver)
+          c_mipm25s(icol) = c_mi(icol,pver)- c_mi125(icol,pver)
 !akc6-      
 #endif ! DURF
         enddo
@@ -2586,7 +2594,7 @@ enddo ! iloop
         call outfld('CMDRY14 ',cmdry14 ,pcols,lchnk)
 #endif
 #ifdef DURF
-        call outfld('C_MIPM  ',c_mis   ,pcols,lchnk)
+        call outfld('C_MIPM    ',c_mis   ,pcols,lchnk)
         call outfld('C_MIPM25  ',c_mipm25s ,pcols,lchnk)
 #endif ! DURF
 #endif  ! COLTST4INTCONS

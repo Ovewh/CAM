@@ -439,7 +439,7 @@ contains
     call addfld('FSUTCDRF_DSTA3', horiz_only,'A','W/m^2','Clear sky upwelling SW at TOA by DST_A3 (DURF)')
     call addfld('FSNSCDRF_DSTA2', horiz_only,'A','W/m^2','Clear sky surface absorbed solar flux by DST_A2 (DURF)')
     call addfld('FSNSCDRF_DSTA3', horiz_only,'A','W/m^2','Clear sky surface absorbed solar flux by DST_A3 (DURF)')
-    call addfld ('C_MIPM   ',horiz_only, 'A','ug/m3   ','Dust PM, all sizes (DURF)')
+    call addfld ('C_MIPM    ',horiz_only, 'A','ug/m3   ','Dust PM, all sizes (DURF)')
     call addfld ('C_MIPM25  ',horiz_only, 'A','ug/m3   ','Dust PM 2.5 (DURF)')
 #endif
 #ifdef AEROCOM 
@@ -921,8 +921,8 @@ contains
      call add_default('FSUTCDRF_DSTA3', 1, ' ') 
      call add_default('FSNSCDRF_DSTA2', 1, ' ')
      call add_default('FSNSCDRF_DSTA3', 1, ' ')
-     call add_default('C_MIPM',1, ' ')
-     call add_default('C_MIPM25',1, ' ')
+     call add_default('C_MIPM    ',1, ' ')
+     call add_default('C_MIPM25  ',1, ' ')
      call add_default('DOD10UM', 1, ' ')
      call add_default('DOD10UMA2', 1, ' ')
      call add_default('DOD10UMA3', 1, ' ')
