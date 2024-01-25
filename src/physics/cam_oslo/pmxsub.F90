@@ -1150,9 +1150,9 @@ enddo ! iloop
 
       do k=1,pver
         do icol=1,ncol
-          dod10um_du(icol)=dod10um_du(icol)+batotlw_du(icol,k,7)*deltah_km(icol,k)
-          dod10um_duA2(icol)=dod10um_duA2(icol)+batotlw_duA2(icol,k,7)*deltah_km(icol,k)
-          dod10um_duA3(icol)=dod10um_duA3(icol)+batotlw_duA3(icol,k,7)*deltah_km(icol,k)
+          dod10um_du(icol)=dod10um_du(icol)+batotlw_du(icol,k,11)*deltah_km(icol,k)
+          dod10um_duA2(icol)=dod10um_duA2(icol)+batotlw_duA2(icol,k,11)*deltah_km(icol,k)
+          dod10um_duA3(icol)=dod10um_duA3(icol)+batotlw_duA3(icol,k,11)*deltah_km(icol,k)
         end do
       end do
       call outfld('DOD10UM   ',dod10um_du,pcols,lchnk)
@@ -2593,11 +2593,13 @@ enddo ! iloop
         call outfld('CMDRY12 ',cmdry12 ,pcols,lchnk)
         call outfld('CMDRY14 ',cmdry14 ,pcols,lchnk)
 #endif
+
+#endif  ! COLTST4INTCONS
+
 #ifdef DURF
         call outfld('C_MIPM    ',c_mis   ,pcols,lchnk)
         call outfld('C_MIPM25  ',c_mipm25s ,pcols,lchnk)
 #endif ! DURF
-#endif  ! COLTST4INTCONS
 
 !       Internally and externally mixed dry concentrations (ug/m3) of  
 !       SO4, BC and OC, for all r, r<0.5um and r>1.25um...
