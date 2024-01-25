@@ -1155,9 +1155,9 @@ enddo ! iloop
           dod10um_duA3(icol)=dod10um_duA3(icol)+batotlw_duA3(icol,k,7)*deltah_km(icol,k)
         end do
       end do
-      call outfld('DOD10UM ',dod10um_du,pcols,lchnk)
-      call outfld('DOD10UMA2',dod10um_duA2,pcols,lchnk)
-      call outfld('DOD10UMA3',dod10um_duA3,pcols,lchnk)
+      call outfld('DOD10UM   ',dod10um_du,pcols,lchnk)
+      call outfld('DOD10UMA2 ',dod10um_duA2,pcols,lchnk)
+      call outfld('DOD10UMA3 ',dod10um_duA3,pcols,lchnk)
 #endif ! DURF
 !     Adding also the volcanic contribution (CMIP6), which is also using
 !     AeroTab band numbering, so that a remapping is required here 
@@ -1173,8 +1173,8 @@ enddo ! iloop
         do k=1,pver
          per_lw_abs(i,k,ib)=deltah_km(i,k)*batotlw(i,k,17-ib) 
 #ifdef DURF
-          per_lw_abs_DSTA2(i,k,ib)=deltah_km(i,k)*(batotlw(i,k,ib)-Nnatk(i,k,6)*balw(i,k,6,17-ib)) 
-          per_lw_abs_DSTA3(i,k,ib)=deltah_km(i,k)*(batotlw(i,k,ib)-Nnatk(i,k,7)*balw(i,k,7,17-ib))
+          per_lw_abs_DSTA2(i,k,ib)=deltah_km(i,k)*(batotlw(i,k,17-ib)-Nnatk(i,k,6)*balw(i,k,6,17-ib)) 
+          per_lw_abs_DSTA3(i,k,ib)=deltah_km(i,k)*(batotlw(i,k,17-ib)-Nnatk(i,k,7)*balw(i,k,7,17-ib))
 #endif ! DURF
 !       if(ib.eq.1.and.k.eq.pver.and.i.eq.1) then
 !         write(*,*) 'per_lw_abs =', per_lw_abs(i,k,ib)
@@ -2486,9 +2486,9 @@ enddo ! iloop
           c_tot125s(icol) = c_tot125(icol,pver)
           c_pm25s(icol) = c_pm25(icol,pver)
 #ifdef DURF
+          print*,'caclulating du pm2.4'
           c_mis(icol) = c_mi(icol,pver)
-          c_mipm25s(icol) = c_mi(icol,pver)- c_mi125(icol,pver)
-!akc6-      
+          c_mipm25s(icol) = c_mi(icol,pver)- c_mi125(icol,pver)   
 #endif ! DURF
         enddo
 
