@@ -1115,7 +1115,7 @@ enddo ! iloop
 
 #ifdef DURF
             batotlw_duA2(icol,k,ib)=0.0_r8
-            batotlw_duA2(icol,k,ib)=0.0_r8
+            batotlw_duA3(icol,k,ib)=0.0_r8
             batotlw_du(icol,k,ib)=0.0_r8
 #endif ! DURF
           end do
