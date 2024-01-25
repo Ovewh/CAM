@@ -597,7 +597,7 @@ contains
       call addfld ('BATLW01 ',(/'lev'/),'A','1/km','Aerosol 3d LW absorption depth at 3.077-3.846um')
 !akc6      call addfld ('AERLWA01',(/'lev'/),'A','unitless','CAM5 3d LW absorptive optical depth at 3.077-3.846um')
 !+    
-      #ifdef DURF
+#ifdef DURF
         call addfld ('D550_DUA2 ',horiz_only, 'A','unitless','mineral aerosol optical depth 550nm Mode 1')
         call addfld ('D550_DUA3 ',horiz_only, 'A','unitless','mineral aerosol optical depth 550nm Mode 2')
         call addfld ('D440_DUA2 ',horiz_only, 'A','unitless','mineral aerosol optical depth 440nm Mode 1')
@@ -606,10 +606,10 @@ contains
         call addfld ('D870_DUA3 ',horiz_only, 'A','unitless','mineral aerosol optical depth 870nm Mode 2')
         call addfld ('A550_DUA2 ',horiz_only, 'A','unitless','mineral aerosol abs. optical depth 550nm Mode 1')
         call addfld ('A550_DUA3 ',horiz_only, 'A','unitless','mineral aerosol abs. optical depth 550nm Mode 2')  
-        call addfld ('DOD10UM   ', horiz_only, 'A','unitless','Dust Aerosol optical depth at 10um')
-        call addfld ('DOD10UMA2 ', horiz_only, 'A','unitless','Dust Aerosol optical depth at 10um Mode 1')
-        call addfld ('DOD10UMA3 ', horiz_only, 'A','unitless','Dust Aerosol optical depth at 10um Mode 2')
-      #endif ! DURF
+        call addfld ('DOD10UM   ', horiz_only, 'A','unitless','Dust Aerosol optical depth at ~ 10um (10.204um)')
+        call addfld ('DOD10UMA2 ', horiz_only, 'A','unitless','Dust Aerosol optical depth at 10um Mode 1 (10.204um)')
+        call addfld ('DOD10UMA3 ', horiz_only, 'A','unitless','Dust Aerosol optical depth at 10um Mode 2 (10.204um) ')
+#endif ! DURF
 
       do i=1,nbmodes
          modeString="  "

@@ -2486,7 +2486,6 @@ enddo ! iloop
           c_tot125s(icol) = c_tot125(icol,pver)
           c_pm25s(icol) = c_pm25(icol,pver)
 #ifdef DURF
-          print*,'caclulating du pm2.4'
           c_mis(icol) = c_mi(icol,pver)
           c_mipm25s(icol) = c_mi(icol,pver)- c_mi125(icol,pver)   
 #endif ! DURF
