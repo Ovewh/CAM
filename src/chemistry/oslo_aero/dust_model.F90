@@ -21,11 +21,11 @@ save
    integer, dimension(numberOfDustModes)             :: tracerMap = (/-99, -99/) !index of dust tracers in the modes
    character(len=6), public, dimension(10)        :: dust_names
    integer, parameter, public                     :: dust_nbin = numberOfDustModes
-
+   integer, parameter, public :: ndst_facts = 300
    !Related to soil erodibility
    real(r8)          :: dust_emis_fact = -1.e36_r8        ! tuning parameter for dust emissions
    character(len=cl) :: soil_erod_file = 'soil_erod_file' ! full pathname for soil erodibility dataset
-
+   character(len=25), dimension(ndst_facts) :: emis_fact_time_evolving
    logical, public :: dust_active = .true.  ! set to .false. to disable active dust
 public oslo_dust_emis_intr
 public getNumberOfDustModes
@@ -51,11 +51,10 @@ contains
     ! Local variables
     integer :: unitn, ierr
     integer :: i
-    integer, parameter, public :: ndst_facts = 100
 
 
     character(len=*), parameter :: subname = 'dust_readnl'
-    character(len=25), dimension(len_entry_ndst_fact) :: emis_fact_time_evolving
+    
     namelist /dust_nl/ dust_emis_fact, soil_erod_file, dust_active, &
                      emis_fact_time_evolving
 
@@ -86,7 +85,7 @@ contains
     if (ierr /= mpi_success) call endrun(subname//" mpi_bcast: soil_erod_file")
     call mpi_bcast(dust_active, 1, mpi_logical, mstrid, mpicom, ierr)
     if (ierr /= mpi_success) call endrun(subname//" mpi_bcast: dust_active")
-    call mpi_bcast(emis_fact_time_evolving,len(ndst_facts), mpi_character, mstrid, mpicom, ierr)
+    call mpi_bcast(emis_fact_time_evolving,ndst_facts, mpi_character, mstrid, mpicom, ierr)
     if (ierr /= mpi_success) call endrun(subname//" mpi_bcast: emis_fact_time_evolving")
 
 
@@ -105,12 +104,12 @@ contains
 
 
   subroutine dust_init()
-
-    ! local variables
-    integer :: i
+   use soil_erod_mod, only: soil_erod_init
+   implicit none
+   integer             :: i
     
 
-    call soil_erod_init( dust_emis_fact, soil_erod_file )
+    call  soil_erod_init( dust_emis_fact, soil_erod_file )
 
       call set_oslo_indices()
 
@@ -185,7 +184,6 @@ contains
       use physics_types, only: physics_state
       use soil_erod_mod, only : soil_erod_fact
       use soil_erod_mod, only : soil_erodibility
-      use dust_readnl, only: ndst_facts
       use time_manager, only: get_curr_date
 
       implicit none
@@ -199,13 +197,12 @@ contains
 
       integer :: lchnk
       integer :: ncol
-      integer :: i,n
+      integer :: i,n, pos
       integer :: precision
       integer  :: year, month
       integer  :: day              ! day of month
       integer  :: tod 
       integer :: curr_year, emis_year
-
       real(r8) :: time_dependent_emis_fact
       real(r8) :: soil_erod_tmp(pcols)
       real(r8) :: totalEmissionFlux(pcols)
@@ -237,12 +234,13 @@ contains
 
             do i=1, ndst_facts
                pos = index(emis_fact_time_evolving(i),':')
-               emis_year = int(emis_fact_time_evolving(i)(1:pos-1))
+               read (emis_fact_time_evolving(i)(1:pos-1),*) emis_year
                if (emis_year == curr_year) then
                   read(emis_fact_time_evolving(i)(pos+1:),*) time_dependent_emis_fact
                   exit
                end if
             end do
+         end if
       else
          time_dependent_emis_fact = 1.0_r8
          
