@@ -1,6 +1,7 @@
 module dust_model
   use shr_kind_mod,     only: r8 => shr_kind_r8, cl => shr_kind_cl
-  use spmd_utils,       only: masterproc
+  use spmd_utils,       only: mpicom, mstrid=>masterprocid, masterproc
+  use spmd_utils,       only: mpi_logical, mpi_real8, mpi_character, mpi_integer,  mpi_success
   use cam_abortutils,   only: endrun
 
 use constituents,     only: cnst_name
@@ -49,16 +50,24 @@ contains
 
     ! Local variables
     integer :: unitn, ierr
-    character(len=*), parameter :: subname = 'dust_readnl'
+    integer :: i
+    integer, parameter, public :: ndst_facts = 100
 
-    namelist /dust_nl/ dust_emis_fact, soil_erod_file, dust_active
+
+    character(len=*), parameter :: subname = 'dust_readnl'
+    character(len=25), dimension(len_entry_ndst_fact) :: emis_fact_time_evolving
+    namelist /dust_nl/ dust_emis_fact, soil_erod_file, dust_active, &
+                     emis_fact_time_evolving
 
     !-----------------------------------------------------------------------------
-
+    do i = 1, ndst_facts
+       emis_fact_time_evolving(i) = ' '
+    end do
+    namelist /dust_nl/ dust_emis_fact, soil_erod_file, dust_active, &
+                     emis_fact_time_evolving
     ! Read namelist
     if (masterproc) then
-       unitn = getunit()
-       open( unitn, file=trim(nlfile), status='old' )
+       open( newunit=unitn, file=trim(nlfile), status='old' )
        call find_group_name(unitn, 'dust_nl', status=ierr)
        if (ierr == 0) then
           read(unitn, dust_nl, iostat=ierr)
@@ -67,19 +76,22 @@ contains
           end if
        end if
        close(unitn)
-       call freeunit(unitn)
     end if
 
-#ifdef SPMD
-    ! Broadcast namelist variables
-    call mpibcast(dust_emis_fact, 1,                   mpir8,   0, mpicom)
-    call mpibcast(soil_erod_file, len(soil_erod_file), mpichar, 0, mpicom)
-    call mpibcast(dust_active,    1,                   mpilog,  0, mpicom)
-#endif
 
+    ! Broadcast namelist variables
+    call mpi_bcast(dust_emis_fact, 1, mpi_real8, mstrid, mpicom, ierr)
+    if (ierr /= mpi_success) call endrun(subname//" mpi_bcast: dust_emis_fact")
+    call mpi_bcast(soil_erod_file, len(soil_erod_file), mpi_character, mstrid, mpicom, ierr)
+    if (ierr /= mpi_success) call endrun(subname//" mpi_bcast: soil_erod_file")
+    call mpi_bcast(dust_active, 1, mpi_logical, mstrid, mpicom, ierr)
+    if (ierr /= mpi_success) call endrun(subname//" mpi_bcast: dust_active")
+    call mpi_bcast(emis_fact_time_evolving,len(ndst_facts), mpi_character, mstrid, mpicom, ierr)
+    if (ierr /= mpi_success) call endrun(subname//" mpi_bcast: emis_fact_time_evolving")
 
 
   end subroutine dust_readnl
+
    function getEmissionFractionInDustMode(modeIndex) RESULT(fraction)
       integer, intent(in) :: modeIndex
       real(r8)            :: fraction
@@ -92,14 +104,13 @@ contains
    end function getNumberOfDustModes
 
 
-   subroutine dust_init()
+  subroutine dust_init()
 
-      use soil_erod_mod, only: soil_erod_init
-      implicit none
-      integer             :: i
+    ! local variables
+    integer :: i
+    
 
-
-      call  soil_erod_init( dust_emis_fact, soil_erod_file )
+    call soil_erod_init( dust_emis_fact, soil_erod_file )
 
       call set_oslo_indices()
 
@@ -174,6 +185,8 @@ contains
       use physics_types, only: physics_state
       use soil_erod_mod, only : soil_erod_fact
       use soil_erod_mod, only : soil_erodibility
+      use dust_readnl, only: ndst_facts
+      use time_manager, only: get_curr_date
 
       implicit none
 
@@ -187,6 +200,13 @@ contains
       integer :: lchnk
       integer :: ncol
       integer :: i,n
+      integer :: precision
+      integer  :: year, month
+      integer  :: day              ! day of month
+      integer  :: tod 
+      integer :: curr_year, emis_year
+
+      real(r8) :: time_dependent_emis_fact
       real(r8) :: soil_erod_tmp(pcols)
       real(r8) :: totalEmissionFlux(pcols)
       real(r8), pointer :: cflx(:,:)
@@ -208,6 +228,25 @@ contains
       end do
 
       cflx => cam_in%cflx
+
+      ! Add time dependent factor for dust emissions
+      if (emis_fact_time_evolving(1) /= ' ') then
+         call get_curr_date(year, month, day, tod)
+         if (year /= curr_year) then
+            curr_year = year
+
+            do i=1, ndst_facts
+               pos = index(emis_fact_time_evolving(i),':')
+               emis_year = int(emis_fact_time_evolving(i)(1:pos-1))
+               if (emis_year == curr_year) then
+                  read(emis_fact_time_evolving(i)(pos+1:),*) time_dependent_emis_fact
+                  exit
+               end if
+            end do
+      else
+         time_dependent_emis_fact = 1.0_r8
+         
+      end if
    
       !Note that following CESM use of "dust_emis_fact", the emissions are 
       !scaled by the INVERSE of the factor!!
@@ -216,7 +255,7 @@ contains
       !As of NE-380: Oslo dust emissions are 2/3 of CAM emissions
       do n=1, numberOfDustModes
          cflx(:ncol, tracerMap(n)) = -1.0_r8*emis_fraction_in_mode(n) &
-            *totalEmissionFlux(:ncol)*soil_erod_tmp(:ncol)/(dust_emis_fact)*1.15_r8  ! gives better AOD close to dust sources
+            *(totalEmissionFlux(:ncol)*soil_erod_tmp(:ncol)/(dust_emis_fact)*1.15_r8)*time_dependent_emis_fact  ! gives better AOD close to dust sources
       end do
     
 

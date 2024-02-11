@@ -5027,6 +5027,12 @@ Disable active dust emissions if FALSE.
 Default: TRUE.
 </entry>
 
+<entry id="emis_fact_time_evolving" type="char*25(100)" category="cam_chem"
+       group="dust_nl" valid_values="" >
+List of dust emission factors changing with time.
+Default: none
+</entry>
+
 <entry id="steady_state_ion_elec_temp" type="logical" category="waccmx"
        group="ion_electron_temp_nl" valid_values="" >
 If TRUE a steady state solution is used to calculate electron and
