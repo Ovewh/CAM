@@ -4455,6 +4455,26 @@ Default: false
 
 <!-- Aerosol and cloud optics -->
 
+<entry id="perturbe_optical_params_on" group="oslo_aero_optical_params_nl" type="logical" category="oslo_aero"
+       valid_values="" >
+Flag to enabling perturbing optical parameters of aerosols in Oslo aerosol model. Default: .false.
+</entry>
+
+<entry id="dst_ssa_scale", group="oslo_aero_optical_params_nl" type="real" category="oslo_aero"
+       valid_values="" >
+Scaling factor for dust single scattering albedo. Default: 1.0
+</entry>
+
+<entry_id="dst_be_scale", group="oslo_aero_optical_params_nl" type="real" category="oslo_aero"
+       valid_values="" >
+Scaling factor for dust extinction Default: 1.0
+</entry>
+
+<entry_id="dst_ke_scale", group="oslo_aero_optical_params_nl" type="real" category="oslo_aero"
+       valid_values="" >
+Scaling factor for LW dust extinction Default: 1.0
+</entry>
+
 <entry id="water_refindex_file" type="char*256" input_pathname="abs" category="radiation"
        group="modal_aer_opt_nl" valid_values="" >
 Full pathname of dataset for water refractive indices used in modal aerosol optics

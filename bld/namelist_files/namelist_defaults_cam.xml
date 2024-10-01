@@ -1345,6 +1345,12 @@
 <dust_emis_fact hgrid="1.9x2.5"   offline_dyn="1" phys="cam6" ver="chem">0.24D0</dust_emis_fact>
 <dust_emis_fact hgrid="0.47x0.63" offline_dyn="1" phys="cam6" ver="chem">0.9D0</dust_emis_fact>
 
+<!-- scaling for dust optical properties-->
+<perturbe_optical_params_on> .false. </perturbe_optical_params_on>
+<dst_ssa_scale> 1.0D0 </dst_ssa_scale>
+<dst_be_scale> 1.0D0 </dst_be_scale>
+<dst_ke_scale> 1.0D0 </dst_ke_scale>
+
 <!-- dust switch for interactive emissions -->
 <dust_active>.true.</dust_active>
 <emis_fact_in_coarse_mode chem="trop_mam_oslo">0.87D0</emis_fact_in_coarse_mode>
