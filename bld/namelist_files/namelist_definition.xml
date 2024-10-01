@@ -4460,17 +4460,17 @@ Default: false
 Flag to enabling perturbing optical parameters of aerosols in Oslo aerosol model. Default: .false.
 </entry>
 
-<entry id="dst_ssa_scale", group="oslo_aero_optical_params_nl" type="real" category="oslo_aero"
+<entry id="dst_ssa_scale" group="oslo_aero_optical_params_nl" type="real" category="oslo_aero"
        valid_values="" >
 Scaling factor for dust single scattering albedo. Default: 1.0
 </entry>
 
-<entry_id="dst_be_scale", group="oslo_aero_optical_params_nl" type="real" category="oslo_aero"
+<entry id="dst_be_scale" group="oslo_aero_optical_params_nl" type="real" category="oslo_aero"
        valid_values="" >
 Scaling factor for dust extinction Default: 1.0
 </entry>
 
-<entry_id="dst_ke_scale", group="oslo_aero_optical_params_nl" type="real" category="oslo_aero"
+<entry id="dst_ke_scale" group="oslo_aero_optical_params_nl" type="real" category="oslo_aero"
        valid_values="" >
 Scaling factor for LW dust extinction Default: 1.0
 </entry>
