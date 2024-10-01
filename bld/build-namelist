@@ -2321,7 +2321,10 @@ if ($chem eq 'trop_mam_oslo' ) {
     add_default($nl,'perturbe_optical_params_on');
     add_default($nl,'dst_ssa_scale');
     add_default($nl,'dst_be_scale');
-    add_default($nl,'dst_ke_scale')
+    add_default($nl,'dst_ke_scale');
+
+    add_default($nl, 'lifecyclenmr_1');
+    add_default($nl, 'lifecyclenmr_8')
 }
 
 # CMIP6 emissions
