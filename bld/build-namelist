@@ -961,7 +961,15 @@ if ($chem =~ /_mam_oslo/) {
 
 if ($aer_model eq 'oslo') {
 
-   #do nothing here
+  add_default($nl, 'oslo_aero_lifecyclenumbermedianradius');
+  add_default($nl, 'oslo_aero_lifecyclesigma');
+  add_default($nl, 'oslo_aero_nucl_scaling_factor');
+  add_default($nl, 'oslo_aero_n_so4_monolayers_age');
+  add_default($nl, 'oslo_aero_f_act_conv_interstitial');
+  add_default($nl, 'hetfrz_aer_scalfac');
+  add_default($nl, 'f_act_conv_coarse_dust');
+  add_default($nl, 'dst_density');
+  add_default($nl, 'dst_solfact')
 
 } elsif ($aer_model eq 'mam' ) {
 
@@ -3283,7 +3291,6 @@ unless (defined $nl->get_value('dms_source_type')) {
     add_default($nl, 'dms_source_type');
     add_default($nl, 'dms_cycle_year');
 }
-
 # WACCM-X runtime options
 add_default($nl, 'waccmx_opt');
 
@@ -3942,6 +3949,7 @@ if ($cfg->get('microphys') eq 'rk') {
 
 # Dust emissions tuning factor
 # check whether turbulent mountain stress parameterization is on
+add_default($nl, 'emis_fact_in_coarse_mode');
 if ($nl->get_value('do_tms') =~ /$TRUE/io) {
     add_default($nl, 'dust_emis_fact', 'tms'=>'1');
 } else {
