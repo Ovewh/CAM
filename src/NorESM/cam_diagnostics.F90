@@ -413,6 +413,7 @@ contains
 !
       call addfld ('CDOD440  ',horiz_only, 'A','unitless','Clear air Aerosol optical depth at 440nm')
       call addfld ('CDOD550  ',horiz_only, 'A','unitless','Clear air Aerosol optical depth at 550nm')
+      call addfld ('CD550_DU',horiz_only, 'A',  'unitless', 'Clear air Mineral aerosol optical depth at 550nm')
       call addfld ('CABS550  ',horiz_only, 'A','unitless','Clear air Aerosol abs optical depth at 550nm')
       call addfld ('CABS550A ',horiz_only, 'A','unitless','Clear air Aerosol abs optical depth at 550nm')
       call addfld ('CDOD870 ' ,horiz_only, 'A','unitless','Clear air Aerosol optical depth at 870nm')
