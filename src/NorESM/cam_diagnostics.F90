@@ -284,12 +284,17 @@ contains
 
     call addfld ('TT',         (/ 'lev' /), 'A', 'K2','Eddy temperature variance' )
 
+    call addfld ('U925',       horiz_only,  'A', 'm/s', 'Zonal wind at 925 mbar pressure surface')
+    call addfld ('U700' ,      horiz_only,  'A', 'm/s', 'Zonal wind at 700 mbar pressure surface')
     call addfld ('U850',       horiz_only,  'A', 'm/s','Zonal wind at 850 mbar pressure surface')
     call addfld ('U500',       horiz_only,  'A', 'm/s','Zonal wind at 500 mbar pressure surface')
     call addfld ('U250',       horiz_only,  'A', 'm/s','Zonal wind at 250 mbar pressure surface')
     call addfld ('U200',       horiz_only,  'A', 'm/s','Zonal wind at 200 mbar pressure surface')
     call addfld ('U010',       horiz_only,  'A', 'm/s','Zonal wind at  10 mbar pressure surface')
+
+    call addfld ('V925',       horiz_only, 'A', 'm/s', 'Meridional wind at 925 mbar pressure surface')
     call addfld ('V850',       horiz_only,  'A', 'm/s','Meridional wind at 850 mbar pressure surface')
+    call addfld ('V700' ,      horiz_only,  'A', 'm/s', 'Meridional wind at 700 mbar pressure surface')
     call addfld ('V500',       horiz_only,  'A', 'm/s','Meridional wind at 500 mbar pressure surface')
     call addfld ('V250',       horiz_only,  'A', 'm/s','Meridional wind at 250 mbar pressure surface')
     call addfld ('V200',       horiz_only,  'A', 'm/s','Meridional wind at 200 mbar pressure surface')
@@ -298,6 +303,8 @@ contains
     call register_vector_field('U500', 'V500')
     call register_vector_field('U250', 'V250')
     call register_vector_field('U200', 'V200')
+    call register_vector_field('U925', 'V925')
+    call register_vector_field('U700', 'V700')
 
     call addfld ('UBOT',       horiz_only,  'A', 'm/s','Lowest model level zonal wind')
     call addfld ('VBOT',       horiz_only,  'A', 'm/s','Lowest model level meridional wind')
@@ -1512,9 +1519,17 @@ contains
       call vertinterp(ncol, pcols, pver, state%pmid, 20000._r8, state%t, p_surf)
       call outfld('T200    ', p_surf, pcols, lchnk )
     end if
+    if (hist_fld_active('U925')) then
+      call vertinterp(ncol, pcols, pver, state%pmid, 92500._r8, state%u, p_surf)
+      call outfld('U925    ', p_surf, pcols, lchnk )
+    end if
     if (hist_fld_active('U850')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%u, p_surf)
       call outfld('U850    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('U700')) then
+      call vertinterp(ncol, pcols, pver, state%pmid, 70000._r8, state%u, p_surf)
+      call outfld('U700    ', p_surf, pcols, lchnk )
     end if
     if (hist_fld_active('U500')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 50000._r8, state%u, p_surf)
@@ -1532,9 +1547,17 @@ contains
       call vertinterp(ncol, pcols, pver, state%pmid,  1000._r8, state%u, p_surf)
       call outfld('U010    ', p_surf, pcols, lchnk )
     end if
+    if (hist_fld_active('V925')) then
+      call vertinterp(ncol, pcols, pver, state%pmid, 92500._r8, state%v, p_surf)
+      call outfld('V925    ', p_surf, pcols, lchnk )
+    end if
     if (hist_fld_active('V850')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%v, p_surf)
       call outfld('V850    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('V700')) then
+      call vertinterp(ncol, pcols, pver, state%pmid, 70000._r8, state%v, p_surf)
+      call outfld('V700    ', p_surf, pcols, lchnk )
     end if
     if (hist_fld_active('V500')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 50000._r8, state%v, p_surf)
