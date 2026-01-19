@@ -986,7 +986,8 @@ if ($aer_model eq 'oslo') {
   add_default($nl, 'oslo_aero_f_act_conv_interstitial');
   add_default($nl, 'f_act_conv_coarse_dust');
   add_default($nl, 'dst_density');
-  add_default($nl, 'dst_solfact')
+  add_default($nl, 'dst_solfact');
+  add_default($nl, 'emis_fact_in_coarse_mode')
 
 } elsif ($aer_model eq 'mam' ) {
 
