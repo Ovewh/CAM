@@ -3992,7 +3992,7 @@ if (chem_has_species($cfg, 'NO')) {
 }
 
 # Seasalt emissions tuning factor
-if ($chem =~ /_mam(\d)/) {
+if ($chem =~ /_mam(\d)/) or ($aer_model eq 'oslo'){
     my $ver = undef;
     if ($nl->get_value('modal_accum_coarse_exch') =~ /$TRUE/io) {
         # Check for accumulation/coarse mode exchange.

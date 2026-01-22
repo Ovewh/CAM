@@ -2528,6 +2528,9 @@ See https://github.com/NorESMhub/noresm3_dev_simulations/discussions/78
 <seasalt_emis_scale ver="strat" clubb_sgs="1" phys="cam7"                >1.50D0</seasalt_emis_scale>
 <seasalt_emis_scale ver="strat" clubb_sgs="1" hgrid="1.9x2.5" phys="cam6">1.10D0</seasalt_emis_scale>
 <seasalt_emis_scale ver="strat" clubb_sgs="1" silhs="1"                  >0.60D0</seasalt_emis_scale>
+<!-- NorESM3 seasalt emission scale factor-->
+<seasalt_emis_scale chem="trop_mam_oslo"                                 >1.00D0</seasalt_emis_scale>
+
 
 <!-- Wet scavenging of modal aerosols -->
 <sol_facti_cloud_borne                                                >1.0D0</sol_facti_cloud_borne>
