@@ -2529,7 +2529,8 @@ See https://github.com/NorESMhub/noresm3_dev_simulations/discussions/78
 <seasalt_emis_scale ver="strat" clubb_sgs="1" hgrid="1.9x2.5" phys="cam6">1.10D0</seasalt_emis_scale>
 <seasalt_emis_scale ver="strat" clubb_sgs="1" silhs="1"                  >0.60D0</seasalt_emis_scale>
 <!-- NorESM3 seasalt emission scale factor-->
-<seasalt_emis_scale chem="trop_mam_oslo"                                 >1.00D0</seasalt_emis_scale>
+<seasalt_emis_scale chem="trop_mam_oslo"                               >1.00D0</seasalt_emis_scale>
+
 
 
 <!-- Wet scavenging of modal aerosols -->
@@ -4153,6 +4154,7 @@ See https://github.com/NorESMhub/noresm3_dev_simulations/discussions/78
 <volc_fraction_coarse   >0.0</volc_fraction_coarse>
 <aerotab_table_dir>noresm-only/atm/cam/camoslo/AeroTab_8jun17/</aerotab_table_dir>
 <dms_source>lana</dms_source>
+<dms_emis_scale>1.00D0</dms_emis_scale>
 <dms_source_type>CYCLICAL</dms_source_type>
 <dms_cycle_year>2000</dms_cycle_year>
 <opom_source>odowd</opom_source>

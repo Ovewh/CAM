@@ -10274,6 +10274,12 @@ Type of DMS data source
 Default: emission_file
 </entry>
 
+<entry id="dms_emis_scale" type="real" category="cam_oslo" 
+        group="oslo_ctl_nl" valid_values="" >
+Scaling factor for DMS emission when running fSST with prescribed DMS
+Default: 1.0
+</entry>
+
 <entry id="dms_source_type" type="char*32" category="cam_oslo"
        group="oslo_ctl_nl" valid_values="" >
 Type of DMS data source type
