@@ -3040,7 +3040,6 @@ Default: .true.
     Default: set by built namelist
 </entry>
 
-
 <entry id="oslo_aero_n_so4_monolayers_age" type="real" category="microphys"
        group="oslo_aero_condtend_nl" valid_values="" >
     Number of so4 monolayers before particle counted as aged.
@@ -3051,6 +3050,12 @@ Default: .true.
        group="oslo_aero_condtend_nl" valid_values="" >
     Scaling factor for nucleation.
     Default: 1
+</entry>
+
+<entry id="oslo_aero_drydep_mode_velocity_scale" type="real(15)" category="microphys"
+       group="oslo_aero_share_nl" valid_values="" >
+    Array of scaling factors for the dry deposition velocity of mixtures 0-14.
+    Default 1.0
 </entry>
 
 <entry id="microp_aero_bulk_scale" type="real" category="microphys"

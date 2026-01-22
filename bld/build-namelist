@@ -981,6 +981,7 @@ if ($aer_model eq 'oslo') {
 
   add_default($nl, 'oslo_aero_lifecyclenumbermedianradius');
   add_default($nl, 'oslo_aero_lifecyclesigma');
+  add_default($nl, 'oslo_aero_drydep_mode_velocity_scale')
   add_default($nl, 'oslo_aero_nucl_scaling_factor');
   add_default($nl, 'oslo_aero_n_so4_monolayers_age');
   add_default($nl, 'oslo_aero_f_act_conv_interstitial');
