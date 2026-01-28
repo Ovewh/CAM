@@ -981,14 +981,17 @@ if ($aer_model eq 'oslo') {
 
   add_default($nl, 'oslo_aero_lifecyclenumbermedianradius');
   add_default($nl, 'oslo_aero_lifecyclesigma');
-  add_default($nl, 'oslo_aero_drydep_mode_velocity_scale')
+  add_default($nl, 'oslo_aero_drydep_mode_velocity_scale');
   add_default($nl, 'oslo_aero_nucl_scaling_factor');
   add_default($nl, 'oslo_aero_n_so4_monolayers_age');
   add_default($nl, 'oslo_aero_f_act_conv_interstitial');
   add_default($nl, 'f_act_conv_coarse_dust');
   add_default($nl, 'dst_density');
   add_default($nl, 'dst_solfact');
-  add_default($nl, 'emis_fact_in_coarse_mode')
+  add_default($nl, 'emis_fact_in_coarse_mode');
+  add_default($nl, 'oslo_aero_so2_develocity_scale');
+  add_default($nl, 'seasalt_emis_scale');
+  add_default($nl, 'oslo_aero_anions_scale_factor');
 
 } elsif ($aer_model eq 'mam' ) {
 
@@ -3977,7 +3980,7 @@ if ($cfg->get('microphys') eq 'rk') {
 
 # Dust emissions tuning factor
 # check whether turbulent mountain stress parameterization is on
-add_default($nl, 'emis_fact_in_coarse_mode');
+
 if ($nl->get_value('do_tms') =~ /$TRUE/io) {
     add_default($nl, 'dust_emis_fact', 'tms'=>'1');
 } else {
@@ -3994,7 +3997,7 @@ if (chem_has_species($cfg, 'NO')) {
 }
 
 # Seasalt emissions tuning factor
-if ($chem =~ /_mam(\d)/) or ($aer_model eq 'oslo'){
+if ($chem =~ /_mam(\d)/) {
     my $ver = undef;
     if ($nl->get_value('modal_accum_coarse_exch') =~ /$TRUE/io) {
         # Check for accumulation/coarse mode exchange.

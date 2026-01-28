@@ -3058,6 +3058,12 @@ Default: .true.
     Default 1.0
 </entry>
 
+<entry id="oslo_aero_anions_scale_factor" type="real" category="microphys"
+       group="chem_inparm" valid_values="" >
+    Adding a scaling offset for anions during solving the energy neutrality equation and according shift what is determined to be the optimal pH.
+    Default: 0.0
+</entry>
+
 <entry id="microp_aero_bulk_scale" type="real" category="microphys"
        group="microp_aero_nl" valid_values="" >
 prescribed aerosol bulk sulfur scale factor
@@ -6894,6 +6900,12 @@ Full pathname of dataset which contains land vegetation information used in moda
 Default: set by build-namelist.
 </entry>
 
+<entry id="oslo_aero_so2_develocity_scale" type="real" category="cam_chem"
+       group="chem_inparm" valid_values="" >
+Scaling factor for SO2 dry deposition velocity in the Oslo modal aerosol scheme.
+Default: 1.0D0
+</entry>
+
 <entry id="dust_emis_fact" type="real" category="cam_chem"
        group="dust_nl" valid_values="" >
 Tuning parameter for dust emissions.
@@ -10280,7 +10292,7 @@ Default: emission_file
 </entry>
 
 <entry id="dms_emis_scale" type="real" category="cam_oslo" 
-        group="oslo_ctl_nl" valid_values="" >
+        group="aero_model_readnl" valid_values="" >
 Scaling factor for DMS emission when running fSST with prescribed DMS
 Default: 1.0
 </entry>

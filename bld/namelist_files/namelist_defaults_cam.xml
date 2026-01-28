@@ -2587,6 +2587,10 @@ See https://github.com/NorESMhub/noresm3_dev_simulations/discussions/78
 <oslo_aero_n_so4_monolayers_age>3.0D0</oslo_aero_n_so4_monolayers_age>
 <oslo_aero_f_act_conv_interstitial>0.8D0</oslo_aero_f_act_conv_interstitial>
 
+<oslo_aero_so2_develocity_scale> 1.0D0 </oslo_aero_so2_develocity_scale>
+
+<oslo_aero_anions_scale_factor>0.0D0</oslo_aero_anions_scale_factor>
+
 <!-- dust density parameters-->
 <dst_density>2.60D3</dst_density>
 
