@@ -238,10 +238,40 @@
        Default: none
        </entry>
 
-<entry id="Nudge_lev_dimname" type="char*256" category="nudging"
+<entry id="Nudge_Data_Year_First" type="integer" category="nudging"
        group="nudging_nl" valid_values="" >
-       Name of vertical dimension in file.
+       First year of nudging data to use.
        Default: none
+       </entry>
+
+<entry id="Nudge_Data_Year_Last" type="integer" category="nudging"
+       group="nudging_nl" valid_values="" >
+       Last year of nudging data to use.
+       Default: none
+       </entry>
+
+<entry id="Nudge_Data_Year_Align" type="integer" category="nudging"
+       group="nudging_nl" valid_values="" >
+       Model (simulation) year to align with Nudge_Data_Year_First.
+       Default: none
+       </entry>
+
+<entry id="Nudge_Data_Mapalgo" type="char*256" category="nudging"
+       group="nudging_nl" valid_values="bilinear,consf" >
+       Mapping algorithm to map nudge data to model grid.
+       Default: bilinear
+       </entry>
+
+<entry id="Nudge_Data_Taxmode" type="char*256" category="nudging"
+       group="nudging_nl" valid_values="limit,extend" >
+       Time extrapolation mode for time interpolation.
+       Default: limit
+       </entry>
+
+<entry id="Nudge_Data_levname" type="char*256" category="nudging"
+       group="nudging_nl" valid_values="" >
+       Name of vertical variable in Nudge_filenames.
+       Default: lev
        </entry>
 
 <entry id="Model_Update_Times_Per_Day" type="integer" category="nudging"
@@ -253,43 +283,37 @@
 
 <entry id="Nudge_Beg_Year" type="integer" category="nudging"
        group="nudging_nl" valid_values="" >
-       Year at which Nudging Begins.
+       Model year at which nudging begins.
        Default: none
        </entry>
 
 <entry id="Nudge_Beg_Month" type="integer" category="nudging"
        group="nudging_nl" valid_values="" >
-       Month at which Nudging Begins.
+       Model month at which nudging begins.
        Default: none
        </entry>
 
 <entry id="Nudge_Beg_Day" type="integer" category="nudging"
        group="nudging_nl" valid_values="" >
-       Day at which Nudging Begins.
+       Model day at which nudging begins.
        Default: none
        </entry>
 
 <entry id="Nudge_End_Year" type="integer" category="nudging"
        group="nudging_nl" valid_values="" >
-       Year at which Nudging Ends.
+       Model year at which nudging ends.
        Default: none
        </entry>
 
 <entry id="Nudge_End_Month" type="integer" category="nudging"
        group="nudging_nl" valid_values="" >
-       Month at which Nudging Ends.
+       Model month at which nudging ends.
        Default: none
        </entry>
 
 <entry id="Nudge_End_Day" type="integer" category="nudging"
        group="nudging_nl" valid_values="" >
-       Day at which Nudging Ends.
-       Default: none
-       </entry>
-
-<entry id="Nudge_Align_Year" type="integer" category="nudging"
-       group="nudging_nl" valid_values="" >
-       Model year to align with Nudge_Beg_Year.
+       Model day at which nudging ends.
        Default: none
        </entry>
 
@@ -308,24 +332,6 @@
          0 -->  TimeScale = 1/Tdlt_Anal
          1 -->  TimeScale = 1/(t'_next - t_curr )
        Default: 0
-       </entry>
-
-<entry id="Nudge_Mapalgo" type="char*256" category="nudging"
-       group="nudging_nl" valid_values="bilinear,consf" >
-       Mapping algorithm to map nudge data to model grid.
-       Default: bilinear
-       </entry>
-
-<entry id="Nudge_Taxmode" type="char*256" category="nudging"
-       group="nudging_nl" valid_values="limit,extend" >
-       Time extrapolation mode for time interpolation.
-       Default: limit
-       </entry>
-
-<entry id="Nudge_levname" type="char*256" category="nudging"
-       group="nudging_nl" valid_values="" >
-       Name of vertical variable in Nudge_filenames.
-       Default: bilinear
        </entry>
 
 <entry id="Nudge_Uprof" type="integer" category="nudging"
