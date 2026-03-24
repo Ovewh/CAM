@@ -10148,6 +10148,13 @@ If true, turn on aerocom output
 Default: false
 </entry>
 
+<entry id="no_rad_dust_active" type="logical" category="cam_oslo"
+       group="oslo_ctl_nl" valid_values="" >
+If true, turn off radiative impacts of dust
+Default: false
+</entry>
+
+
 <entry id="volc_fraction_coarse" type="real" category="cam_oslo"
        group="oslo_ctl_nl" valid_values="" >
 Fraction of volcanic aerosols which will end up in coarse mode
