@@ -980,6 +980,18 @@ if ($chem =~ /_mam_oslo/) {
 }
 
 if ($aer_model eq 'oslo') {
+
+  add_default($nl, 'oslo_aero_lifecyclenumbermedianradius');
+  add_default($nl, 'oslo_aero_lifecyclesigma');
+  add_default($nl, 'oslo_aero_drydep_mode_velocity_scale');
+  add_default($nl, 'oslo_aero_nucl_scaling_factor');
+  add_default($nl, 'oslo_aero_n_so4_monolayers_age');
+  add_default($nl, 'oslo_aero_f_act_conv_interstitial');
+  add_default($nl, 'f_act_conv_coarse_dust');
+  add_default($nl, 'dst_density');
+  add_default($nl, 'dst_solfact');
+  add_default($nl, 'oslo_aero_so2_develocity_scale');
+  add_default($nl, 'oslo_aero_anions_scale_factor');
   add_default($nl, 'emis_fact_in_coarse_mode', 'ver'=>'oslo_aero');
   add_default($nl, 'seasalt_emis_scale',  'ver'=>'oslo_aero');
 
@@ -3294,6 +3306,7 @@ add_default($nl, 'volc_fraction_coarse');
 add_default($nl, 'aerotab_table_dir');
 add_default($nl, 'ocean_filepath');
 add_default($nl, 'dms_source');
+add_default($nl, 'dms_emis_scale');
 add_default($nl, 'opom_source');
 unless (defined $nl->get_value('ocean_filename')) {
     add_default($nl, 'ocean_filename');
@@ -3306,7 +3319,6 @@ unless (defined $nl->get_value('dms_source_type')) {
     add_default($nl, 'dms_source_type');
     add_default($nl, 'dms_cycle_year');
 }
-
 # WACCM-X runtime options
 add_default($nl, 'waccmx_opt');
 
