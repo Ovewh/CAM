@@ -84,10 +84,10 @@
 
 [submodule "oslo_aero"]
     path = src/chemistry/oslo_aero
-    url = https://github.com/NorESMhub/OSLO_AERO
-    fxtag = oslo_aero_3_0a011
+    url = https://github.com/Ovewh/OSLO_AERO.git
+    fxtag = oslo_aero_3_0a012.aerosolPPE
     fxrequired = AlwaysRequired
-    fxDONOTUSEurl = https://github.com/NorESMhub/OSLO_AERO.git
+    fxDONOTUSEurl = https://github.com/Ovewh/OSLO_AERO.git
 
 [submodule "pumas"]
     path = src/physics/pumas
@@ -220,17 +220,17 @@
 
 [submodule "clm"]
     path = components/clm
-    url = https://github.com/NorESMhub/CTSM
-    fxtag = ctsm5.4.002_noresm_v6
+    url = https://github.com/Ovewh/CTSM
+    fxtag = ctsm5.4.036_noresm_v0.aerosolPPE
     fxrequired = ToplevelRequired
-    fxDONOTUSEurl = https://github.com/NorESMhub/CTSM
+    fxDONOTUSEurl = https://github.com/Ovewh/CTSM
 
 [submodule "cmeps"]
     path = components/cmeps
-    url = https://github.com/NorESMhub/CMEPS.git
-    fxtag = cmeps1.1.41_noresm_v0
+    url = https://github.com/Ovewh/CMEPS.git
+    fxtag = cmeps1.1.48_noresm_v0.aerosolPPE
     fxrequired = ToplevelRequired
-    fxDONOTUSEurl = https://github.com/NorESMhub/CMEPS.git
+    fxDONOTUSEurl = https://github.com/Ovewh/CMEPS.git
 
 [submodule "mosart"]
     path = components/mosart
