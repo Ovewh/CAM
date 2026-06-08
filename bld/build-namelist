@@ -990,7 +990,6 @@ if ($aer_model eq 'oslo') {
   add_default($nl, 'f_act_conv_coarse_dust');
   add_default($nl, 'dst_density');
   add_default($nl, 'dst_solfact');
-  add_default($nl, 'oslo_aero_so2_develocity_scale');
   add_default($nl, 'oslo_aero_anions_scale_factor');
   add_default($nl, 'emis_fact_in_coarse_mode', 'ver'=>'oslo_aero');
   add_default($nl, 'seasalt_emis_scale',  'ver'=>'oslo_aero');
