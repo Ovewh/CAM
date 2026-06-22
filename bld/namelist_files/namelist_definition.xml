@@ -1843,6 +1843,7 @@ Default: set by build-namelist
        group="co2_ffuel_nl" valid_values="" >
 First year to use in co2flux_fuel_datafile.
 Default: set by build-namelist based on sim_year.
+</entry>
 
 <entry id="co2flux_fuel_year_last" type="integer" category="co2_cycle"
        group="co2_ffuel_nl" valid_values="" >
@@ -6852,8 +6853,8 @@ Default: set by build-namelist.
 
 <entry id="emis_fact_in_coarse_mode" type="real" category="cam_chem"
        group="dust_nl" valid_values="" >
-Tuning parameter for the fraction of total dust emissions in the coarse dust mode (Oslo_Aero). 
-Valid values are in the range [0, 1], where the remaining fraction (1 - emis_fact_in_coarse_mode) 
+Tuning parameter for the fraction of total dust emissions in the coarse dust mode (Oslo_Aero).
+Valid values are in the range [0, 1], where the remaining fraction (1 - emis_fact_in_coarse_mode)
 is allocated to the dust accumulation mode.
 Default: set by build-namelist.
 </entry>
@@ -10158,6 +10159,15 @@ Default: FALSE
 If true, turn on aerocom output
 Default: false
 </entry>
+
+<entry id="rh_fine_aer_scale_fact_optics" type="real" category="cam_oslo"
+       group="oslo_ctl_nl" valid_values="" >
+- Scales the relative humidity in the optical calculations
+  within OSLO_AERO for modes 1-5 
+- RH not scaled for dust (modes 6-7) or seasalt (modes 8-10)
+Default: 1.0
+</entry>
+
 
 <entry id="volc_fraction_coarse" type="real" category="cam_oslo"
        group="oslo_ctl_nl" valid_values="" >
