@@ -41,6 +41,7 @@ module cloud_diagnostics
    integer :: pmxrgn_idx = -1
    integer :: gb_totcldliqmr_idx = -1
    integer :: gb_totcldicemr_idx = -1
+   integer :: concld_idx = -1
 
    ! Index fields for precipitation efficiency.
    integer :: acpr_idx, acgcme_idx, acnum_idx
@@ -92,11 +93,14 @@ contains
 
     character(len=16) :: wpunits, sampling_seq
     logical           :: history_amwg                  ! output the variables used by the AMWG diag package
+    integer           :: ierr
 
 
     !-----------------------------------------------------------------------
 
     cld_idx    = pbuf_get_index('CLD')
+    ! convective cloud fraction (may be absent for some physics options)
+    concld_idx = pbuf_get_index('CONCLD', errcode=ierr)
     ! grid box total cloud liquid water mixing ratio (kg/kg)
     gb_totcldliqmr_idx = pbuf_get_index('GB_TOTCLDLIQMR')
     ! grid box total cloud ice water mixing ratio (kg/kg)
@@ -221,7 +225,7 @@ subroutine cloud_diagnostics_calc(state,  pbuf)
     use cloud_optical_properties, only: cldovrlap, cldclw, cldems_rk, cldems
     use conv_water,               only: conv_water_in_rad, conv_water_4rad
     use radiation,                only: radiation_do
-    use cloud_cover_diags,        only: cloud_cover_diags_out
+    use cloud_cover_diags,        only: cloud_cover_diags_out, conv_cloud_cover_diags_out
     use phys_control,             only: phys_getopts
     use physconst,                only: rair
 
@@ -249,6 +253,10 @@ subroutine cloud_diagnostics_calc(state,  pbuf)
 
     integer,  pointer :: nmxrgn(:)      ! Number of maximally overlapped regions
     real(r8), pointer :: pmxrgn(:,:)    ! Maximum values of pressure for each
+
+    real(r8), pointer :: concld(:,:)    ! convective cloud fraction
+    integer  :: nmxrgn_c(pcols)         ! Number of maximally overlapped regions (convective)
+    real(r8) :: pmxrgn_c(pcols,pverp)   ! Maximum values of pressure for each (convective)
 
     real(r8), pointer :: totg_ice(:,:)  ! grid box total cloud ice mixing ratio
     real(r8), pointer :: totg_liq(:,:)  ! grid box total cloud liquid mixing ratio
@@ -450,6 +458,19 @@ subroutine cloud_diagnostics_calc(state,  pbuf)
     ! Cloud cover diagnostics (done in radiation_tend for camrt)
     if (.not.camrt_rad) then
        call cloud_cover_diags_out(lchnk, ncol, cld, state%pmid, nmxrgn, pmxrgn )
+
+       ! Vertically-integrated (total) convective cloud cover. Convective cloud
+       ! fraction is not additive, so it is collapsed to a column value with the
+       ! same maximum-random overlap assumption used for total cloud above.
+       ! Overlap regions are recomputed from concld so the result is consistent
+       ! with the convective cloud structure rather than the total-cloud one.
+       if (concld_idx > 0) then
+          call pbuf_get_field(pbuf, concld_idx, concld, start=(/1,1,itim_old/), kount=(/pcols,pver,1/) )
+          nmxrgn_c(:) = 0
+          pmxrgn_c(:,:) = 0._r8
+          call cldovrlap(ncol, pver, pverp, state%pint(:ncol,:), concld(:ncol,:), nmxrgn_c(:ncol), pmxrgn_c(:ncol,:))
+          call conv_cloud_cover_diags_out(lchnk, ncol, concld, state%pmid, nmxrgn_c, pmxrgn_c )
+       endif
     endif
 
     tgicewp(:ncol) = 0._r8

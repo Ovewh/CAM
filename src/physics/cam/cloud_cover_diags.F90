@@ -14,6 +14,7 @@ module cloud_cover_diags
 
   public :: cloud_cover_diags_init
   public :: cloud_cover_diags_out
+  public :: conv_cloud_cover_diags_out
 
    real(r8) plowmax             ! Max prs for low cloud cover range
    real(r8) plowmin             ! Min prs for low cloud cover range
@@ -39,6 +40,7 @@ subroutine cloud_cover_diags_init(sampling_seq)
 
   call addfld ('CLOUD', (/ 'lev' /), 'A','fraction','Cloud fraction'                        , sampling_seq=sampling_seq)
   call addfld ('CLDTOT',horiz_only,  'A','fraction','Vertically-integrated total cloud'     , sampling_seq=sampling_seq)
+  call addfld ('CONCLDTOT',horiz_only,'A','fraction','Vertically-integrated total convective cloud', sampling_seq=sampling_seq)
 
   write(long_name_string,999) 'Vertically-integrated low cloud from ', plowmin, ' to ', plowmax, ' Pa'
   call addfld ('CLDLOW',horiz_only,  'A','fraction',long_name_string , sampling_seq=sampling_seq)
@@ -89,9 +91,34 @@ subroutine cloud_cover_diags_out(lchnk, ncol, cld, pmid, nmxrgn, pmxrgn )
   call outfld('CLDMED  ',clmed  ,pcols,lchnk)
   call outfld('CLDHGH  ',clhgh  ,pcols,lchnk)
 
-  call outfld('CLOUD   ',cld    ,pcols,lchnk) 
+  call outfld('CLOUD   ',cld    ,pcols,lchnk)
 
 end subroutine cloud_cover_diags_out
+
+!===============================================================================
+!===============================================================================
+subroutine conv_cloud_cover_diags_out(lchnk, ncol, concld, pmid, nmxrgn, pmxrgn )
+
+  ! Vertically-integrated (total) convective cloud cover. Reuses the same
+  ! maximum-random overlap reduction (cldsav) used for total cloud, applied to
+  ! the convective cloud fraction. Only the column total is written.
+
+  integer,  intent(in) :: lchnk, ncol
+  real(r8), intent(in) :: concld(pcols,pver)
+  real(r8), intent(in) :: pmid(pcols,pver)
+  integer,  intent(in) :: nmxrgn(pcols)
+  real(r8), intent(in) :: pmxrgn(pcols,pverp)
+
+  real(r8) :: cltot(pcols)            ! Diagnostic total convective cloud cover
+  real(r8) :: cllow(pcols)            ! unused low  cloud cover
+  real(r8) :: clmed(pcols)            ! unused mid  cloud cover
+  real(r8) :: clhgh(pcols)            ! unused hgh  cloud cover
+
+  call cldsav (lchnk, ncol, concld, pmid, cltot, cllow, clmed, clhgh, nmxrgn, pmxrgn)
+
+  call outfld('CONCLDTOT',cltot  ,pcols,lchnk)
+
+end subroutine conv_cloud_cover_diags_out
 
 !===============================================================================
 !===============================================================================
