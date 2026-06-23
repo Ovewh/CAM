@@ -30,32 +30,37 @@ history_aerosol = .true.
 history_aerosol_radiation = .true.
 history_aerosol_decomposed = .true.
 
-fincl1 = ABS440:A, ABS550_A:A, ABS870:A, ABSDR440:A, ABSDR870:A, CCN1:A,
- CCN3:A, CCN5:A, CCN5_1:A, CCN5_10:A, CCN5_14:A, CCN5_3:A, CCN5_5:A, CCN5_6:A,
- CCN5_7:A, CCN5_8:A, CCN5_9:A, CCN6:A, CCN7:A, CONCLDTOT:A, D10UM_DU:A,
- DELTAH:A, DOD440:A, DOD870:A, DST_A2_OCWDDF:A, DST_A2_OCWGVF:A,
- DST_A2_OCWTBF:A, DST_A3_OCWDDF:A, DST_A3_OCWGVF:A, DST_A3_OCWTBF:A,
- EC440R40:A, EC440R85:A, EC550DU:A, EC550POM:A, EC550SO4:A, EC550SS:A,
- ECDRY440:A, H2SO4:A, NMR_1:A, NMR_10:A, NMR_12:A, NMR_14:A, NMR_2:A, NMR_3:A,
- NMR_4:A, NMR_5:A, NMR_6:A, NMR_7:A, NMR_8:A, NMR_9:A, OD550DRY:A, OMEGA:A,
- RELHUM:A, cb_DMS:A, cb_DST_A2:A, cb_DST_A2_OCW:A, cb_DST_A3:A,
- cb_DST_A3_OCW:A, cb_DU:A, isoprene:A, mmr_BC:A, mmr_DUST:A, mmr_OM:A,
- mmr_SALT:A, mmr_SULFATE:A, monoterp:A
+! monthly output
+nhtfrq(1) = 0
+mfilt(1) = 1
+    empty_htapes(1) = .true.
+    fincl1 = 'ABS440:A', 'ABS550_A:A', 'ABS870:A', 'ABSDR440:A', 'ABSDR870:A',
+    'CCN1:A', 'CCN3:A', 'CCN5:A', 'CCN5_1:A', 'CCN5_10:A', 'CCN5_14:A',
+    'CCN5_3:A', 'CCN5_5:A', 'CCN5_6:A', 'CCN5_7:A', 'CCN5_8:A', 'CCN5_9:A',
+    'CCN6:A', 'CCN7:A', 'CONCLDTOT:A', 'D10UM_DU:A', 'DELTAH:A', 'DOD440:A',
+    'DOD870:A', 'DST_A2_OCWDDF:A', 'DST_A2_OCWGVF:A', 'DST_A2_OCWTBF:A',
+    'DST_A3_OCWDDF:A', 'DST_A3_OCWGVF:A', 'DST_A3_OCWTBF:A', 'EC440R40:A',
+    'EC440R85:A', 'EC550DU:A', 'EC550POM:A', 'EC550SO4:A', 'EC550SS:A',
+    'ECDRY440:A', 'H2SO4:A', 'NMR_1:A', 'NMR_10:A', 'NMR_12:A', 'NMR_14:A',
+    'NMR_2:A', 'NMR_3:A', 'NMR_4:A', 'NMR_5:A', 'NMR_6:A', 'NMR_7:A', 'NMR_8:A',
+    'NMR_9:A', 'OD550DRY:A', 'OMEGA:A', 'RELHUM:A', 'cb_DMS:A', 'cb_DST_A2:A',
+    'cb_DST_A2_OCW:A', 'cb_DST_A3:A', 'cb_DST_A3_OCW:A', 'cb_DU:A', 'isoprene:A',
+    'mmr_BC:A', 'mmr_DUST:A', 'mmr_OM:A', 'mmr_SALT:A', 'mmr_SULFATE:A',
+    'monoterp:A'
 
-! 6-hourly output
-nhtfrq(3) = -6
-mfilt(3) = 30
-fincl3 = ABS550R40:A, ABS550R85:A, ABSDR440:A, ABSDRYAE:A, RELHUM:A
+    ! 6-hourly output
+    nhtfrq(3) = -6
+    mfilt(3) = 30
+    empty_htapes(3) = .true.
+    fincl3 = 'ABS550R40:A', 'ABS550R85:A', 'ABSDR440:A', 'ABSDRYAE:A', 'RELHUM:A'
 
-! 3-hourly output
-empty_htapes(4) = .true.
-nhtfrq(4) = -3
-mfilt(4) = 30
-fincl4 = ABS440:I, ABS870:I, DOD440:I, DOD550:I, DOD870:I, FLNTAF:I, FLNTCAF:I,
- FLUTAF:I, FLUTCAF:I, FSNTAF:I, FSNTCAF:I, FSNTOAAF:I, FSUTOAAF:I,CLDTOT:A, FLDS:A, FLDSC:A, FLNS:A, FLNT:A, FLNTC:A, FSDS:A, FSDSC:A,
- FSNS:A, FSNT:A, FSNTC:A, FSNTOA:A, FSNTOAC:A, FSUTOA:A, LHFLX:A, PMID:A,
- PRECSC:A, PRECSL:A, PRECT:A, PS:A, Q:A, QREFHT:A, RHREFHT:A, SHFLX:A, SOLIN:A,
- T:A, TGCLDIWP:A, TREFHT:A, TS:A, U10:A
+    ! 3-hourly output
+    nhtfrq(4) = -3
+    mfilt(4) = 30
+    empty_htapes(4) = .true.
+    fincl4 = 'ABS440:I', 'ABS870:I', 'DOD440:I', 'DOD550:I', 'DOD870:I',
+    'FLNTAF:I', 'FLNTCAF:I', 'FLUTAF:I', 'FLUTCAF:I', 'FSNTAF:I', 'FSNTCAF:I',
+    'FSNTOAAF:I', 'FSUTOAAF:I'
 
 
 
