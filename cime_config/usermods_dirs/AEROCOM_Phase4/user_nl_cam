@@ -1,0 +1,95 @@
+Nudge_model = .true.
+Nudge_Filenames = 'era5_UVPS_58levels_201611.nc','era5_UVPS_58levels_201612.nc','era5_UVPS_58levels_201701.nc','era5_UVPS_58levels_201702.nc','era5_UVPS_58levels_201703.nc','era5_UVPS_58levels_201704.nc','era5_UVPS_58levels_201705.nc','era5_UVPS_58levels_201706.nc','era5_UVPS_58levels_201707.nc','era5_UVPS_58levels_201708.nc','era5_UVPS_58levels_201709.nc','era5_UVPS_58levels_201710.nc','era5_UVPS_58levels_201711.nc','era5_UVPS_58levels_201712.nc'
+Nudge_Datapath = '/cluster/shared/noresm/inputdata/noresm-only/inputForNudging/era5_UVPS_58levels_2016-2017/'
+Nudge_Meshfile = '/cluster/shared/noresm/inputdata/noresm-only/inputForNudging/era5_UVPS_ESMF_Mesh_cdf5.nc'
+Nudge_Data_Year_First = 2016
+Nudge_Data_Year_Last = 2017
+Nudge_Data_taxmode = 'limit'
+Nudge_beg_day = 1
+Nudge_beg_month = 1
+Nudge_beg_year = 2016
+Nudge_end_day = 31
+Nudge_end_month = 12
+Nudge_end_year = 2017
+Model_update_times_per_day = 48
+Nudge_Force_Opt = 1
+Nudge_Uprof = 2
+Nudge_Ucoef = 1.0
+Nudge_Vprof = 2
+Nudge_Vcoef = 1.0
+Nudge_Tprof = 0
+Nudge_Tcoef = 0.0
+Nudge_PSprof = 0
+Nudge_PScoef = 0.0
+
+! monthly output
+nhtfrq(1) = 0
+mfilt(1) = 1
+use_aerocom = .true.
+history_aerosol = .true.
+history_aerosol_radiation = .true.
+history_aerosol_decomposed = .true.
+
+fincl1 = ABS440:A, ABS550_A:A, ABS870:A, ABSDR440:A, ABSDR870:A, CCN1:A,
+ CCN3:A, CCN5:A, CCN5_1:A, CCN5_10:A, CCN5_14:A, CCN5_3:A, CCN5_5:A, CCN5_6:A,
+ CCN5_7:A, CCN5_8:A, CCN5_9:A, CCN6:A, CCN7:A, CONCLDTOT:A, D10UM_DU:A,
+ DELTAH:A, DOD440:A, DOD870:A, DST_A2_OCWDDF:A, DST_A2_OCWGVF:A,
+ DST_A2_OCWTBF:A, DST_A3_OCWDDF:A, DST_A3_OCWGVF:A, DST_A3_OCWTBF:A,
+ EC440R40:A, EC440R85:A, EC550DU:A, EC550POM:A, EC550SO4:A, EC550SS:A,
+ ECDRY440:A, H2SO4:A, NMR_1:A, NMR_10:A, NMR_12:A, NMR_14:A, NMR_2:A, NMR_3:A,
+ NMR_4:A, NMR_5:A, NMR_6:A, NMR_7:A, NMR_8:A, NMR_9:A, OD550DRY:A, OMEGA:A,
+ RELHUM:A, cb_DMS:A, cb_DST_A2:A, cb_DST_A2_OCW:A, cb_DST_A3:A,
+ cb_DST_A3_OCW:A, cb_DU:A, isoprene:A, mmr_BC:A, mmr_DUST:A, mmr_OM:A,
+ mmr_SALT:A, mmr_SULFATE:A, monoterp:A
+
+! 6-hourly output
+nhtfrq(3) = -6
+mfilt(3) = 30
+fincl3 = ABS550R40:A, ABS550R85:A, ABSDR440:A, ABSDRYAE:A, RELHUM:A
+
+! 3-hourly output
+empty_htapes(4) = .true.
+nhtfrq(4) = -3
+mfilt(4) = 30
+fincl4 = ABS440:I, ABS870:I, DOD440:I, DOD550:I, DOD870:I, FLNTAF:I, FLNTCAF:I,
+ FLUTAF:I, FLUTCAF:I, FSNTAF:I, FSNTCAF:I, FSNTOAAF:I, FSUTOAAF:I,CLDTOT:A, FLDS:A, FLDSC:A, FLNS:A, FLNT:A, FLNTC:A, FSDS:A, FSDSC:A,
+ FSNS:A, FSNT:A, FSNTC:A, FSNTOA:A, FSNTOAC:A, FSUTOA:A, LHFLX:A, PMID:A,
+ PRECSC:A, PRECSL:A, PRECT:A, PS:A, Q:A, QREFHT:A, RHREFHT:A, SHFLX:A, SOLIN:A,
+ T:A, TGCLDIWP:A, TREFHT:A, TS:A, U10:A
+
+
+
+empty_htapes(7) = .true.
+nhtfrq(7) = -3
+mfilt(7) = 30
+fincl7 = 'FISCCP1_COSP:I', 'CLDTOT_ISCCP:I', 'MEANCLDALB_ISCCP:I',
+         'MEANPTOP_ISCCP:I', 'MEANTAU_ISCCP:I', 'MEANTB_ISCCP:I',
+         'MEANTBCLR_ISCCP:I', 'TAU_ISCCP:I', 'CLDPTOP_ISCCP:I',
+         'CLDLOW_CAL:I', 'CLDMED_CAL:I', 'CLDHGH_CAL:I',
+         'CLDTOT_CAL:I', 'CLD_CAL:I', 'RFL_PARASOL:I',
+         'CFAD_SR532_CAL:I', 'MOL532_CAL:I', 'ATB532_CAL:I',
+         'CLD_CAL_LIQ:I', 'CLD_CAL_ICE:I', 'CLD_CAL_UN:I',
+         'CLD_CAL_TMP:I', 'CLD_CAL_TMPLIQ:I', 'CLD_CAL_TMPICE:I',
+         'CLD_CAL_TMPUN:I', 'CLDTOT_CAL_ICE:I', 'CLDTOT_CAL_LIQ:I',
+         'CLDTOT_CAL_UN:I', 'CLDHGH_CAL_ICE:I', 'CLDHGH_CAL_LIQ:I',
+         'CLDHGH_CAL_UN:I', 'CLDMED_CAL_ICE:I', 'CLDMED_CAL_LIQ:I',
+         'CLDMED_CAL_UN:I', 'CLDLOW_CAL_ICE:I', 'CLDLOW_CAL_LIQ:I',
+         'CLDLOW_CAL_UN:I', 'CFAD_DBZE94_CS:I', 'CLD_CAL_NOTCS:I',
+         'CLDTOT_CALCS:I', 'CLDTOT_CS:I', 'CLDTOT_CS2:I',
+         'DBZE_CS:I', 'CS_NOPRECIP:I', 'CS_RAINPOSS:I',
+         'CS_RAINPROB:I', 'CS_RAINCERT:I', 'CS_SNOWPOSS:I',
+         'CS_SNOWCERT:I', 'CS_MIXPOSS:I', 'CS_MIXCERT:I',
+         'CS_RAINHARD:I', 'CS_UN:I', 'CS_PIA:I',
+         'CLD_MISR:I', 'CLTMODIS:I', 'CLWMODIS:I',
+         'CLIMODIS:I', 'CLHMODIS:I', 'CLMMODIS:I',
+         'CLLMODIS:I', 'TAUTMODIS:I', 'TAUWMODIS:I',
+         'TAUIMODIS:I', 'TAUTLOGMODIS:I', 'TAUWLOGMODIS:I',
+         'TAUILOGMODIS:I', 'REFFCLWMODIS:I', 'REFFCLIMODIS:I',
+         'PCTMODIS:I', 'LWPMODIS:I', 'IWPMODIS:I',
+         'CLMODIS:I', 'CLRIMODIS:I', 'CLRLMODIS:I',
+         'SCOPS_OUT:I', 'PS_COSP:I', 'TS_COSP:I',
+         'P_COSP:I', 'PH_COSP:I', 'ZLEV_COSP:I',
+         'ZLEV_HALF_COSP:I', 'T_COSP:I', 'Q_COSP:I',
+         'TAU_067:I', 'EMISS_11:I', 'MODIS_fracliq:I',
+         'MODIS_asym:I', 'MODIS_ssa:I', 'CS_z_vol:I',
+         'CS_kr_vol:I', 'CS_g_vol:I'

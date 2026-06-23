@@ -1,0 +1,2 @@
+./xmlchange CAM_CONFIG_OPTS="-phys cam7 -camnor -cosp -chem trop_mam_oslo -model_top lt"
+./xmlchange CALENDAR=GREGORIAN
