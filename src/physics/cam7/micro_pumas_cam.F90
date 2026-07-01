@@ -3570,6 +3570,12 @@ subroutine micro_pumas_cam_tend(state, ptend, dtime, pbuf)
    !Calculate values for comparing with Bennartz 2017
    if (hist_fld_active('ACTNL_B') .or. hist_fld_active('FCTL_B') .or. &
        hist_fld_active('CCN_B')) then
+      if (use_subcol_microp) then
+         call subcol_field_avg(ncal,    ngrdcol, lchnk, ncal_grid)
+      else
+          ncal_grid = ncal
+      end if
+      
       do i = 1, ngrdcol
          do k = top_lev, pver
             !Criterions for Bennartz (2017) to use values from a column

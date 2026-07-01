@@ -100,6 +100,6 @@
 <prescribed_volcaero_file>UOEXETER-CMIP-2-2-1_175001-202312_intpwghtavg_v20260105.nc</prescribed_volcaero_file>
 
 <!-- for prescribed deposition and emission fluxes -->
-<sim_year>1850-2015</sim_year>
+<sim_year>1979-2021</sim_year>
 
 </namelist_defaults>

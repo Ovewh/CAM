@@ -277,7 +277,7 @@
 <bnd_topo hgrid="ne3np4"          >atm/cam/topo/se/ne3np4_gmted2010_modis_bedmachine_nc0540_Laplace1000_noleak_20230717.nc</bnd_topo>
 <bnd_topo hgrid="ne3np4"   npg="3">atm/cam/topo/se/ne3pg3_gmted2010_modis_bedmachine_nc0540_Laplace1000_noleak_20230209.nc</bnd_topo>
 <bnd_topo hgrid="ne5np4"   npg="3">atm/cam/topo/se/ne5pg3_nc3000_Co360_Fi001_MulG_PF_nullRR_Nsw064_20170516.nc</bnd_topo>
-<bnd_topo hgrid="ne16np4"  npg="3">atm/cam/topo/se/ne16pg3_gmted2010_modis_bedmachine_nc3000_Laplace0200_20230202.nc</bnd_topo>
+<bnd_topo hgrid="ne16np4"  npg="3">atm/cam/topo/se/ne16pg3_gmted2010_modis_bedmachine_nc3000_Laplace0200_noleak_greenlndantarcsgh30fac2.50_20250825.nc</bnd_topo>
 <bnd_topo hgrid="ne30np4" npg="3">atm/cam/topo/se/ne30pg3_gmted2010_modis_bedmachine_nc3000_Laplace0100_noleak_greenlndantarcsgh30fac2.50_20250828.nc</bnd_topo>
 <bnd_topo hgrid="ne60np4"  npg="3">atm/cam/topo/se/ne60pg3_nc3000_Co030_Fi001_PF_nullRR_Nsw021_20171012.nc</bnd_topo>
 <bnd_topo hgrid="ne120np4" npg="3">atm/cam/topo/se/ne120pg3_nc3000_Co015_Fi001_PF_nullRR_Nsw010_20171014.nc</bnd_topo>
@@ -583,7 +583,7 @@
 <carma_soilerosion_file carma="dust">atm/cam/dst/soil_erosion_factor_1x1_c120907.nc</carma_soilerosion_file>
 <carma_emis_file        carma="tholin">atm/waccm/emis/early_earth_haze.nc</carma_emis_file>
 
-<!-- CAM-Chem ozone (2000 climatology) -->
+<!-- Default for ozone is 2000 climatology -->
 <prescribed_ozone_datapath>atm/cam/ozone</prescribed_ozone_datapath>
 <prescribed_ozone_file>ozone_1.9x2.5_L26_2000clim_c091112.nc</prescribed_ozone_file>
 <prescribed_ozone_name>O3</prescribed_ozone_name>
@@ -658,28 +658,30 @@
 <!-- Time-variant CO2 fossil fuel emissions -->
 <co2flux_fuel_datafile>atm/cam/ggas/emissions-cmip6_CO2_anthro_surface_175001-201512_fv_0.9x1.25_c20181011.nc</co2flux_fuel_datafile>
 <co2flux_fuel_meshfile>share/meshes/fv0.9x1.25_141008_polemod_ESMFmesh.nc</co2flux_fuel_meshfile>
+<co2flux_fuel_tintalgo>nearest</co2flux_fuel_tintalgo>
 <co2flux_fuel_year_first sim_year="2000">2000</co2flux_fuel_year_first>
-<co2flux_fuel_year_end   sim_year="2000">2000</co2flux_fuel_year_end>
+<co2flux_fuel_year_last  sim_year="2000">2000</co2flux_fuel_year_last>
 <co2flux_fuel_year_align sim_year="2000">1</co2flux_fuel_year_align>
 <co2flux_fuel_year_first sim_year="1850">1850</co2flux_fuel_year_first>
-<co2flux_fuel_year_end   sim_year="1850">1850</co2flux_fuel_year_end>
+<co2flux_fuel_year_last  sim_year="1850">1850</co2flux_fuel_year_last>
 <co2flux_fuel_year_align sim_year="1850">1</co2flux_fuel_year_align>
 <co2flux_fuel_year_first sim_year="1850-2015">1850</co2flux_fuel_year_first>
-<co2flux_fuel_year_end   sim_year="1850-2015">2015</co2flux_fuel_year_end>
+<co2flux_fuel_year_last  sim_year="1850-2015">2015</co2flux_fuel_year_last>
 <co2flux_fuel_year_align sim_year="1850-2015">1850</co2flux_fuel_year_align>
 
 <!-- Time-variant CO2 aircraft emissions -->
 <aircraft_co2_datafile>atm/cam/ggas/emissions-cmip6_CO2_anthro_ac_175001-201512_fv_0.9x1.25_c20181011.nc</aircraft_co2_datafile>
 <aircraft_co2_meshfile>share/meshes/fv0.9x1.25_141008_polemod_ESMFmesh.nc</aircraft_co2_meshfile>
-<aircraft_co2_year_first sim_year="2000">2000</aircraft_co2_year_first>
-<aircraft_co2_year_end   sim_year="2000">2000</aircraft_co2_year_end>
-<aircraft_co2_year_align sim_year="2000">1</aircraft_co2_year_align>
-<aircraft_co2_year_first sim_year="1850">1850</aircraft_co2_year_first>
-<aircraft_co2_year_end   sim_year="1850">1850</aircraft_co2_year_end>
-<aircraft_co2_year_align sim_year="1850">1</aircraft_co2_year_align>
-<aircraft_co2_year_first sim_year="1850-2015">1850</aircraft_co2_year_first>
-<aircraft_co2_year_end   sim_year="1850-2015">2015</aircraft_co2_year_end>
-<aircraft_co2_year_align sim_year="1850-2015">1850</aircraft_co2_year_align>
+<aircraft_co2_tintalgo>nearest</aircraft_co2_tintalgo>
+<aircraft_co2_year_first  sim_year="2000">2000</aircraft_co2_year_first>
+<aircraft_co2_year_last   sim_year="2000">2000</aircraft_co2_year_last>
+<aircraft_co2_year_align  sim_year="2000">1</aircraft_co2_year_align>
+<aircraft_co2_year_first  sim_year="1850">1850</aircraft_co2_year_first>
+<aircraft_co2_year_last   sim_year="1850">1850</aircraft_co2_year_last>
+<aircraft_co2_year_align  sim_year="1850">1</aircraft_co2_year_align>
+<aircraft_co2_year_first  sim_year="1850-2015">1850</aircraft_co2_year_first>
+<aircraft_co2_year_last   sim_year="1850-2015">2015</aircraft_co2_year_last>
+<aircraft_co2_year_align  sim_year="1850-2015">1850</aircraft_co2_year_align>
 
 <!-- Greenhouse gas production/loss rates -->
 <bndtvg>atm/cam/ggas/noaamisc.r8.nc</bndtvg>
@@ -1892,7 +1894,7 @@
 <svocbb_ext_file>atm/cam/chem/emis/rcp85_finn_2002-2014/rcp85_finn_2000.SVOCbb.elev.1.9x2.5_c160601.nc</svocbb_ext_file>
 
 <!-- prescribed oxidants for prognostic aerosol chemistry -->
-<tracer_cnst_file     ver="fixed_ox">oxid_1.9x2.5_L26_1850-2005_c091123.nc</tracer_cnst_file>
+<tracer_cnst_file     ver="fixed_ox">tracer_cnst_MTt4s_halons_3Dmonthly_1850climo330_c20260415.nc</tracer_cnst_file>
 
 <!-- prescribed oxidants for prognostic aerosol chemistry -lightweight set for running SCAM and producing SCAM IOP boundary data -->
 <tracer_cnst_file     phys="cam6"     ver="fixed_ox" scam="1">oxid_1.9x2.5_L26_1850clim_c091123.nc</tracer_cnst_file>
@@ -2014,12 +2016,17 @@
 <soil_erod_file phys="cam4"  >atm/cam/dst/dst_source2x2tuned-cam4-06132012.nc</soil_erod_file>
 <soil_erod_file phys="cam4" hgrid="0.9x1.25">atm/cam/dst/dst_source1x1tuned-cam4-06202012.nc</soil_erod_file>
 
-<!-- nitrogen deposition to surface models -->
-<stream_ndep_mesh_filename>share/meshes/fv0.9x1.25_141008_polemod_ESMFmesh.nc</stream_ndep_mesh_filename>
-<stream_ndep_data_filename>lnd/clm2/ndepdata/fndep_clm_hist_b.e21.BWHIST.f09_g17.CMIP6-historical-WACCM.ensmean_1849-2015_monthly_0.9x1.25_c180926.nc</stream_ndep_data_filename>
+<!-- nitrogen deposition to surface components -->
+<stream_ndep_varlist>NDEP_NHx_month:NDEP_NOy_month</stream_ndep_varlist>
+<stream_ndep_varlist phys="cam7">drynhx:wetnhx:drynoy:wetnoy</stream_ndep_varlist>
 
-<stream_ndep_mesh_filename sim_year="1850">share/meshes/fv0.9x1.25_141008_polemod_ESMFmesh.nc</stream_ndep_mesh_filename>
+<stream_ndep_mesh_filename>share/meshes/fv0.9x1.25_141008_polemod_ESMFmesh.nc</stream_ndep_mesh_filename>
+<stream_ndep_mesh_filename phys="cam7">atm/ndep/cmip7/ndep_input4MIPs_surfaceFluxes_ESMFmesh_cdf5_c20251211.nc</stream_ndep_mesh_filename>
+
+<stream_ndep_data_filename>lnd/clm2/ndepdata/fndep_clm_hist_b.e21.BWHIST.f09_g17.CMIP6-historical-WACCM.ensmean_1849-2015_monthly_0.9x1.25_c180926.nc</stream_ndep_data_filename>
 <stream_ndep_data_filename sim_year="1850">lnd/clm2/ndepdata/fndep_clm_WACCM6_CMIP6piControl001_y21-50avg_1850monthly_0.95x1.25_c180802.nc</stream_ndep_data_filename>
+<stream_ndep_data_filename phys="cam7">atm/ndep/cmip7/ndep_input4MIPs_surfaceFluxes_CMIP_FZJ-CMIP-nitrogen-2-0_gn_185001-202212_cdf5_c20260409.nc</stream_ndep_data_filename>
+<stream_ndep_data_filename phys="cam7" sim_year="1850">atm/ndep/cmip7/ndep_input4MIPs_surfaceFluxes_CMIP_FZJ-CMIP-nitrogen-2-0_gn_185001-185012-clim_cdf5_c20260409.nc</stream_ndep_data_filename>
 
 <stream_ndep_year_first >2000</stream_ndep_year_first>
 <stream_ndep_year_first sim_year="1850">1850</stream_ndep_year_first>
@@ -2108,7 +2115,7 @@
 <clubb_C7 phys="cam7"                             > 0.1     </clubb_C7>
 <clubb_C7b                                        > 0.5     </clubb_C7b>
 <clubb_C8                                         > 4.2     </clubb_C8>
-<clubb_C8 phys="cam7"                             > 4.5     </clubb_C8>
+<clubb_C8 phys="cam7"                             > 4.2     </clubb_C8>
 <clubb_C8b                                        > 0.0     </clubb_C8b>
 <clubb_C_invrs_tau_bkgnd                          > 1.0     </clubb_C_invrs_tau_bkgnd>
 <clubb_C_invrs_tau_sfc                            > 0.1     </clubb_C_invrs_tau_sfc>
@@ -2398,7 +2405,7 @@
 <nucleate_ice_use_troplev               >.true.</nucleate_ice_use_troplev>
 
 <!-- Secondary ice production -->
-<rafsip_on>.false.</rafsip_on>
+<rafsip_on>.true.</rafsip_on>
 <forestfileALL>atm/cam/RaFSIP/forestALL.txt</forestfileALL>
 <forestfileBRDS>atm/cam/RaFSIP/forestBRDS.txt</forestfileBRDS>
 <forestfileBRHM>atm/cam/RaFSIP/forestBRHM.txt</forestfileBRHM>
@@ -2475,7 +2482,7 @@
 <dust_emis_fact dyn="se"                   phys="cam5"                    >0.55D0</dust_emis_fact>
 <dust_emis_fact dyn="fv"                   phys="cam5"   clubb_sgs="1"    >0.22D0</dust_emis_fact>
 <dust_emis_fact dyn="se"                   phys="cam6"                    >0.70D0</dust_emis_fact>
-<dust_emis_fact dyn="se"                   phys="cam7"                    >2.30D0</dust_emis_fact>
+<dust_emis_fact dyn="se"                   phys="cam7"                    >6.10D0</dust_emis_fact>
 <dust_emis_fact dyn="mpas"                 phys="cam7"                    >2.30D0</dust_emis_fact>
 <dust_emis_fact dyn="se" hgrid="ne30np4"   phys="cam6"             chem="trop_strat_mam4_vbs">0.8D0</dust_emis_fact>
 <dust_emis_fact dyn="se" hgrid="ne30np4"   phys="cam7"             chem="trop_strat_mam4_vbs">2.30D0</dust_emis_fact>
@@ -2510,17 +2517,19 @@
 <dust_emis_fact hgrid="0.47x0.63" offline_dyn="1" phys="cam6"    ver="chem">0.9D0</dust_emis_fact>
 <dust_emis_fact hgrid="0.47x0.63" offline_dyn="1" phys="cam7"    ver="chem">2.30D0</dust_emis_fact>
 
+<!-- Oslo_Aero default-->
+<dust_emis_fact dyn="se" ver="oslo_aero">  3.3D0 </dust_emis_fact>
+<emis_fact_in_coarse_mode>0.97D0</emis_fact_in_coarse_mode>
 <!-- dust emissions method -->
 <dust_emis_method>              Zender_2003</dust_emis_method>
-<!-- gold2718: Temporarily not using Leung_2023 as default for CAM7
-See https://github.com/NorESMhub/noresm3_dev_simulations/discussions/78
 <dust_emis_method phys="cam7">  Leung_2023 </dust_emis_method>
--->
+
 <zender_soil_erod_source>atm</zender_soil_erod_source>
 
 <!-- seasalt emission tuning factor -->
 <!-- Note that ver="strat" when modal_accum_coarse_exch=.true. -->
 <seasalt_emis_scale                                                      >1.35D0</seasalt_emis_scale>
+<seasalt_emis_scale ver="oslo_aero"                                      >1.D0</seasalt_emis_scale>
 <seasalt_emis_scale ver="mam7"                                           >1.62D0</seasalt_emis_scale>
 <seasalt_emis_scale ver="strat"                                          >0.90D0</seasalt_emis_scale>
 <seasalt_emis_scale ver="strat" clubb_sgs="1"                            >1.00D0</seasalt_emis_scale>
@@ -2756,11 +2765,11 @@ See https://github.com/NorESMhub/noresm3_dev_simulations/discussions/78
 <zmconv_c0_ocn                   hgrid="C384"     phys="cam6"         > 0.0035D0 </zmconv_c0_ocn>
 <zmconv_c0_ocn  microphys="mg2"  clubb_sgs="1"    phys="cam6"         > 0.0300D0 </zmconv_c0_ocn>
 <zmconv_c0_ocn  microphys="mg3"  clubb_sgs="1"    phys="cam6"         > 0.0300D0 </zmconv_c0_ocn>
-<zmconv_c0_ocn                                    phys="cam7"         > 0.0450D0 </zmconv_c0_ocn>
+<zmconv_c0_ocn                                    phys="cam7"         > 0.0210D0 </zmconv_c0_ocn>
 <zmconv_c0_ocn                   hgrid="ne120np4" phys="cam7"         > 0.0035D0 </zmconv_c0_ocn>
 <zmconv_c0_ocn                   hgrid="C384"     phys="cam7"         > 0.0035D0 </zmconv_c0_ocn>
-<zmconv_c0_ocn  microphys="mg2"  clubb_sgs="1"    phys="cam7"         > 0.0300D0 </zmconv_c0_ocn>
-<zmconv_c0_ocn  microphys="mg3"  clubb_sgs="1"    phys="cam7"         > 0.0300D0 </zmconv_c0_ocn>
+<zmconv_c0_ocn  microphys="mg2"  clubb_sgs="1"    phys="cam7"         > 0.0210D0 </zmconv_c0_ocn>
+<zmconv_c0_ocn  microphys="mg3"  clubb_sgs="1"    phys="cam7"         > 0.0210D0 </zmconv_c0_ocn>
 <zmconv_c0_ocn  dyn="fv"                          phys="cam4"         > 0.0035D0 </zmconv_c0_ocn>
 <zmconv_c0_ocn  dyn="se"                          phys="cam4"         > 0.0035D0 </zmconv_c0_ocn>
 
@@ -2777,7 +2786,7 @@ See https://github.com/NorESMhub/noresm3_dev_simulations/discussions/78
 <zmconv_num_cin                                       phys="cam7"     > 1       </zmconv_num_cin>
 
 <zmconv_dmpdz                                                         > -1.0E-3 </zmconv_dmpdz>
-<zmconv_tiedke_add                                                    > 0.5     </zmconv_tiedke_add>
+<zmconv_tiedke_add                                                    > 0.7     </zmconv_tiedke_add>
 <zmconv_capelmt                                                       > 70.0    </zmconv_capelmt>
 <zmconv_tau                                                           > 3600.0    </zmconv_tau>
 
@@ -2861,7 +2870,7 @@ See https://github.com/NorESMhub/noresm3_dev_simulations/discussions/78
   'T', 'bc_a1', 'bc_a4', 'dst_a1', 'dst_a2', 'dst_a3', 'ncl_a1', 'ncl_a2', 'ncl_a3',
   'num_a1', 'num_a2', 'num_a3', 'num_a4', 'pom_a1', 'pom_a4', 'so4_a1', 'so4_a2', 'so4_a3', 'soa_a1', 'soa_a2'
 </scm_relax_fincl>
-<scm_relax_fincl   phys="cam7"scam="1"  >
+<scm_relax_fincl   phys="cam7" scam="1"  >
   'T', 'bc_a1', 'bc_a4', 'dst_a1', 'dst_a2', 'dst_a3', 'ncl_a1', 'ncl_a2', 'ncl_a3',
   'num_a1', 'num_a2', 'num_a3', 'num_a4', 'pom_a1', 'pom_a4', 'so4_a1', 'so4_a2', 'so4_a3', 'soa_a1', 'soa_a2'
 </scm_relax_fincl>
@@ -4098,6 +4107,8 @@ See https://github.com/NorESMhub/noresm3_dev_simulations/discussions/78
 <!-- CAM-Oslo variables -->
 <use_aerocom>.false.</use_aerocom>
 <no_rad_dust_active>.false.</no_rad_dust_active>
+<use_aerocom ver="oslo">.true.</use_aerocom>
+<rh_fine_aer_scale_fact_optics>1.0</rh_fine_aer_scale_fact_optics>
 <dme_energy_adjust>.true.</dme_energy_adjust>
 <volc_fraction_coarse   >0.0</volc_fraction_coarse>
 <aerotab_table_dir>noresm-only/atm/cam/camoslo/AeroTab_8jun17/</aerotab_table_dir>
