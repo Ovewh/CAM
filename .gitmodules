@@ -84,15 +84,15 @@
 
 [submodule "oslo_aero"]
     path = src/chemistry/oslo_aero
-    url = https://github.com/NorESMhub/OSLO_AERO
-    fxtag = oslo_aero_3_0a012
+    url = https://github.com/ovewh/OSLO_AERO
+    fxtag = oslo_aero_3_0a012.SATACI
     fxrequired = AlwaysRequired
     fxDONOTUSEurl = https://github.com/NorESMhub/OSLO_AERO.git
 
 [submodule "pumas"]
     path = src/physics/pumas
-    url = https://github.com/NorESMhub/PUMAS
-    fxtag = noresm3_0_005_pumas_v1_38
+    url = https://github.com/ovewh/PUMAS
+    fxtag = noresm3_0_005_pumas_v1_38.SATACI
     fxrequired = AlwaysRequired
     fxDONOTUSEurl = https://github.com/NorESMhub/PUMAS
 
