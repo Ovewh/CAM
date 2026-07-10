@@ -2531,7 +2531,6 @@
 <!-- dust emissions method -->
 <dust_emis_method>              Zender_2003</dust_emis_method>
 <dust_emis_method phys="cam7">  Leung_2023 </dust_emis_method>
-
 <zender_soil_erod_source>atm</zender_soil_erod_source>
 
 <!-- seasalt emission tuning factor -->
@@ -2544,6 +2543,10 @@
 <seasalt_emis_scale ver="strat" clubb_sgs="1" phys="cam7"                >1.50D0</seasalt_emis_scale>
 <seasalt_emis_scale ver="strat" clubb_sgs="1" hgrid="1.9x2.5" phys="cam6">1.10D0</seasalt_emis_scale>
 <seasalt_emis_scale ver="strat" clubb_sgs="1" silhs="1"                  >0.60D0</seasalt_emis_scale>
+<!-- NorESM3 seasalt emission scale factor-->
+<seasalt_emis_scale chem="trop_mam_oslo"                               >1.00D0</seasalt_emis_scale>
+
+
 
 <!-- Wet scavenging of modal aerosols -->
 <sol_facti_cloud_borne                                                >1.0D0</sol_facti_cloud_borne>
@@ -2554,6 +2557,61 @@
 <sol_factb_interstitial                >0.1D0</sol_factb_interstitial>
 
 <sol_factic_interstitial                >0.4D0</sol_factic_interstitial>
+
+<!-- smb: size parameters        -->
+<oslo_aero_lifecyclenumbermedianradius> 0.0626D-6,
+    0.025D-6, 0.025D-6 , 0.04D-6,   0.06D-6,   0.075D-6,
+    0.22D-6,   0.63D-6,  0.0475D-6, 0.30D-6,   0.75D-6,
+    0.0118D-6, 0.024D-6, 0.04D-6  , 0.04D-6  </oslo_aero_lifecyclenumbermedianradius>
+<oslo_aero_lifecyclesigma> 1.6D0,
+    1.8D0, 1.8D0, 1.8D0, 1.8D0,
+    1.59D0, 1.59D0, 2.0D0,
+    2.1D0, 1.72D0, 1.6D0,
+    1.8D0, 1.8D0, 1.8D0, 1.8D0  </oslo_aero_lifecyclesigma>
+
+<oslo_aero_nucl_scaling_factor>1.0D0</oslo_aero_nucl_scaling_factor>
+<oslo_aero_n_so4_monolayers_age>3.0D0</oslo_aero_n_so4_monolayers_age>
+<oslo_aero_f_act_conv_interstitial>0.8D0</oslo_aero_f_act_conv_interstitial>
+
+<oslo_aero_drydep_mode_velocity_scale> 1.0D0, 1.0D0, 1.0D0, 
+     1.0D0, 1.0D0, 1.0D0, 1.0D0, 
+     1.0D0, 1.0D0, 1.0D0, 1.0D0,
+     1.0D0, 1.0D0, 1.0D0, 1.0D0 </oslo_aero_drydep_mode_velocity_scale>
+
+<!-- dust density parameters-->
+<dst_density>2.60D3</dst_density>
+
+<!-- convective scavenging of aerosols -->
+<f_act_conv_coarse_dust>0.40D0</f_act_conv_coarse_dust>
+
+<!-- dust soulable fraction-->
+<dst_solfact>0.1D0</dst_solfact>
+
+<!-- smb: size parameters        -->
+<oslo_aero_lifecyclenumbermedianradius> 0.0626D-6,
+    0.025D-6, 0.025D-6 , 0.04D-6,   0.06D-6,   0.075D-6,
+    0.22D-6,   0.63D-6,  0.0475D-6, 0.30D-6,   0.75D-6,
+    0.0118D-6, 0.024D-6, 0.04D-6  , 0.04D-6  </oslo_aero_lifecyclenumbermedianradius>
+<oslo_aero_lifecyclesigma> 1.6D0,
+    1.8D0, 1.8D0, 1.8D0, 1.8D0,
+    1.59D0, 1.59D0, 2.0D0,
+    2.1D0, 1.72D0, 1.6D0,
+    1.8D0, 1.8D0, 1.8D0, 1.8D0  </oslo_aero_lifecyclesigma>
+
+<oslo_aero_nucl_scaling_factor>1.0D0</oslo_aero_nucl_scaling_factor>
+<oslo_aero_n_so4_monolayers_age>3.0D0</oslo_aero_n_so4_monolayers_age>
+<oslo_aero_f_act_conv_interstitial>0.8D0</oslo_aero_f_act_conv_interstitial>
+
+<oslo_aero_anions_scale_factor>0.0D0</oslo_aero_anions_scale_factor>
+
+<!-- dust density parameters-->
+<dst_density>2.60D3</dst_density>
+
+<!-- convective scavenging of aerosols -->
+<f_act_conv_coarse_dust>0.40D0</f_act_conv_coarse_dust>
+
+<!-- dust soulable fraction-->
+<dst_solfact>0.1D0</dst_solfact>
 
 <!-- PBL scheme -->
 <eddy_scheme pbl="none"           >NONE           </eddy_scheme>
