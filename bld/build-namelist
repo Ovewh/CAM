@@ -993,6 +993,9 @@ if ($aer_model eq 'oslo') {
   add_default($nl, 'oslo_aero_anions_scale_factor');
   add_default($nl, 'emis_fact_in_coarse_mode', 'ver'=>'oslo_aero');
   add_default($nl, 'seasalt_emis_scale',  'ver'=>'oslo_aero');
+  add_default($nl, 'emi_ss_ait',    'ver'=>'oslo_aero');
+  add_default($nl, 'emi_ss_acc',    'ver'=>'oslo_aero');
+  add_default($nl, 'emi_ss_coarse', 'ver'=>'oslo_aero');
 
   # Top level for aerosol processes that impact CAM climate.
   add_default($nl, 'clim_modal_aero_top_press');

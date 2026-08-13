@@ -2805,7 +2805,7 @@ Default: 0.01
 
 <entry id="micro_mg_autocon_nd_exp" type="real" category="microphys"
        group="micro_mg_nl" valid_values="" >
-Unitless exponent of cloud number condensation in the KK autoconversion parameterization equation. See Khairoutdinov and Kogan, 2002.
+Unitless exponent of cloud number condensation in the KK autoconversion parameterization equation. See Khairoutdinov and Kogan, 2002.       
 Default: -1.1
 </entry>
 
@@ -6803,6 +6803,24 @@ Tuning for seasalt_emis
 Default: set by build-namelist.
 </entry>
 
+<entry id="emi_ss_ait" type="real" category="cam_chem"
+       group="aerosol_nl" valid_values="" >
+Emission scaling factor for the SS_A1 (fine/Aitken mode) sea salt tracer.
+Default: set by build-namelist.
+</entry>
+
+<entry id="emi_ss_acc" type="real" category="cam_chem"
+       group="aerosol_nl" valid_values="" >
+Emission scaling factor for the SS_A2 (accumulation mode) sea salt tracer.
+Default: set by build-namelist.
+</entry>
+
+<entry id="emi_ss_coarse" type="real" category="cam_chem"
+       group="aerosol_nl" valid_values="" >
+Emission scaling factor for the SS_A3 (coarse mode) sea salt tracer.
+Default: set by build-namelist.
+</entry>
+
 <entry id="aer_sol_facti" type="real(1000)" category="cam_chem"
        group="aerosol_nl" valid_values="" >
 In-cloud solubility factor used in BULK aerosol wet removal
@@ -10306,8 +10324,8 @@ Type of DMS data source
 Default: emission_file
 </entry>
 
-<entry id="dms_emis_scale" type="real" category="cam_oslo" 
-        group="aero_model_readnl" valid_values="" >
+<entry id="dms_emis_scale" type="real" category="cam_oslo"
+        group="aerosol_nl" valid_values="" >
 Scaling factor for DMS emission when running fSST with prescribed DMS
 Default: 1.0
 </entry>

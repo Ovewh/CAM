@@ -2546,6 +2546,11 @@
 <!-- NorESM3 seasalt emission scale factor-->
 <seasalt_emis_scale chem="trop_mam_oslo"                               >1.00D0</seasalt_emis_scale>
 
+<!-- per-mode seasalt emission scaling factors (SS_A1, SS_A2, SS_A3) -->
+<emi_ss_ait    ver="oslo_aero"                                         >0.5D0</emi_ss_ait>
+<emi_ss_acc    ver="oslo_aero"                                         >0.5D0</emi_ss_acc>
+<emi_ss_coarse ver="oslo_aero"                                         >0.75D0</emi_ss_coarse>
+
 
 
 <!-- Wet scavenging of modal aerosols -->
@@ -4184,6 +4189,8 @@
 <dme_energy_adjust                        > .true.                      </dme_energy_adjust>
 <volc_fraction_coarse                     > 0.0                         </volc_fraction_coarse>
 <dms_source                               > lana                        </dms_source>
+<dms_emis_scale chem="trop_mam_oslo"      > 1.0D0                       </dms_emis_scale>
+<dms_emis_scale chem="ghg_mam_oslo"       > 1.0D0                       </dms_emis_scale>
 <dms_source_type                          > CYCLICAL                    </dms_source_type>
 <dms_cycle_year                           > 2000                        </dms_cycle_year>
 <opom_source                              > odowd                       </opom_source>
