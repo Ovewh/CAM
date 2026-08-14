@@ -987,10 +987,10 @@ if ($aer_model eq 'oslo') {
   add_default($nl, 'oslo_aero_nucl_scaling_factor');
   add_default($nl, 'oslo_aero_n_so4_monolayers_age');
   add_default($nl, 'oslo_aero_f_act_conv_interstitial');
-  add_default($nl, 'f_act_conv_coarse_dust');
+  add_default($nl, 'oslo_aero_f_act_conv_coarse_dust');
   add_default($nl, 'dst_density');
   add_default($nl, 'dst_solfact');
-  add_default($nl, 'oslo_aero_anions_scale_factor');
+  add_default($nl, 'oslo_aero_anions_scale_exponent');
   add_default($nl, 'emis_fact_in_coarse_mode', 'ver'=>'oslo_aero');
   add_default($nl, 'seasalt_emis_scale',  'ver'=>'oslo_aero');
   add_default($nl, 'emi_ss_ait',    'ver'=>'oslo_aero');

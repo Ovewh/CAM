@@ -3063,9 +3063,12 @@ Default: .true.
     Default 1.0
 </entry>
 
-<entry id="oslo_aero_anions_scale_factor" type="real" category="microphys"
+<entry id="oslo_aero_anions_scale_exponent" type="real" category="microphys"
        group="chem_inparm" valid_values="" >
-    Adding a scaling offset for anions during solving the energy neutrality equation and according shift what is determined to be the optimal pH.
+    Log10 of a multiplier applied to the total anion concentration in the
+    electroneutrality equation of the cloud-water pH solver (mo_setsox).
+    The cloud pH shifts by approximately -1 times this value.
+    0.0 (multiplier 1.0) reproduces the unperturbed model.
     Default: 0.0
 </entry>
 
@@ -5196,7 +5199,7 @@ Valid options are:
 Default: NONE
 </entry>
 
-<entry id="f_act_conv_coarse_dust" type="real" category="cam_chem"
+<entry id="oslo_aero_f_act_conv_coarse_dust" type="real" category="cam_chem"
        group="oslo_aero_depos_nl" valid_values="" >
 Convetive scavenging coefficient for coarse dust
 Default: set by build-namelist.
