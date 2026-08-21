@@ -26,7 +26,7 @@ _CMIP_COMPOUND_NAME = "CMIP7 Compound Name"
 _REQUIRED_HEADERS = [_FREQUENCY_COLNAME, _MODELTYPE_COLNAME, _REGION_COLNAME,
                      _CAM_DIAG_COLNAME]
 _AVG_COLNAMES = [_CMIP_COMPOUND_NAME, "Processing type"]
-_CMIP_AVGFLG_RE = re.compile(r"[a-zA-Z.]*[.](t[a-z])[-]")
+_CMIP_AVGFLG_RE = re.compile(r"[.](tavg|tmax|tmin|tpt)[-]")
 # recognized CMIP7 averaging flags (not complete, just what is available to CAM)
 _CMIP_AVGFLAGS = {'tavg':'A', 'tmin':'M', 'tmax':'X', 'tpt':'I'}
 
@@ -268,28 +268,26 @@ def get_hist_proc_flag(row, avg_col, freq, rownum):
     else:
         avg_fld = row[avg_col]
     # end if
-    if avg_fld is None:
-        if freq == 'subhr':
-            hist_flag = 'I'
-        else:
-            hist_flag = 'A'
+    if avg_fld and (len(avg_fld) == 1):
+        # This is a column which simply has the average flag we want
+        if avg_fld not in ['I', 'A', 'X', 'M', 'B', 'N', 'L', 'S']:
+            raise ValueError(f"Error: Invalid processing flag, '{avg_fld}' on row {rownum}")
         # end if
+        hist_flag = avg_fld
     else:
-        match = _CMIP_AVGFLG_RE.match(avg_fld)
+        match = _CMIP_AVGFLG_RE.search(avg_fld) if avg_fld else None
         if match is None:
-            # This should be a column which simply has the average flag we want
-            if (len(avg_fld) != 1) or (avg_fld not in ['I', 'A', 'X', 'M', 'B', 'N', 'L', 'S']):
-                raise ValueError(f"Error: Invalid processing flag, '{avg_fld}' on row {rownum}")
+            # No recognized processing-type code found (e.g., avg_col is None
+            # or the code is not one of the recognized CMIP7 averaging flags).
+            # Fall back to the default based on frequency.
+            if freq == 'subhr':
+                hist_flag = 'I'
+            else:
+                hist_flag = 'A'
             # end if
-            hist_flag = avg_fld
         else:
             hist_desc = match.group(1)
-            if hist_desc in _CMIP_AVGFLAGS:
-                hist_flag = _CMIP_AVGFLAGS[hist_desc]
-            else:
-                emsg = f"Error: Invalid {_CMIP_COMPOUND_NAME}, '{hist_desc}' on row {rownum}"
-                raise ValueError(emsg)
-            # end if
+            hist_flag = _CMIP_AVGFLAGS[hist_desc]
             if (freq == 'subhr') and (hist_flag != 'I'):
                 emsg = f"Error: Invalid processing flag, '{hist_flag}' for time-step output"
                 raise ValueError(f"{emsg} on row {rownum}")
@@ -332,9 +330,9 @@ def parse_spreadsheet(csvfile, model_names=["atmos", "aerosol", "atmosChem"]):
         name_col = col_dirs[_CAM_DIAG_COLNAME]
         avg_col = None
         for flag_col_name in _AVG_COLNAMES:
-            if flag_col_name in col_dirs:
-                avg_col = col_dirs[flag_col_name]
-                exit
+            if flag_col_name in headers:
+                avg_col = headers.index(flag_col_name)
+                break
             # end if
         # end for
         for row in reader:
