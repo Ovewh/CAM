@@ -236,6 +236,7 @@ contains
 
     call addfld ('Z3',         (/ 'lev' /), 'A', 'm',         'Geopotential Height (above sea level)')
     call addfld ('Z1000',      horiz_only,  'A', 'm',         'Geopotential Z at 1000 mbar pressure surface')
+    call addfld ('Z925',       horiz_only,  'A', 'm',         'Geopotential Z at 925 mbar pressure surface')
     call addfld ('Z700',       horiz_only,  'A', 'm',         'Geopotential Z at 700 mbar pressure surface')
     call addfld ('Z500',       horiz_only,  'A', 'm',         'Geopotential Z at 500 mbar pressure surface')
     call addfld ('Z300',       horiz_only,  'A', 'm',         'Geopotential Z at 300 mbar pressure surface')
@@ -976,6 +977,11 @@ contains
       call vertinterp(ncol, pcols, pver, state%pmid, 100000._r8, z3, p_surf, &
           extrapolate='Z', ln_interp=.true., ps=state%ps, phis=state%phis, tbot=state%t(:,pver))
       call outfld('Z1000    ', p_surf, pcols, lchnk)
+    end if
+    if (hist_fld_active('Z925')) then
+      call vertinterp(ncol, pcols, pver, state%pmid, 92500._r8, z3, p_surf, &
+          extrapolate='Z', ln_interp=.true., ps=state%ps, phis=state%phis, tbot=state%t(:,pver))
+      call outfld('Z925    ', p_surf, pcols, lchnk)
     end if
     if (hist_fld_active('Z700')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 70000._r8, z3, p_surf, &
