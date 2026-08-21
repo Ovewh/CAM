@@ -449,6 +449,9 @@ contains
     call addfld ('MQ',         (/ 'lev' /), 'A', 'kg/m2','Water vapor mass in layer')
     call addfld ('TMQ',        horiz_only,  'A', 'kg/m2','Total (vertically integrated) precipitable water')
     call addfld ('RELHUM',     (/ 'lev' /), 'A', 'percent','Relative humidity')
+    call addfld ('RELHUM850',  horiz_only,  'A', 'percent','Relative humidity at 850 mbar pressure surface')
+    call addfld ('RELHUM500',  horiz_only,  'A', 'percent','Relative humidity at 500 mbar pressure surface')
+    call addfld ('RELHUM100',  horiz_only,  'A', 'percent','Relative humidity at 100 mbar pressure surface')
     call addfld ('RHW',        (/ 'lev' /), 'A', 'percent','Relative humidity with respect to liquid')
     call addfld ('RHI',        (/ 'lev' /), 'A', 'percent','Relative humidity with respect to ice')
     call addfld ('RHCFMIP',    (/ 'lev' /), 'A', 'percent','Relative humidity with respect to water above 273 K, ice below 273 K')
@@ -1273,6 +1276,11 @@ contains
     real(r8) :: tem2(pcols,pver) ! temporary workspace
     real(r8) :: esl(pcols,pver)   ! saturation vapor pressures
     real(r8) :: esi(pcols,pver)   !
+    real(r8) :: t_pres(pcols)     ! T interpolated to a pressure surface
+    real(r8) :: q_pres(pcols)     ! q interpolated to a pressure surface
+    real(r8) :: p_pres(pcols)     ! constant pressure surface value (for qsat)
+    real(r8) :: es_pres(pcols)    ! saturation vapor pressure at (t_pres,p_pres)
+    real(r8) :: qs_pres(pcols)    ! saturation specific humidity at (t_pres,p_pres)
 
     real(r8), pointer :: ftem_ptr(:,:)
 
@@ -1359,6 +1367,37 @@ contains
           ftem(:ncol,:) = state%q(:ncol,:,ixq)/ftem(:ncol,:)*100._r8
        end if
        call outfld ('RELHUM  ',ftem(:ncol,:)    ,ncol   ,lchnk     )
+    end if
+    !
+    ! Relative humidity on pressure surfaces.
+    ! RH is a nonlinear function of T (via qsat's Clausius-Clapeyron
+    ! dependence), so it is interpolated correctly by first interpolating
+    ! T and q to the pressure surface and only then recomputing RH there,
+    ! rather than by directly interpolating the model-level RELHUM field.
+    !
+    if (hist_fld_active('RELHUM850')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%t, t_pres)
+       call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%q(1,1,ixq), q_pres)
+       p_pres(:ncol) = 85000._r8
+       call qsat(t_pres(1:ncol), p_pres(1:ncol), es_pres(1:ncol), qs_pres(1:ncol), ncol)
+       p_surf(:ncol) = q_pres(:ncol)/qs_pres(:ncol)*100._r8
+       call outfld('RELHUM850', p_surf, pcols, lchnk)
+    end if
+    if (hist_fld_active('RELHUM500')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 50000._r8, state%t, t_pres)
+       call vertinterp(ncol, pcols, pver, state%pmid, 50000._r8, state%q(1,1,ixq), q_pres)
+       p_pres(:ncol) = 50000._r8
+       call qsat(t_pres(1:ncol), p_pres(1:ncol), es_pres(1:ncol), qs_pres(1:ncol), ncol)
+       p_surf(:ncol) = q_pres(:ncol)/qs_pres(:ncol)*100._r8
+       call outfld('RELHUM500', p_surf, pcols, lchnk)
+    end if
+    if (hist_fld_active('RELHUM100')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 10000._r8, state%t, t_pres)
+       call vertinterp(ncol, pcols, pver, state%pmid, 10000._r8, state%q(1,1,ixq), q_pres)
+       p_pres(:ncol) = 10000._r8
+       call qsat(t_pres(1:ncol), p_pres(1:ncol), es_pres(1:ncol), qs_pres(1:ncol), ncol)
+       p_surf(:ncol) = q_pres(:ncol)/qs_pres(:ncol)*100._r8
+       call outfld('RELHUM100', p_surf, pcols, lchnk)
     end if
 
     if (hist_fld_active('RHW') .or. hist_fld_active('RHI') .or. hist_fld_active('RHCFMIP') ) then
