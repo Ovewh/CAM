@@ -513,6 +513,8 @@ contains
     call addfld ('UGUST',    horiz_only, 'A', 'm/s','Gustiness term added to U10')
     call addfld ('U10WITHGUSTS',horiz_only, 'A', 'm/s','10m wind speed with gustiness added')
     call addfld ('RHREFHT',  horiz_only, 'A', 'fraction','Reference height relative humidity')
+    call addfld ('RHREFHTMN',  horiz_only, 'M', 'fraction','Minimum reference height relative humidity')
+    call addfld ('RHREFHTMX',  horiz_only, 'X', 'fraction','Maximum reference height relative humidity')
 
     call addfld ('LANDFRAC', horiz_only, 'A', 'fraction','Fraction of sfc area covered by land')
     call addfld ('ICEFRAC',  horiz_only, 'A', 'fraction','Fraction of sfc area covered by sea-ice')
@@ -1920,6 +1922,8 @@ contains
 
 
       call outfld('RHREFHT',   ftem,      pcols, lchnk)
+      call outfld('RHREFHTMN',   ftem,      pcols, lchnk)
+      call outfld('RHREFHTMX',   ftem,      pcols, lchnk)
 
 
       if (write_camiop) then
