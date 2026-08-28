@@ -43,11 +43,11 @@ _HIST_FREQ_ORDER = list(_HIST_TAPE_MAP.keys())
 _HIST_FRQCODES = {'mon':'0', 'day':'-24', '6hr':'-6', '3hr':'-3', '1hr':'-1', 'subhr':'1'}
 _HIST_MFILT = {'mon':'1', 'day':'30', '6hr':'56', '3hr':'56', '1hr':'168', 'subhr':'48'}
 _HIST_TITLES =  {'mon':'! monthly output', 'day':'! daily output',
-                 '6hr':{'default':'! 6-hourly average output',
+                 '6hr':{'default':'! 6-hourly average, max, or min output',
                         'I':'! 6-hourly instantaneous output'},
-                 '3hr':{'default':'! 3-hourly average output',
+                 '3hr':{'default':'! 3-hourly average, max, or min output',
                         'I':'! 3-hourly instantaneous output'},
-                 '1hr':{'default':'! 1-hourly average output',
+                 '1hr':{'default':'! 1-hourly average, max, or min output',
                         'I':'! 1-hourly instantaneous output'},
                  'subhr':'! timestep output'}
 
@@ -527,8 +527,7 @@ def generate_namelist_entries(data_request, usermod_config, fixed_fieldnames,
                         lbreak = '\n'
                     # end for
                 # end if
-                # end for
-            # end if
+            # end for
         # end with (open file)
     # end for (sections)
     return missing_fields
