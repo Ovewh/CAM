@@ -53,8 +53,7 @@ _HIST_TITLES =  {'mon':'! monthly output', 'day':'! daily output',
 
 # Special CAM diagnostics hardcoded in cam_history.F90 but not in fixed list
 _CAM_FIXED_FIELDS = {'co2vmr', 'ch4vmr', 'n2ovmr', 'f11vmr', 'f12vmr',
-                     'sol_tsi', 'ndcur', 'nscur', 'nsteph', 'area',
-                     'TMCO2','TMCO2_LND','TMCO2_OCN','TMCO2_FFF'}
+                     'sol_tsi', 'ndcur', 'nscur', 'nsteph', 'area'}
 
 # Relative paths
 __MYDIR = os.path.abspath(os.path.dirname(__file__))
