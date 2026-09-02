@@ -2586,9 +2586,6 @@
 <!-- dust density parameters-->
 <dst_density>2.60D3</dst_density>
 
-<!-- convective scavenging of aerosols -->
-<oslo_aero_f_act_conv_coarse_dust>0.40D0</oslo_aero_f_act_conv_coarse_dust>
-
 <!-- dust soulable fraction-->
 <dst_solfact>0.1D0</dst_solfact>
 
@@ -2611,9 +2608,6 @@
 
 <!-- dust density parameters-->
 <dst_density>2.60D3</dst_density>
-
-<!-- convective scavenging of aerosols -->
-<oslo_aero_f_act_conv_coarse_dust>0.40D0</oslo_aero_f_act_conv_coarse_dust>
 
 <!-- dust soulable fraction-->
 <dst_solfact>0.1D0</dst_solfact>

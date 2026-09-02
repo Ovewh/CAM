@@ -5199,12 +5199,6 @@ Valid options are:
 Default: NONE
 </entry>
 
-<entry id="oslo_aero_f_act_conv_coarse_dust" type="real" category="cam_chem"
-       group="oslo_aero_depos_nl" valid_values="" >
-Convetive scavenging coefficient for coarse dust
-Default: set by build-namelist.
-</entry>
-
 <entry id="dst_density" type="real" category="cam_chem"
        group="oslo_aero_share_nl" valid_values="" >
 Density of dust aerosols.
