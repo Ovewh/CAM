@@ -706,8 +706,50 @@ if (!($simple_phys or $aqua_mode)) {
     add_default($nl, 'stream_ndep_year_first'    , 'sim_year'=>$sim_year);
     add_default($nl, 'stream_ndep_year_last'     , 'sim_year'=>$sim_year);
     add_default($nl, 'stream_ndep_year_align'    , 'sim_year'=>$sim_year);
+    add_default($nl, 'stream_ndep_taxmode'       , 'sim_year'=>$sim_year);
     add_default($nl, 'stream_ndep_varlist');
   }
+}
+
+# Setup default co2 surface source stream only if not simple_phys or aqua_mode and
+# the chemistry cannot produce the nitrogen depostion fluxes
+if (!($simple_phys or $aqua_mode)) {
+    add_default($nl, 'co2_surface_source');
+    if ($nl->get_value('co2_surface_source') =~ /$TRUE/io) {
+        if ( !(defined $nl->get_value('stream_co2_surface_source_mesh_filename') and
+	       defined $nl->get_value('stream_co2_surface_source_data_filename') and
+               defined $nl->get_value('stream_co2_surface_source_data_varname') and
+               defined $nl->get_value('stream_co2_surface_source_year_first') and
+               defined $nl->get_value('stream_co2_surface_source_year_last') and
+               defined $nl->get_value('stream_co2_surface_source_year_align') and
+               defined $nl->get_value('stream_co2_surface_source_mapalgo') and
+               defined $nl->get_value('stream_co2_surface_source_lat_dimname') and
+               defined $nl->get_value('stream_co2_surface_source_taxmode') ) ) {
+             die "$ProgName - ERROR: if co2_surface_source is .true. then the following must be defined:
+             stream_co2_surface_source_mapalgo,
+             stream_co2_surface_source_lat_dimname,
+             stream_co2_surface_source_mesh_filename,
+             stream_co2_surface_source_data_filename,
+             stream_co2_surface_source_data_varname,
+             stream_co2_surface_source_taxmode,
+             stream_co2_surface_source_year_first,
+             stream_co2_surface_source_year_last,
+             stream_co2_surface_source_year_align\n";
+        }
+	# get_value preserves the quotes from the namelist, so strip them before comparing
+	my $mapalgo = $nl->get_value('stream_co2_surface_source_mapalgo');
+	my $mesh    = $nl->get_value('stream_co2_surface_source_mesh_filename');
+	$mapalgo =~ s/^['"]+|['"]+$//g;
+	$mesh    =~ s/^['"]+|['"]+$//g;
+	if (($mapalgo eq 'nearest_lat') and ($mesh ne 'none')) {
+	    die "$ProgName - ERROR: stream_co2_surface_source_mesh_filename must be set to 'none' " .
+		"when stream_co2_surface_source_mapalgo is 'nearest_lat'\n";
+	}
+	if (($mapalgo ne 'nearest_lat') and ($mesh eq 'none')) {
+	    die "$ProgName - ERROR: stream_co2_surface_source_mesh_filename must be a valid mesh file " .
+		"when stream_co2_surface_source_mapalgo is '$mapalgo'\n";
+	}
+    }
 }
 
 # Topography
@@ -4059,13 +4101,12 @@ if (!$simple_phys) {
 
     my $use_gw_movmtn_pbl = $nl->get_value('use_gw_movmtn_pbl');
     if ($use_gw_movmtn_pbl =~ /$TRUE/io) {
-         if ( ! ($dyn =~ /se/) ) {
+        if ( ! ($dyn =~ /se/) ) {
             die "$ProgName - ERROR: use_gw_movmtn_pbl is only available with the SE dycore \n";
-
-         }
+        }
     }
 
-     add_default($nl, 'use_gw_rdg_gamma' , 'val'=>'.false.');
+    add_default($nl, 'use_gw_rdg_gamma' , 'val'=>'.false.');
     add_default($nl, 'use_gw_front_igw' , 'val'=>'.false.');
     add_default($nl, 'use_gw_convect_sh', 'val'=>'.false.');
     add_default($nl, 'gw_lndscl_sgh');
@@ -5350,6 +5391,39 @@ sub check_input_files {
                 }
 
             } # end of while loop
+        }
+    }
+
+    # Manually list the Oslo Aero aerotab table files if it is in the namelist
+    my $datapath = $nl->get_value("aerotab_table_dir");
+    # Need to strip the quotes
+    if (defined $datapath) {
+        my $file;
+        my $entry;
+        my @filetypes = qw(aerodryk kcomp lwkcomp logntilp aerocomk);
+        $datapath =~ s/['"]//g;
+        if ($datapath !~ m:^[/\$]: and $inputdata_rootdir) {
+            $datapath = set_abs_filepath($datapath, $inputdata_rootdir);
+        }
+        foreach my $ftype (@filetypes) {
+            for my $aind (0 .. 10) {
+                if ($ftype eq 'logntilp' and $aind == 0) {
+                    next;
+                }
+                $file = set_abs_filepath("$ftype$aind.out", $datapath);
+                $entry = "aerotab table file $aind";
+                if ($inputdata_rootdir) {
+                    print $fh "$entry = $file\n";
+                }
+                else {
+                    if (-f $file) {
+                        print "OK -- found $datapath for $entry = $file\n";
+                    }
+                    else {
+                        print "NOT FOUND:  $datapath for $entry = $file\n";
+                    }
+                }
+            }
         }
     }
 

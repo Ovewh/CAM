@@ -85,7 +85,7 @@
 [submodule "oslo_aero"]
     path = src/chemistry/oslo_aero
     url = https://github.com/Ovewh/OSLO_AERO.git
-    fxtag = oslo_aero_3_0a017.aerosolPPE.oatV5
+    fxtag = oslo_aero_3_0a018.PPE.20260902
     fxrequired = AlwaysRequired
     fxDONOTUSEurl = https://github.com/NorESMhub/OSLO_AERO.git
 
@@ -178,7 +178,7 @@
 [submodule "ccs_config"]
     path = ccs_config
     url = https://github.com/NorESMhub/ccs_config_noresm.git
-    fxtag = ccs_config_noresm0.0.68
+    fxtag = ccs_config_noresm0.0.72
     fxrequired = ToplevelRequired
     fxDONOTUSEurl = https://github.com/NorESMhub/ccs_config_noresm.git
 
@@ -196,7 +196,7 @@
 [submodule "share"]
     path = share
     url = https://github.com/NorESMHub/NorESM_share
-    fxtag = share1.1.20_noresm_v0
+    fxtag = share1.1.21_noresm_v0
     fxrequired = ToplevelRequired
     fxDONOTUSEurl = https://github.com/NorESMHub/NorESM_share
 
@@ -207,7 +207,7 @@
 [submodule "cdeps"]
     path = components/cdeps
     url = https://github.com/NorESMHub/CDEPS.git
-    fxtag = cdeps1.0.94_noresm_v0
+    fxtag = cdeps1.0.94_noresm_v1
     fxrequired = ToplevelRequired
     fxDONOTUSEurl = https://github.com/NorESMHub/CDEPS.git
 
@@ -227,8 +227,8 @@
 
 [submodule "cmeps"]
     path = components/cmeps
-    url = https://github.com/Ovewh/CMEPS.git
-    fxtag = cmeps1.1.48_noresm_v0.aerosolPPE0bc
+    url = https://github.com/NorESMhub/CMEPS.git
+    fxtag = cmeps1.1.57_noresm_v0
     fxrequired = ToplevelRequired
     fxDONOTUSEurl = https://github.com/NorESMhub/CMEPS.git
 
