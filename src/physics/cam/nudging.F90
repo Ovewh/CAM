@@ -235,7 +235,7 @@ module nudging
   logical, public, protected :: Nudge_On = .false.
   logical                    :: Nudge_Initialized = .false.
   !
-  integer, parameter      :: maxfiles = 100
+  integer, parameter      :: maxfiles = 1000
   character(len=cl)       :: Nudge_Datapath            = 'unset'    ! namelist
   character(len=cl)       :: Nudge_Meshfile            = 'unset'    ! namelist
   character(len=cl)       :: Nudge_Filenames(maxfiles) = 'unset'    ! namelist

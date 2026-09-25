@@ -80,6 +80,11 @@ integer, parameter :: surf_085000 = 3
 integer, parameter :: surf_070000 = 4
 integer, parameter :: nsurf = 4
 
+! Pressure surfaces (hPa) on which relative humidity is available as the
+! history fields RELHUM<p>, e.g. RELHUM850. Add levels here as needed.
+integer, parameter :: relhum_plevs(*) = (/ 900, 850, 700, 750, 500, 200, 100, 10 /)
+integer, parameter :: n_relhum_plevs = size(relhum_plevs)
+
 logical          :: history_amwg                   ! output the variables used by the AMWG diag package
 logical          :: history_vdiag                  ! output the variables used by the AMWG variability diag package
 logical          :: history_eddy                   ! output the eddy variables
@@ -432,9 +437,10 @@ contains
 
     type(physics_buffer_desc), pointer, intent(in) :: pbuf2d(:,:)
 
-    integer :: m
+    integer :: k, m
     integer :: ixcldice, ixcldliq ! constituent indices for cloud liquid and ice water.
     integer :: ierr
+    character(len=8) :: plev_str  ! pressure level (hPa) as text, for RELHUM<p> names
     ! column burdens for all constituents except water vapor
     call constituent_burden_init
 
@@ -450,9 +456,11 @@ contains
     call addfld ('MQ',         (/ 'lev' /), 'A', 'kg/m2','Water vapor mass in layer')
     call addfld ('TMQ',        horiz_only,  'A', 'kg/m2','Total (vertically integrated) precipitable water')
     call addfld ('RELHUM',     (/ 'lev' /), 'A', 'percent','Relative humidity')
-    call addfld ('RELHUM850',  horiz_only,  'A', 'percent','Relative humidity at 850 mbar pressure surface')
-    call addfld ('RELHUM500',  horiz_only,  'A', 'percent','Relative humidity at 500 mbar pressure surface')
-    call addfld ('RELHUM100',  horiz_only,  'A', 'percent','Relative humidity at 100 mbar pressure surface')
+    do k = 1, n_relhum_plevs
+       write(plev_str, '(i0)') relhum_plevs(k)
+       call addfld ('RELHUM'//trim(plev_str), horiz_only, 'A', 'percent', &
+            'Relative humidity at '//trim(plev_str)//' mbar pressure surface')
+    end do
     call addfld ('RHW',        (/ 'lev' /), 'A', 'percent','Relative humidity with respect to liquid')
     call addfld ('RHI',        (/ 'lev' /), 'A', 'percent','Relative humidity with respect to ice')
     call addfld ('RHCFMIP',    (/ 'lev' /), 'A', 'percent','Relative humidity with respect to water above 273 K, ice below 273 K')
@@ -1288,6 +1296,7 @@ contains
     real(r8) :: p_pres(pcols)     ! constant pressure surface value (for qsat)
     real(r8) :: es_pres(pcols)    ! saturation vapor pressure at (t_pres,p_pres)
     real(r8) :: qs_pres(pcols)    ! saturation specific humidity at (t_pres,p_pres)
+    character(len=8) :: plev_str  ! pressure level (hPa) as text, for RELHUM<p> names
 
     real(r8), pointer :: ftem_ptr(:,:)
 
@@ -1382,30 +1391,17 @@ contains
     ! T and q to the pressure surface and only then recomputing RH there,
     ! rather than by directly interpolating the model-level RELHUM field.
     !
-    if (hist_fld_active('RELHUM850')) then
-       call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%t, t_pres)
-       call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%q(1,1,ixq), q_pres)
-       p_pres(:ncol) = 85000._r8
-       call qsat(t_pres(1:ncol), p_pres(1:ncol), es_pres(1:ncol), qs_pres(1:ncol), ncol)
-       p_surf(:ncol) = q_pres(:ncol)/qs_pres(:ncol)*100._r8
-       call outfld('RELHUM850', p_surf, pcols, lchnk)
-    end if
-    if (hist_fld_active('RELHUM500')) then
-       call vertinterp(ncol, pcols, pver, state%pmid, 50000._r8, state%t, t_pres)
-       call vertinterp(ncol, pcols, pver, state%pmid, 50000._r8, state%q(1,1,ixq), q_pres)
-       p_pres(:ncol) = 50000._r8
-       call qsat(t_pres(1:ncol), p_pres(1:ncol), es_pres(1:ncol), qs_pres(1:ncol), ncol)
-       p_surf(:ncol) = q_pres(:ncol)/qs_pres(:ncol)*100._r8
-       call outfld('RELHUM500', p_surf, pcols, lchnk)
-    end if
-    if (hist_fld_active('RELHUM100')) then
-       call vertinterp(ncol, pcols, pver, state%pmid, 10000._r8, state%t, t_pres)
-       call vertinterp(ncol, pcols, pver, state%pmid, 10000._r8, state%q(1,1,ixq), q_pres)
-       p_pres(:ncol) = 10000._r8
-       call qsat(t_pres(1:ncol), p_pres(1:ncol), es_pres(1:ncol), qs_pres(1:ncol), ncol)
-       p_surf(:ncol) = q_pres(:ncol)/qs_pres(:ncol)*100._r8
-       call outfld('RELHUM100', p_surf, pcols, lchnk)
-    end if
+    do m = 1, n_relhum_plevs
+       write(plev_str, '(i0)') relhum_plevs(m)
+       if (hist_fld_active('RELHUM'//trim(plev_str))) then
+          p_pres(:ncol) = real(relhum_plevs(m), r8)*100._r8
+          call vertinterp(ncol, pcols, pver, state%pmid, p_pres(1), state%t, t_pres)
+          call vertinterp(ncol, pcols, pver, state%pmid, p_pres(1), state%q(1,1,ixq), q_pres)
+          call qsat(t_pres(1:ncol), p_pres(1:ncol), es_pres(1:ncol), qs_pres(1:ncol), ncol)
+          p_surf(:ncol) = q_pres(:ncol)/qs_pres(:ncol)*100._r8
+          call outfld('RELHUM'//trim(plev_str), p_surf, pcols, lchnk)
+       end if
+    end do
 
     if (hist_fld_active('RHW') .or. hist_fld_active('RHI') .or. hist_fld_active('RHCFMIP') ) then
 
