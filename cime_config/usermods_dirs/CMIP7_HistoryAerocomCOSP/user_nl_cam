@@ -1,0 +1,104 @@
+! CAM aerocomCosp diagnostic namelist entries
+
+! Aerocom fields will be output for this run
+use_aerocom = .true.
+
+! COSP fields will be output for this run
+! Note: This requires building the model with the -cosp flag in CAM_CONFIG_OPTS
+docosp = .true.
+
+! Only output fields listed in this file
+empty_htapes = .true.
+
+! monthly output
+nhtfrq(1) = 0
+mfilt(1) = 1
+fincl1 = 'A550_BC:A', 'A550_DU:A', 'A550_POM:A', 'ABS440:A', 'ABS550AL:A',
+ 'ABS870:A', 'ABSDRYAE:A', 'ABSVIS:A', 'ACTNI:A', 'ACTREI:A', 'AIRMASSL:A',
+ 'AODVIS:A', 'AQSO4_H2O2:A', 'AQSO4_H2O2_3D:A', 'AQSO4_O3:A', 'AQSO4_O3_3D:A',
+ 'AWNC:A', 'AWNI:A', 'CCN005:A', 'CCN008:A', 'CCN012:A', 'CCN030:A',
+ 'CCN045:A', 'CCN060:A', 'CCN075:A', 'CCN5:A', 'CCN7:A', 'CDOD550:A',
+ 'CLDFREE:A', 'CLDHGH:A', 'CLDICE:A', 'CLDLIQ:A', 'CLDLOW:A', 'CLDMED:A',
+ 'CLDTOT:A', 'CLDTOT_ISCCP:A', 'CLIMODIS:A', 'CLOUD:A', 'CLTMODIS:A',
+ 'CLWMODIS:A', 'CONCLD:A', 'D550_BC:A', 'D550_DU:A', 'D550_POM:A',
+ 'D550_SO4:A', 'D550_SS:A', 'DAYFOC:A', 'DELTAH:A', 'DF_SO2:A', 'DLT_BC:A',
+ 'DLT_DUST:A', 'DLT_POM:A', 'DLT_SO4:A', 'DLT_SS:A', 'DMS:A', 'DOD440:A',
+ 'DOD550:A', 'DOD870:A', 'EC550AER:A', 'EC550BC:A', 'EC550DU:A', 'EC550POM:A',
+ 'EC550SO4:A', 'EC550SS:A', 'ECDRYAER:A', 'FCTI:A', 'FDL:A', 'FDLC:A', 'FDS:A',
+ 'FDSC:A', 'FISCCP1_COSP:A', 'FLDS:A', 'FLDSC:A', 'FLNS:A', 'FLNSC:A',
+ 'FLNT:A', 'FLNTAF:A', 'FLNTC:A', 'FREQI:A', 'FREQL:A', 'FSDS:A', 'FSDSC:A',
+ 'FSNS:A', 'FSNT:A', 'FSNTAF:A', 'FSNTC:A', 'FSNTOA:A', 'FSNTOAC:A',
+ 'FSUTOA:A', 'FSUTOAAF:A', 'FUL:A', 'FULC:A', 'FUS:A', 'FUSC:A', 'GSSO4_3D:A',
+ 'GS_H2SO4:A', 'GS_SOA_LV:A', 'GS_SOA_SV:A', 'ICEFRAC:A', 'IntHeatTr:A',
+ 'KinEnerTr:A', 'LANDFRAC:A', 'LHFLX:A', 'LWCF:A', 'LatHeatTr:A',
+ 'MEANPTOP_ISCCP:A', 'MMRPM1:A', 'MMRPM2P5:A', 'MMR_AH2O:A', 'NCONC01:A',
+ 'NCONC02:A', 'NCONC03:A', 'NCONC04:A', 'NCONC05:A', 'NCONC06:A', 'NCONC07:A',
+ 'NCONC08:A', 'NCONC09:A', 'NCONC10:A', 'NCONC11:A', 'NCONC12:A', 'NCONC13:A',
+ 'NCONC14:A', 'NMR01:A', 'NMR02:A', 'NMR03:A', 'NMR04:A', 'NMR05:A', 'NMR06:A',
+ 'NMR07:A', 'NMR08:A', 'NMR09:A', 'NMR10:A', 'NMR11:A', 'NMR12:A', 'NMR13:A',
+ 'NMR14:A', 'NUCLRATE:A', 'N_AER:A', 'OD550DRY:A', 'OMEGA500:A', 'OMEGA:A',
+ 'PBLH:A', 'PINT:A', 'PMID:A', 'PRECC:A', 'PRECL:A', 'PRECSC:A', 'PRECSL:A',
+ 'PRECT:A', 'PS:A', 'PSDRY:A', 'PotEnerTr:A', 'Q:A', 'QRL:A', 'QRS:A',
+ 'REFFCLWMODIS:A', 'RELHUM200:A', 'RELHUM750:A', 'RELHUM:A', 'SFmonoterp:A',
+ 'SHFLX:A', 'SIGMA01:A', 'SIGMA02:A', 'SIGMA03:A', 'SIGMA04:A', 'SIGMA05:A',
+ 'SIGMA06:A', 'SIGMA07:A', 'SIGMA08:A', 'SIGMA09:A', 'SIGMA10:A', 'SIGMA11:A',
+ 'SIGMA12:A', 'SIGMA13:A', 'SIGMA14:A', 'SO2:A', 'SOA_A1:A', 'SOA_NA:A',
+ 'SOLIN:A', 'SST:A', 'SWCF:A', 'T700:A', 'T:A', 'TAUTMODIS:A', 'TGCLDIWP:A',
+ 'TGCLDLWP:A', 'TMQ:A', 'TREFHT:A', 'TREFMNAV:A', 'TREFMXAV:A', 'TROP_P:A',
+ 'TROP_T:A', 'TROP_Z:A', 'TS:A', 'TotEnerTr:A', 'U10:A', 'U200:A', 'U:A',
+ 'V200:A', 'V:A', 'WD_A_SO2:A', 'Z3:A', 'cb_BC:A', 'cb_DMS:A', 'cb_DUST:A',
+ 'cb_OM:A', 'cb_SALT:A', 'cb_SO2:A', 'cb_SULFATE:A', 'cb_ozone_c:A',
+ 'dry_BC:A', 'dry_DUST:A', 'dry_OM:A', 'dry_SALT:A', 'dry_SULFATE:A',
+ 'emipomocean:A', 'emis_BC:A', 'emis_DMS:A', 'emis_DUST:A', 'emis_OM:A',
+ 'emis_SALT:A', 'emis_SO2:A', 'emis_SULFATE:A', 'emis_isoprene:A',
+ 'emis_monoterp:A', 'isoprene:A', 'mmr_BC:A', 'mmr_DUST:A', 'mmr_OM:A',
+ 'mmr_SALT:A', 'mmr_SULFATE:A', 'monoterp:A', 'ozone:A', 'wet_BC:A',
+ 'wet_DUST:A', 'wet_OM:A', 'wet_SALT:A', 'wet_SULFATE:A'
+
+! daily output
+nhtfrq(2) = -24
+mfilt(2) = 73
+fincl2 = 'A550_DU:A', 'CLDICE:A', 'CLDLIQ:A', 'CLDTOT:A', 'CLDTOT_ISCCP:A',
+ 'CLOUD:A', 'CLTMODIS:A', 'D550_DU:A', 'DAYFOC:A', 'DOD550:A',
+ 'FISCCP1_COSP:A', 'FLDS:A', 'FLDSC:A', 'FLNS:A', 'FLNSC:A', 'FLNT:A',
+ 'FLNTC:A', 'FSDS:A', 'FSDSC:A', 'FSNS:A', 'FSNT:A', 'FSNTC:A', 'FSNTOA:A',
+ 'FSNTOAC:A', 'FSUTOA:A', 'LHFLX:A', 'MEANPTOP_ISCCP:A', 'MMR_AH2O:A',
+ 'PINT:A', 'PMID:A', 'PRECC:A', 'PRECSC:A', 'PRECSL:A', 'PRECT:A', 'PS:A',
+ 'PSDRY:A', 'Q:A', 'RELHUM:A', 'SHFLX:A', 'SO2:A', 'SOA_A1:A', 'SOA_NA:A',
+ 'SOLIN:A', 'SST:A', 'T700:A', 'T:A', 'TAUTMODIS:A', 'TGCLDIWP:A', 'TREFHT:A',
+ 'TREFHTMN:M', 'TREFHTMX:X', 'TS:A', 'U850:A', 'U:A', 'V850:A', 'V:A', 'Z3:A',
+ 'Z500:A', 'cb_BC:A', 'cb_SALT:A', 'cb_SULFATE:A', 'cb_ozone_c:A', 'mmr_BC:A',
+ 'mmr_DUST:A', 'mmr_OM:A', 'mmr_SALT:A', 'mmr_SULFATE:A'
+
+! 3-hourly average, max, or min output
+nhtfrq(5) = -3
+mfilt(5) = 40
+fincl5 = 'ABS440:A', 'ABS550AL:A', 'ABS870:A', 'ACTNI:A', 'ACTREI:A', 'AWNI:A',
+ 'CCN5:A', 'CLDHGH:A', 'CLDLOW:A', 'CLDMED:A', 'CLDTOT:A', 'CLDTOT_ISCCP:A',
+ 'CLIMODIS:A', 'CLTMODIS:A', 'CLWMODIS:A', 'DAYFOC:A', 'DOD440:A', 'DOD550:A',
+ 'DOD870:A', 'EC550AER:A', 'ECDRYAER:A', 'FCTI:A', 'FISCCP1_COSP:A', 'FLDS:A',
+ 'FLNS:A', 'FLNT:A', 'FLNTAF:A', 'FLNTC:A', 'FREQI:A', 'FSDS:A', 'FSDSC:A',
+ 'FSNS:A', 'FSNT:A', 'FSNTAF:A', 'FSNTC:A', 'FSNTOA:A', 'FSNTOAC:A',
+ 'FSUTOA:A', 'FSUTOAAF:A', 'LHFLX:A', 'MEANPTOP_ISCCP:A', 'NCONC01:A',
+ 'NCONC02:A', 'NCONC03:A', 'NCONC04:A', 'NCONC05:A', 'NCONC06:A', 'NCONC07:A',
+ 'NCONC08:A', 'NCONC09:A', 'NCONC10:A', 'NCONC11:A', 'NCONC12:A', 'NCONC13:A',
+ 'NCONC14:A', 'NMR01:A', 'NMR02:A', 'NMR03:A', 'NMR04:A', 'NMR05:A', 'NMR06:A',
+ 'NMR07:A', 'NMR08:A', 'NMR09:A', 'NMR10:A', 'NMR11:A', 'NMR12:A', 'NMR13:A',
+ 'NMR14:A', 'NUCLRATE:A', 'OMEGA500:A', 'PRECC:A', 'PRECSC:A', 'PRECSL:A',
+ 'PRECT:A', 'Q:A', 'REFFCLWMODIS:A', 'RELHUM200:A', 'RELHUM750:A', 'SHFLX:A',
+ 'SIGMA01:A', 'SIGMA02:A', 'SIGMA03:A', 'SIGMA04:A', 'SIGMA05:A', 'SIGMA06:A',
+ 'SIGMA07:A', 'SIGMA08:A', 'SIGMA09:A', 'SIGMA10:A', 'SIGMA11:A', 'SIGMA12:A',
+ 'SIGMA13:A', 'SIGMA14:A', 'SOLIN:A', 'T700:A', 'TAUTMODIS:A', 'TGCLDIWP:A',
+ 'TREFHT:A', 'TS:A', 'U10:A', 'U200:A', 'V200:A'
+
+! 3-hourly instantaneous output
+nhtfrq(6) = -3
+mfilt(6) = 40
+fincl6 = 'CLDTOT:I', 'FLDS:I', 'FLDSC:I', 'FLNT:I', 'FLNTC:I', 'FSDS:I',
+ 'FSDSC:I', 'FSNT:I', 'FSNTC:I', 'FSNTOA:I', 'FSNTOAC:I', 'FSUTOA:I',
+ 'MMR_AH2O:I', 'NCONC01:I', 'NCONC02:I', 'NCONC03:I', 'NCONC04:I', 'NCONC05:I',
+ 'NCONC06:I', 'NCONC07:I', 'NCONC08:I', 'NCONC09:I', 'NCONC10:I', 'NCONC11:I',
+ 'NCONC12:I', 'NCONC13:I', 'NCONC14:I', 'PBLH:I', 'PMID:I', 'PRECT:I', 'PS:I',
+ 'PSDRY:I', 'Q:I', 'SO2:I', 'SOA_A1:I', 'SOA_NA:I', 'SOLIN:I', 'T:I',
+ 'TGCLDIWP:I', 'TREFHT:I', 'TS:I', 'mmr_BC:I', 'mmr_DUST:I', 'mmr_OM:I',
+ 'mmr_SALT:I', 'mmr_SULFATE:I'
